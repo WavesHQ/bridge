@@ -35,7 +35,7 @@
     "react-responsive": "^9.0.0",
     "sass": "^1.56.1",
     "tsconfig": "*",
-    "wagmi": "^0.6.0"
+    "wagmi": "^0.8.8"
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.10.0",
