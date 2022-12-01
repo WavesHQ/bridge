@@ -2,7 +2,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { FaCheckCircle } from "react-icons/fa";
+import { MdCheckCircle } from "react-icons/md";
 import { FiChevronDown, FiArrowRight } from "react-icons/fi";
 import { Strategy } from "@floating-ui/react-dom";
 
@@ -188,7 +188,7 @@ function NetworkOptions({ options }: { options: NetworkOptionsI[] }) {
                     </span>
                   </div>
                   {selected && (
-                    <FaCheckCircle className="h-6 w-6 text-[#00AD1D]" />
+                    <MdCheckCircle className="h-6 w-6 text-[#00AD1D]" />
                   )}
                 </div>
               </div>
@@ -250,7 +250,7 @@ function TokenOptions({ options }: { options: TokensI[] }) {
                   </div>
                   <div className="flex w-2/12 flex-row items-center justify-end">
                     {selected && (
-                      <FaCheckCircle className="h-6 w-6 text-[#00AD1D]" />
+                      <MdCheckCircle className="h-6 w-6 text-[#00AD1D]" />
                     )}
                   </div>
                 </div>
