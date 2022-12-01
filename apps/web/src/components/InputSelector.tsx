@@ -137,7 +137,7 @@ export function InputSelector({
                     </span>
                     <div className="mt-3 flex flex-col">
                       {type === SelectionType.Network ? (
-                        <NetworkOptions />
+                        <NetworkOptions options={options} />
                       ) : (
                         <TokenOptions options={options} />
                       )}
@@ -153,11 +153,52 @@ export function InputSelector({
   );
 }
 
-function NetworkOptions() {
-  return <div />;
+function NetworkOptions({ options }: { options: NetworkOptionsI[] }) {
+  return (
+    <>
+      {options.map((option) => (
+        <Listbox.Option
+          key={option.name}
+          className="relative select-none cursor-pointer"
+          value={option}
+        >
+          {({ selected, active }) => (
+            <>
+              <Divider />
+              <div
+                className={clsx(
+                  "px-5 lg:px-6 py-3 lg:py-4 my-1 lg:my-2",
+                  active && "bg-dark-gradient-1"
+                )}
+              >
+                <div className="flex flex-row justify-between items-center">
+                  <div className="flex flex-row items-center">
+                    <Image
+                      width={100}
+                      height={100}
+                      className="w-6 h-6 lg:w-[28px] lg:h-[28px]"
+                      data-testid={option.name}
+                      src={option.icon}
+                      alt={option.name}
+                    />
+                    <span className="truncate text-dark-1000 ml-2 text-base lg:text-lg">
+                      {option.name}
+                    </span>
+                  </div>
+                  {selected && (
+                    <FaCheckCircle className="h-6 w-6 text-[#00AD1D]" />
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+        </Listbox.Option>
+      ))}
+    </>
+  );
 }
 
-function TokenOptions({ options }: { options: any[] | undefined }) {
+function TokenOptions({ options }: { options: TokensI[] }) {
   return (
     <div>
       {options?.map((option) => (
