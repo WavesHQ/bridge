@@ -63,18 +63,16 @@ export function QuickInputCard({
         </div>
         {showAmountsBtn && (
           <div className="flex flex-row justify-between items-center py-1.5 lg:p-2 border-t border-dark-300/50 bg-dark-gradient-3">
-            {Object.values(AmountButtonTypes).map((type, index, { length }) => {
-              return (
-                <SetAmountButton
-                  key={type}
-                  amount={maxValue}
-                  onClick={onChange}
-                  type={type}
-                  hasBorder={length - 1 !== index}
-                  disabled={disabled}
-                />
-              );
-            })}
+            {Object.values(AmountButtonTypes).map((type, index, { length }) => (
+              <SetAmountButton
+                key={type}
+                amount={maxValue}
+                onClick={onChange}
+                type={type}
+                hasBorder={length - 1 !== index}
+                disabled={disabled}
+              />
+            ))}
           </div>
         )}
       </div>
@@ -110,12 +108,14 @@ function SetAmountButton({
       value = amount.multipliedBy(0.75).toFixed(decimalPlace);
       break;
     case AmountButtonTypes.Max:
+    default:
       value = amount.toFixed(decimalPlace);
       break;
   }
 
   return (
     <button
+      type="button"
       className={clsx(
         "w-full bg-dark-700 hover:hover-text-gradient-1 bg-clip-text",
         {
