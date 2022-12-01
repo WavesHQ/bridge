@@ -137,9 +137,11 @@ export function InputSelector({
                     </span>
                     <div className="mt-3 flex flex-col">
                       {type === SelectionType.Network ? (
-                        <NetworkOptions options={options} />
+                        <NetworkOptions
+                          options={options as NetworkOptionsI[]}
+                        />
                       ) : (
-                        <TokenOptions options={options} />
+                        <TokenOptions options={options as TokensI[]} />
                       )}
                     </div>
                   </div>
