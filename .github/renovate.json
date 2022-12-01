@@ -12,6 +12,15 @@
     "dependencyDashboardApproval": true
   },
   "rangeStrategy": "bump",
+  "hostRules": [
+    {
+      "matchHost": "https://npm.pkg.github.com/",
+      "hostType": "npm",
+      "encrypted": {
+        "token": "wcFMA/xDdHCJBTolAQ//TnyRpAbFv8Z8BdFB1h20TDkfj0+Edgnav8ETnePe+fVNnW50h7gbJJqDHzkFl6pUY2otb9gaUrfviVrr61f4VXpok6WxVJScc2Z8tVWORqqI6ufQsj3IUcgOiRM1GF+BKysuejr8cTgZohhp5iH3IsfvJjucu7R5q8uEfXJU8ei4QZFpoZb950jl2PnR2/5m+SSXTZU/nvPK1rvpYQs3i+5ZKfaAhEqrJvwCblaJ845dTGOssXur05fiCXSwImnkFxWAOeCyjFl0nyrABkEBgymGzoz32Jn7YeJYYqCZIEfHuBiCgD//KvTKxAo0LCLukhDU5dU4KZvCyDogIE89MoVLa9x3Rtvzl6slus0V5JNdvB+YpZ9fHMsm4+Rj5/hJZraARsO/nKPOPrRaHgBfNVloAKI/dGpfnI9AdHWDTFt9vyjrgYVreFjwZBZKNJQYhcQ4yRsqQIH4lIEU+Uo/9Qopnig5rVt8N8SENcx+9IsTgsgV0XOs0G+aBJkt1MMSo1vSWmR+zD32+syh3tdYkD+SW1/8Lm5XUbVknRDJsyt0zTcWDYsuDXow3cETQpWbiy5Yk0boEogRC5tFYRgMTzAZPP5ETmtAmtZ84XrWGjctW6/IE03QGuUupWzrTeVFTUXXdIZr9qn1MShQr9Yvy1jfbC/ag8eJ4MpV75HGYtDSfAE62smoI7BULmkW37n08xWjT0qhUEBCvVyn3AH3fGTxpzVKJ6+Ng2Ux8pxqOJ1wqwBhkBlOcPd++DKVMoDK45otN11nj1VQhx0OogdaarIL5SQwdBzhINJYraGKBgJSNSvDuk6yySlUE+dzdWRUa5IsMAjiWir6Op5BOZI"
+      }
+    }
+  ],
   "packageRules": [
     {
       "matchPackageNames": ["node", "npm", "pnpm", "yarn", "@types/node"],
