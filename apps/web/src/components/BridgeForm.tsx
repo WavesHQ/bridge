@@ -18,7 +18,7 @@ export enum Network {
   DeFiChain = "DeFiChain",
 }
 
-const networks = [
+const networks: NetworkOptionsI[] = [
   {
     name: Network.Ethereum,
     icon: "/tokens/Ethereum.svg",
@@ -67,12 +67,14 @@ const networks = [
 
 export default function BridgeForm() {
   const [defaultNetworkA, defaultNetworkB] = networks;
-  const [selectedNetworkA, setSelectedNetworkA] = useState(defaultNetworkA);
-  const [selectedTokensA, setSelectedTokensA] = useState(
+  const [selectedNetworkA, setSelectedNetworkA] =
+    useState<NetworkOptionsI>(defaultNetworkA);
+  const [selectedTokensA, setSelectedTokensA] = useState<TokensI>(
     defaultNetworkA.tokens[0]
   );
-  const [selectedNetworkB, setSelectedNetworkB] = useState(defaultNetworkB);
-  const [selectedTokensB, setSelectedTokensB] = useState(
+  const [selectedNetworkB, setSelectedNetworkB] =
+    useState<NetworkOptionsI>(defaultNetworkB);
+  const [selectedTokensB, setSelectedTokensB] = useState<TokensI>(
     defaultNetworkB.tokens[0]
   );
   const [amount, setAmount] = useState<string>("");
