@@ -13,6 +13,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  CEC_NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   main:
     name: Cypress
@@ -29,10 +32,13 @@ jobs:
         working-directory: ./apps/web
         run: docker-compose -f docker-compose.yml up -d
 
+      - uses: pnpm/action-setup@c3b53f6a16e57305370b4ae5a540c2077a1d50dd # tag=v2.2.4
+        with:
+          version: 7
       - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3.5.1
         with:
           node-version: 16
-          cache: "npm"
+          cache: "pnpm"
 
       # install specific version of chrome
       - name: Install latest Google Chrome
@@ -40,7 +46,7 @@ jobs:
           wget "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
           sudo dpkg -i "google-chrome-stable_current_amd64.deb"
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
 
       - run: .github/workflows/ci/wait-for http://localhost:3001/_actuator/probes/liveness -t 240
       - run: .github/workflows/ci/wait-for http://localhost:3002/_actuator/probes/liveness -t 240

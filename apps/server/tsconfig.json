@@ -1,0 +1,7 @@
+{
+  "extends": "@cec-org/codex-nestjs-app",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "rootDir": "./"
+  }
+}

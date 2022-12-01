@@ -32,7 +32,7 @@ function Base({ children }: PropsWithChildren<any>): JSX.Element | null {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen antialiased bg-dark-00">
+    <div className="flex min-h-screen flex-col bg-dark-00 antialiased">
       <Head>
         <base href="/" />
         <meta name="application-name" content={appName} />
@@ -83,8 +83,8 @@ function Base({ children }: PropsWithChildren<any>): JSX.Element | null {
             <ThemeProvider theme={initialTheme}>
               <div className="relative">
                 <Header />
-                <main className="flex-grow relative z-[1]">{children}</main>
-                <div className="w-full h-full absolute z-auto top-0 left-0 bg-no-repeat mix-blend-screen bg-cover bg-top lg:bg-center bg-local bg-clip-padding bg-origin-padding bg-[url('/background/mobile.png')] md:bg-[url('/background/tablet.png')] lg:bg-[url('/background/desktop.png')]" />
+                <main className="relative z-[1] flex-grow">{children}</main>
+                <div className="absolute top-0 left-0 z-auto h-full w-full bg-[url('/background/mobile.png')] bg-cover bg-local bg-clip-padding bg-top bg-no-repeat bg-origin-padding mix-blend-screen md:bg-[url('/background/tablet.png')] lg:bg-[url('/background/desktop.png')] lg:bg-center" />
                 <Footer />
               </div>
             </ThemeProvider>

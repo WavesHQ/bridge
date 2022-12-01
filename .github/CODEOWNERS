@@ -5,8 +5,8 @@
 /.github/                                       @thedoublejay
 
 public                                          @thedoublejay
-src                                             @thedoublejay
-src-tauri                                       @thedoublejay
+apps/web                                        @thedoublejay @kyleleow @fullstackninja864 @lykalabrada
+apps/server                                     @thedoublejay @weiyuan95
 
 .codeclimate.yml                                @thedoublejay
 .editorconfig                                   @thedoublejay

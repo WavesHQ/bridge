@@ -8,28 +8,22 @@
   ],
   "scripts": {
     "prepare": "husky install",
+    "write": "turbo run write",
+    "clean": "turbo run clean",
     "build": "turbo run build",
+    "build:docker": "turbo run build:docker",
+    "test": "turbo run test",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write ."
   },
   "devDependencies": {
-    "eslint": "^8.28.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-config-node": "^4.1.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.2.1",
+    "@cec-org/codex-turbo": "^0.20.11",
     "husky": "^8.0.2",
-    "lint-staged": "^13.0.4",
-    "prettier": "^2.8.0",
-    "turbo": "1.6.3"
+    "lint-staged": "^13.0.4"
   },
   "engines": {
-    "npm": ">=9.1.2",
-    "node": ">=16.0.0"
-  },
-  "packageManager": "npm@9.1.2"
+    "node": "^18.0.0 || ^16.16.0",
+    "pnpm": ">=7.11.0"
+  }
 }

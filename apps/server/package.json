@@ -1,0 +1,79 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nest start --watch",
+    "build": "tsc -b ./tsconfig.build.json",
+    "build:docker": "codex-nestjs-docker build",
+    "clean": "rm -rf dist",
+    "lint": "eslint .",
+    "test": "jest",
+    "test:unit": "jest --selectProjects test:unit",
+    "test:i9n": "jest --selectProjects test:i9n",
+    "test:e2e": "jest --selectProjects test:e2e"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "extends": [
+      "@cec-org"
+    ]
+  },
+  "jest": {
+    "preset": "@cec-org/codex-turbo-jest",
+    "projects": [
+      {
+        "displayName": "test:unit",
+        "preset": "@cec-org/codex-turbo-jest",
+        "testRegex": ".*\\.unit\\.ts$"
+      },
+      {
+        "displayName": "test:i9n",
+        "preset": "@cec-org/codex-turbo-jest",
+        "testRegex": ".*\\.i9n\\.ts$"
+      },
+      {
+        "displayName": "test:e2e",
+        "preset": "@cec-org/codex-turbo-jest",
+        "testRegex": ".*\\.e2e\\.ts$"
+      }
+    ]
+  },
+  "dependencies": {
+    "@cec-org/codex-nestjs-app": "^0.20.11",
+    "@cec-org/codex-nestjs-jsonrpc": "^0.20.11",
+    "@nestjs/common": "^9.2.1",
+    "@nestjs/config": "^2.2.0",
+    "@nestjs/core": "^9.2.1",
+    "@nestjs/platform-fastify": "^9.2.1",
+    "@nestjs/terminus": "^9.1.4",
+    "@nestjs/typeorm": "^9.0.1",
+    "class-validator": "^0.13.2",
+    "pg": "^8.8.0",
+    "typeorm": "^0.3.10"
+  },
+  "devDependencies": {
+    "@cec-org/codex-prettier": "^0.20.11",
+    "@cec-org/codex-nestjs-actuator": "^0.20.11",
+    "@cec-org/codex-nestjs-docker": "^0.20.11",
+    "@cec-org/codex-nestjs-testcontainers": "^0.20.11",
+    "@cec-org/codex-nestjs-testing": "^0.20.11",
+    "@cec-org/codex-testcontainers": "^0.20.11",
+    "@cec-org/codex-turbo-jest": "^0.20.11",
+    "@cec-org/codex-typescript": "^0.20.11",
+    "@cec-org/eslint-config": "^0.20.11",
+    "@nestjs/testing": "^9.2.1",
+    "light-my-request": "^5.6.1"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --ignore-unknown"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "prettier": "@cec-org/codex-prettier"
+}

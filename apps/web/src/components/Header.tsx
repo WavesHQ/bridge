@@ -29,9 +29,9 @@ export default function Header(): JSX.Element {
   const [wallet, setWallet] = useState<Wallet>();
 
   return (
-    <div className="flex z-[1] relative items-center justify-between bg-dark-00 px-5 pt-8 pb-6 sm:px-12 sm:py-6 lg:px-[120px] lg:pt-10 lg:pb-12">
+    <div className="relative z-[1] flex items-center justify-between bg-dark-00 px-5 pt-8 pb-6 sm:px-12 sm:py-6 lg:px-[120px] lg:pt-10 lg:pb-12">
       <Link href="/">
-        <div className="relative cursor-pointer w-[140px] h-[32px] lg:w-[264px] lg:h-[60px]">
+        <div className="relative h-[32px] w-[140px] cursor-pointer lg:h-[60px] lg:w-[264px]">
           <Image
             fill
             data-testid="bridge-logo"
@@ -40,7 +40,7 @@ export default function Header(): JSX.Element {
           />
         </div>
       </Link>
-      <div className="h-9 sm:h-10 lg:h-12 flex items-center">
+      <div className="flex h-9 items-center sm:h-10 lg:h-12">
         {wallet ? (
           <WalletDisplay wallet={wallet} onClick={() => setWallet(undefined)} />
         ) : (
@@ -69,13 +69,13 @@ function ConnectButtonDisplay({
       data-testid="connect-button"
       type="button"
       className={clsx(
-        `flex items-center justify-center h-full border-[1.5px] border-transparent rounded-3xl  
-          px-4 py-2 sm:px-6 sm:py-2.5 lg:px-6 lg:py-3
-          dark-bg-gradient-1 hover:fill-bg-gradient-1 active:fill-bg-gradient-5`
+        `dark-bg-gradient-1 hover:fill-bg-gradient-1 active:fill-bg-gradient-5 flex h-full items-center justify-center  
+          rounded-3xl border-[1.5px] border-transparent px-4 py-2 sm:px-6
+          sm:py-2.5 lg:px-6 lg:py-3`
       )}
       onClick={onClick}
     >
-      <span className="text-dark-1000 text-sm font-semibold">{btnLabel}</span>
+      <span className="text-sm font-semibold text-dark-1000">{btnLabel}</span>
     </button>
   );
 }
@@ -95,10 +95,10 @@ function WalletDisplay({
       type="button"
       onClick={onClick}
       className={clsx(
-        `flex items-center rounded-[48px] border-[0.5px] px-3 py-2 lg:px-2.5 lg:py-1.5
-          h-8 sm:h-[52px] lg:h-12 sm:w-[156px] lg:w-[165px]
-          hover:dark-btn-hover hover:border-transparent active:dark-btn-pressed
-          border-dark-card-stroke dark-card-bg`
+        `hover:dark-btn-hover active:dark-btn-pressed dark-card-bg flex h-8 items-center rounded-[48px] border-[0.5px]
+          border-dark-card-stroke px-3 py-2 hover:border-transparent sm:h-[52px]
+          sm:w-[156px] lg:h-12 lg:w-[165px]
+          lg:px-2.5 lg:py-1.5`
       )}
     >
       <TabletOrWebWallet wallet={wallet} walletText={walletText} show={isSm} />
@@ -110,8 +110,8 @@ function WalletDisplay({
 function MobileWallet({ walletText, show }: MobileProps) {
   return show ? (
     <>
-      <div className="w-3 h-3 bg-valid rounded-full mr-2" />
-      <span className="text-dark-1000 text-xs">{walletText}</span>
+      <div className="mr-2 h-3 w-3 rounded-full bg-valid" />
+      <span className="text-xs text-dark-1000">{walletText}</span>
     </>
   ) : null;
 }
@@ -122,10 +122,10 @@ function TabletOrWebWallet({ wallet, walletText, show }: TabletOrWebProps) {
       <MetaMaskIcon />
 
       <div className="ml-2 text-left">
-        <span className="text-dark-1000 text-sm block">{walletText}</span>
+        <span className="block text-sm text-dark-1000">{walletText}</span>
         <div className="flex items-center">
-          <span className="text-dark-700 text-xs">{wallet.token}</span>
-          <div className="w-2 h-2 bg-valid rounded-full ml-1" />
+          <span className="text-xs text-dark-700">{wallet.token}</span>
+          <div className="ml-1 h-2 w-2 rounded-full bg-valid" />
         </div>
       </div>
     </div>

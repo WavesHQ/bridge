@@ -20,6 +20,7 @@ export interface TokensI {
   tokenA: TokenDetailI;
   tokenB: TokenDetailI;
 }
+
 export interface NetworkOptionsI extends TokenDetailI {
   tokens: TokensI[];
 }
@@ -35,7 +36,7 @@ interface SelectorI {
     y: number | null;
   };
   options?: NetworkOptionsI[] | TokensI[];
-  onSelect?: (value: NetworkOptionsI | TokensI) => void;
+  onSelect?: (value: any) => void;
   value: NetworkOptionsI | TokensI;
 }
 
@@ -58,14 +59,14 @@ export function InputSelector({
       : (value as TokensI).tokenA;
   return (
     <div>
-      <span className="pl-4 lg:pl-5 text-dark-900 font-semibold text-xs lg:text-base">
+      <span className="pl-4 text-xs font-semibold text-dark-900 lg:pl-5 lg:text-base">
         {label}
       </span>
       <Listbox value={value} onChange={onSelect}>
         {({ open }) => (
           <div className="relative mt-1 lg:mt-2">
             <Listbox.Button
-              onClick={(event) => {
+              onClick={(event: { preventDefault: () => void }) => {
                 if (disabled) {
                   event.preventDefault();
                 }
@@ -80,7 +81,7 @@ export function InputSelector({
             >
               <div
                 className={clsx(
-                  "flex flex-row justify-between items-center h-full w-full bg-dark-100 dark-card-bg-image pl-5 pr-3 py-3 lg:px-5 lg:py-[18px] text-left",
+                  "dark-card-bg-image flex h-full w-full flex-row items-center justify-between bg-dark-100 py-3 pl-5 pr-3 text-left lg:px-5 lg:py-[18px]",
                   roundedBorderStyle
                 )}
               >
@@ -91,9 +92,9 @@ export function InputSelector({
                     src={icon}
                     alt={name}
                     data-testid={name}
-                    className="w-6 h-6 lg:w-9 lg:h-9"
+                    className="h-6 w-6 lg:h-9 lg:w-9"
                   />
-                  <span className="block truncate text-dark-1000 ml-2 text-sm lg:text-xl">
+                  <span className="ml-2 block truncate text-sm text-dark-1000 lg:text-xl">
                     {name}
                   </span>
                 </div>
@@ -101,8 +102,10 @@ export function InputSelector({
                   <span className="text-dark-900">
                     <FiChevronDown
                       className={clsx(
-                        "h-5 w-5 lg:h-6 lg:w-6 text-dark-900 transition-[transform]",
-                        { "rotate-180": open }
+                        "h-5 w-5 text-dark-900 transition-[transform] lg:h-6 lg:w-6",
+                        {
+                          "rotate-180": open,
+                        }
                       )}
                     />
                   </span>
@@ -123,18 +126,18 @@ export function InputSelector({
                     top: y ?? "",
                   }}
                   className={clsx(
-                    "absolute mt-2 w-full w-56 overflow-auto rounded-lg p-px z-10 outline-0",
+                    "absolute z-10 mt-2 w-full w-56 overflow-auto rounded-lg p-px outline-0",
                     { "right-0": type !== SelectionType.Network },
                     open ? "bg-gradient-2" : "bg-dark-200"
                   )}
                 >
-                  <div className="bg-dark-00 rounded-lg py-4">
-                    <span className="text-dark-700 font-semibold text-xs lg:text-sm px-5 lg:px-6">
+                  <div className="rounded-lg bg-dark-00 py-4">
+                    <span className="px-5 text-xs font-semibold text-dark-700 lg:px-6 lg:text-sm">
                       {popUpLabel}
                     </span>
-                    <div className="flex flex-col mt-3">
+                    <div className="mt-3 flex flex-col">
                       {type === SelectionType.Network ? (
-                        <NetworkOptions options={options} />
+                        <NetworkOptions />
                       ) : (
                         <TokenOptions options={options} />
                       )}
@@ -150,58 +153,17 @@ export function InputSelector({
   );
 }
 
-function NetworkOptions({ options }) {
-  return (
-    <>
-      {options.map((option) => (
-        <Listbox.Option
-          key={option.name}
-          className="relative select-none cursor-pointer"
-          value={option}
-        >
-          {({ selected, active }) => (
-            <>
-              <Divider />
-              <div
-                className={clsx(
-                  "px-5 lg:px-6 py-3 lg:py-4 my-1 lg:my-2",
-                  active && "bg-dark-gradient-1"
-                )}
-              >
-                <div className="flex flex-row justify-between items-center">
-                  <div className="flex flex-row items-center">
-                    <Image
-                      width={100}
-                      height={100}
-                      className="w-6 h-6 lg:w-[28px] lg:h-[28px]"
-                      data-testid={option.name}
-                      src={option.icon}
-                      alt={option.name}
-                    />
-                    <span className="truncate text-dark-1000 ml-2 text-base lg:text-lg">
-                      {option.name}
-                    </span>
-                  </div>
-                  {selected && (
-                    <FaCheckCircle className="h-6 w-6 text-[#00AD1D]" />
-                  )}
-                </div>
-              </div>
-            </>
-          )}
-        </Listbox.Option>
-      ))}
-    </>
-  );
+function NetworkOptions() {
+  return <div />;
 }
 
-function TokenOptions({ options }) {
+function TokenOptions({ options }: { options: any[] | undefined }) {
   return (
-    <>
-      {options.map((option) => (
+    <div>
+      {options?.map((option) => (
         <Listbox.Option
           key={option.tokenA.name}
-          className="relative select-none cursor-pointer"
+          className="relative cursor-pointer select-none"
           value={option}
         >
           {({ selected, active }) => (
@@ -209,41 +171,41 @@ function TokenOptions({ options }) {
               <Divider />
               <div
                 className={clsx(
-                  "px-5 lg:px-6 py-3 lg:py-4 my-1 lg:my-2",
+                  "my-1 px-5 py-3 lg:my-2 lg:px-6 lg:py-4",
                   active && "bg-dark-gradient-1"
                 )}
               >
-                <div className="flex flex-row justify-between items-center">
-                  <div className="flex flex-row w-4/12 items-center">
+                <div className="flex flex-row items-center justify-between">
+                  <div className="flex w-4/12 flex-row items-center">
                     <Image
                       width={100}
                       height={100}
-                      className="w-6 h-6 lg:w-[28px] lg:h-[28px]"
+                      className="h-6 w-6 lg:h-[28px] lg:w-[28px]"
                       data-testid={option.tokenA.name}
                       src={option.tokenA.icon}
                       alt={option.tokenA.name}
                     />
-                    <span className="truncate text-dark-1000 ml-2 text-base lg:text-lg">
+                    <span className="ml-2 truncate text-base text-dark-1000 lg:text-lg">
                       {option.tokenA.name}
                     </span>
                   </div>
-                  <div className="flex flex-row w-2/12 justify-center items-center">
+                  <div className="flex w-2/12 flex-row items-center justify-center">
                     <FiArrowRight size={15} className="h-4 w-4 text-dark-500" />
                   </div>
-                  <div className="flex flex-row w-4/12 items-center">
+                  <div className="flex w-4/12 flex-row items-center">
                     <Image
                       width={100}
                       height={100}
-                      className="w-6 h-6 lg:w-[28px] lg:h-[28px]"
+                      className="h-6 w-6 lg:h-[28px] lg:w-[28px]"
                       data-testid={option.tokenB.name}
                       src={option.tokenB.icon}
                       alt={option.tokenB.name}
                     />
-                    <span className="truncate text-dark-900 ml-2 text-base lg:text-lg">
+                    <span className="ml-2 truncate text-base text-dark-900 lg:text-lg">
                       {option.tokenB.name}
                     </span>
                   </div>
-                  <div className="flex flex-row w-2/12 justify-end items-center">
+                  <div className="flex w-2/12 flex-row items-center justify-end">
                     {selected && (
                       <FaCheckCircle className="h-6 w-6 text-[#00AD1D]" />
                     )}
@@ -254,10 +216,10 @@ function TokenOptions({ options }) {
           )}
         </Listbox.Option>
       ))}
-    </>
+    </div>
   );
 }
 
 function Divider() {
-  return <div className="mx-5 lg:mx-6 border-t-[0.5px] border-[#42424280]" />;
+  return <div className="mx-5 border-t-[0.5px] border-[#42424280] lg:mx-6" />;
 }

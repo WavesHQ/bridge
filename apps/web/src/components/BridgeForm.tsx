@@ -129,7 +129,7 @@ export default function BridgeForm() {
   };
 
   return (
-    <div className="w-full dark-card-bg-image p-6 md:pt-8 pb-16 lg:p-12 rounded-lg border border-dark-200 backdrop-blur-[18px]">
+    <div className="dark-card-bg-image w-full rounded-lg border border-dark-200 p-6 pb-16 backdrop-blur-[18px] md:pt-8 lg:p-12">
       <div className="flex flex-row items-center" ref={reference}>
         <div className="w-1/2">
           <InputSelector
@@ -155,7 +155,7 @@ export default function BridgeForm() {
         </div>
       </div>
       <div className="mt-5">
-        <span className="pl-4 lg:pl-5 text-dark-900 font-semibold text-xs lg:text-base">
+        <span className="pl-4 text-xs font-semibold text-dark-900 lg:pl-5 lg:text-base">
           Amount to transfer
         </span>
         <QuickInputCard
@@ -168,7 +168,7 @@ export default function BridgeForm() {
       </div>
       <SwitchButton onClick={switchNetwork} />
 
-      <div className="flex flex-row items-center mb-8">
+      <div className="mb-8 flex flex-row items-center">
         <div className="w-1/2">
           <InputSelector
             label="Destination Network"
@@ -190,26 +190,26 @@ export default function BridgeForm() {
           />
         </div>
       </div>
-      <div className="flex flex-row justify-between items-center px-4 lg:px-5">
+      <div className="flex flex-row items-center justify-between  px-4 lg:px-5">
         <div className="flex flex-row items-center">
-          <span className="text-dark-700 text-xs lg:text-base">Fees</span>
+          <span className="text-xs text-dark-700 lg:text-base">Fees</span>
           {/* TODO add onclick info */}
           <button type="button">
-            <FiInfo size={16} className="text-dark-700 ml-2" />
+            <FiInfo size={16} className="ml-2 text-dark-700" />
           </button>
         </div>
         <NumericFormat
-          className="text-left text-dark-1000 text-xs lg:text-base"
+          className="text-left text-xs text-dark-1000 lg:text-base"
           value={0}
           decimalScale={2}
           thousandSeparator
           suffix={` ${selectedTokensA.tokenA.name}`}
         />
       </div>
-      <div className="px-6 md:px-4 lg:px-[88px] mt-8 md:mt-6 lg:mt-16 lg:mb-0">
+      <div className="mt-8 px-6 md:mt-6 md:px-4 lg:mt-16 lg:mb-0 lg:px-[88px]">
         <button
           type="button"
-          className="p-3.5 md:p-2.5 lg:p-4 bg-dark-1000 w-full text-dark-00 text-lg lg:text-xl font-bold rounded-[92px]"
+          className="w-full rounded-[92px] bg-dark-1000 p-3.5 text-lg font-bold text-dark-00 md:p-2.5 lg:p-4 lg:text-xl"
         >
           Connect wallet
         </button>
@@ -218,23 +218,23 @@ export default function BridgeForm() {
   );
 }
 
-function SwitchButton({ onClick }) {
+function SwitchButton({ onClick }: { onClick: () => void }) {
   return (
     <div className="my-8 flex flex-row">
-      <div className="w-full flex justify-between border-t border-dark-300 border-opacity-50 mt-6 flex-1" />
+      <div className="mt-6 flex w-full flex-1 justify-between border-t border-dark-300 border-opacity-50" />
       <button
         type="button"
         onClick={onClick}
-        className="flex justify-center items-center dark-card-bg dark-bg-card-section w-12 h-12 rounded-full group"
+        className="dark-card-bg dark-bg-card-section group flex h-12 w-12 items-center justify-center rounded-full"
       >
-        <div className="hidden lg:block group-hover:hidden">
+        <div className="hidden group-hover:hidden lg:block">
           <ArrowDownIcon size={24} className="fill-dark-700" />
         </div>
-        <div className="lg:hidden group-hover:block">
+        <div className="group-hover:block lg:hidden">
           <SwitchIcon size={24} className="fill-dark-700" />
         </div>
       </button>
-      <div className="w-full flex justify-between border-t border-dark-300 border-opacity-50 mt-6 flex-1" />
+      <div className="mt-6 flex w-full flex-1 justify-between border-t border-dark-300 border-opacity-50" />
     </div>
   );
 }

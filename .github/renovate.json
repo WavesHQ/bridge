@@ -14,6 +14,11 @@
   "rangeStrategy": "bump",
   "packageRules": [
     {
+      "matchPackageNames": ["node", "npm", "pnpm", "yarn", "@types/node"],
+      "groupName": "engines",
+      "enabled": false
+    },
+    {
       "matchPackagePatterns": ["^defichain$", "^@defichain/", "^jellyfishsdk$"],
       "groupName": "defichain"
     },
@@ -26,9 +31,8 @@
       "groupName": "jest"
     },
     {
-      "matchPackagePatterns": ["^cargo$"],
-      "groupName": "cargo packages",
-      "enabled": false
+      "matchPackagePatterns": ["^@birthdayresearch/contented"],
+      "groupName": "@birthdayresearch/contented"
     }
   ]
 }

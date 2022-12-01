@@ -62,3 +62,36 @@ yarn-error.log*
 /cypress/videos
 
 .turbo
+
+# Node
+.yarn/*
+yarn.lock
+.pnp.*
+node_modules
+
+package-lock.json
+!/package-lock.json
+
+# coverage
+coverage
+
+# typescript
+tsconfig.tsbuildinfo
+tsconfig.build.tsbuildinfo
+
+# turborepo
+*.tgz
+.turbo
+
+# dist
+*.tar
+build
+dist
+.next
+.contented
+
+# cdk
+cdk.out
+
+# generated code
+generated
