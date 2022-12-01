@@ -10,6 +10,8 @@ import {
 import { SwitchIcon } from "./icons/SwitchIcon";
 import { ArrowDownIcon } from "./icons/ArrowDownIcon";
 import NumericFormat from "./commons/NumericFormat";
+import { QuickInputCard } from "./commons/QuickInputCard";
+import BigNumber from "bignumber.js";
 
 const networks = [
   {
@@ -68,6 +70,7 @@ export default function BridgeForm() {
   const [selectedTokensB, setSelectedTokensB] = useState(
     defaultNetworkB.tokens[0]
   );
+  const [amount, setAmount] = useState<string>("");
 
   useEffect(() => {
     const networkB = networks.find(
@@ -151,6 +154,18 @@ export default function BridgeForm() {
           />
         </div>
       </div>
+      <div className="mt-5">
+        <span className="pl-4 lg:pl-5 text-dark-900 font-semibold text-xs lg:text-base">
+          Amount to transfer
+        </span>
+        <QuickInputCard
+          maxValue={new BigNumber(100)}
+          onChange={setAmount}
+          value={amount}
+          showAmountsBtn
+          // error="test"
+        />
+      </div>
       <SwitchButton onClick={switchNetwork} />
 
       <div className="flex flex-row items-center mb-8">
@@ -175,7 +190,7 @@ export default function BridgeForm() {
           />
         </div>
       </div>
-      <div className="flex flex-row justify-between items-center px-5">
+      <div className="flex flex-row justify-between items-center px-4 lg:px-5">
         <div className="flex flex-row items-center">
           <span className="text-dark-700 text-xs lg:text-base">Fees</span>
           {/* TODO add onclick info */}

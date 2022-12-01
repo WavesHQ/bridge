@@ -58,12 +58,12 @@ export function InputSelector({
       : (value as TokensI).tokenA;
   return (
     <div>
-      <span className="pl-5 text-dark-900 font-semibold text-xs lg:text-base">
+      <span className="pl-4 lg:pl-5 text-dark-900 font-semibold text-xs lg:text-base">
         {label}
       </span>
       <Listbox value={value} onChange={onSelect}>
         {({ open }) => (
-          <div className="relative mt-1">
+          <div className="relative mt-1 lg:mt-2">
             <Listbox.Button
               onClick={(event) => {
                 if (disabled) {
