@@ -116,16 +116,19 @@ function SetAmountButton({
 
   return (
     <button
-      className={clsx("w-full", {
-        "border-r-[0.5px] border-dark-300/50": hasBorder,
-      })}
+      className={clsx(
+        "w-full bg-dark-700 hover:hover-text-gradient-1 bg-clip-text",
+        {
+          "border-r-[0.5px] border-dark-300/50": hasBorder,
+        }
+      )}
       onClick={(): void => {
         onClick(value);
       }}
       disabled={disabled}
     >
       <div className="py-1 lg:py-1.5">
-        <span className="font-semibold text-base lg:text-lg text-dark-700">
+        <span className="font-semibold text-base lg:text-lg text-transparent">
           {type}
         </span>
       </div>

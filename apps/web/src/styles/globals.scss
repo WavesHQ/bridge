@@ -152,6 +152,9 @@ body {
   .bg-dark-gradient-3 {
     background: var(--ui-dark-gradient-3);
   }
+  .hover-text-gradient-1 {
+    background-image: linear-gradient(90deg, #FF00FF 0%, #EC0C8D 100.04%)
+  }
 }
 
 ::-webkit-scrollbar {

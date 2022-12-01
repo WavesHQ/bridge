@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { shift, autoUpdate, size, useFloating } from "@floating-ui/react-dom";
 import { FiInfo } from "react-icons/fi";
+import BigNumber from "bignumber.js";
 import {
   InputSelector,
   SelectionType,
@@ -11,11 +12,15 @@ import { SwitchIcon } from "./icons/SwitchIcon";
 import { ArrowDownIcon } from "./icons/ArrowDownIcon";
 import NumericFormat from "./commons/NumericFormat";
 import { QuickInputCard } from "./commons/QuickInputCard";
-import BigNumber from "bignumber.js";
+
+export enum Network {
+  Ethereum = "Ethereum",
+  DeFiChain = "DeFiChain",
+}
 
 const networks = [
   {
-    name: "Ethereum",
+    name: Network.Ethereum,
     icon: "/tokens/Ethereum.svg",
     tokens: [
       {
@@ -37,7 +42,7 @@ const networks = [
     ],
   },
   {
-    name: "DeFiChain",
+    name: Network.DeFiChain,
     icon: "/tokens/DeFichain.svg",
     tokens: [
       {
@@ -71,6 +76,9 @@ export default function BridgeForm() {
     defaultNetworkB.tokens[0]
   );
   const [amount, setAmount] = useState<string>("");
+  const [amountErr, setAmountErr] = useState<string>("");
+  // TODO remove hardcoded max amount
+  const maxAmount = new BigNumber(100);
 
   useEffect(() => {
     const networkB = networks.find(
@@ -98,6 +106,19 @@ export default function BridgeForm() {
 
   const switchNetwork = () => {
     setSelectedNetworkA(selectedNetworkB);
+  };
+
+  const onInputChange = (value: string): void => {
+    // regex to allow only number
+    const re = /^\d*\.?\d*$/;
+    if (value === "" || re.test(value)) {
+      setAmount(value);
+      let err = "";
+      if (new BigNumber(value).gt(maxAmount)) {
+        err = "Insufficient Funds";
+      }
+      setAmountErr(err);
+    }
   };
 
   const { y, reference, floating, strategy, refs } = useFloating({
@@ -159,12 +180,30 @@ export default function BridgeForm() {
           Amount to transfer
         </span>
         <QuickInputCard
-          maxValue={new BigNumber(100)}
-          onChange={setAmount}
+          maxValue={maxAmount}
+          onChange={onInputChange}
           value={amount}
-          showAmountsBtn
-          // error="test"
+          error={amountErr}
+          showAmountsBtn={selectedNetworkA.name === Network.Ethereum}
         />
+        <div className="flex flex-row pl-4 lg:pl-5 mt-2">
+          {amountErr ? (
+            <span className="text-xs lg:text-sm text-error">{amountErr}</span>
+          ) : (
+            <>
+              <span className="text-xs lg:text-sm text-dark-700">
+                Available:
+              </span>
+              <NumericFormat
+                className="text-xs lg:text-sm text-dark-900 ml-1"
+                value={maxAmount}
+                decimalScale={8}
+                thousandSeparator
+                suffix={` ${selectedTokensA.tokenA.name}`}
+              />
+            </>
+          )}
+        </div>
       </div>
       <SwitchButton onClick={switchNetwork} />
 
