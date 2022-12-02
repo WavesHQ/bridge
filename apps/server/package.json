@@ -7,7 +7,7 @@
     "build": "tsc -b ./tsconfig.build.json",
     "clean": "rm -rf dist",
     "lint": "eslint .",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:unit": "jest --selectProjects test:unit",
     "test:i9n": "jest --selectProjects test:i9n",
     "test:e2e": "jest --selectProjects test:e2e"

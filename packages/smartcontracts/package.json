@@ -1,0 +1,85 @@
+{
+  "private": true,
+  "name": "smartcontracts",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "postinstall": "pnpm run generate:contract-types",
+    "build": "pnpm run generate:contract-types && tsc -b ./tsconfig.build.json",
+    "build:docker": "docker build -t bridge-packages/hardhatnetwork:0.0.0 .",
+    "test": "jest",
+    "test:hardhat": "pnpm run generate:contract-types && hardhat test --config ./src/hardhat.config.ts",
+    "clean": "rm -rf dist && rm -f tsconfig.build.tsbuildinfo && hardhat clean --config ./src/hardhat.config.ts",
+    "generate:contract-types": "hardhat compile --config ./src/hardhat.config.ts",
+    "lint": "eslint ."
+  },
+  "eslintConfig": {
+    "extends": [
+      "@birthdayresearch"
+    ],
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.ts"
+        ],
+        "rules": {
+          "check-file/filename-naming-convention": "off",
+          "import/no-default-export": "off",
+          "no-console": "off",
+          "no-underscore-dangle": "off"
+        }
+      }
+    ]
+  },
+  "jest": {
+    "displayName": "test:smartcontracts",
+    "preset": "@birthdayresearch/sticky-turbo-jest",
+    "reporters": [
+      "default"
+    ],
+    "testTimeout": 300000,
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/src/test"
+    ]
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "ethers": "~5.7.2",
+    "@birthdayresearch/eslint-config": "^0.3.1",
+    "@birthdayresearch/sticky-turbo-jest": "^0.3.1",
+    "@birthdayresearch/sticky-testcontainers": "^0.3.1",
+    "@birthdayresearch/sticky-typescript": "^0.3.1",
+    "cross-fetch": "^3.1.5",
+    "@ethersproject/abi": "5.7.0",
+    "@ethersproject/providers": "5.7.1",
+    "@nomicfoundation/hardhat-chai-matchers": "1.0.4",
+    "@nomiclabs/hardhat-ethers": "2.2.1",
+    "base64-sol": "1.0.1",
+    "@typechain/hardhat": "6.1.3",
+    "@typechain/ethers-v5": "10.1.1",
+    "@types/chai": "4.3.3",
+    "@types/mocha": "10.0.0",
+    "chai": "4.3.6",
+    "hardhat": "2.12.0",
+    "hardhat-gas-reporter": "1.0.9",
+    "mocha": "10.0.0",
+    "solidity-coverage": "0.8.2",
+    "ts-node": "10.9.1"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --ignore-unknown"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
+  }
+}

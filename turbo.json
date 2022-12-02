@@ -32,11 +32,16 @@
       "outputs": ["generated/**"],
       "dependsOn": ["^build", "^generate:schema"]
     },
+    "generate:contract-types": {
+      "inputs": ["contracts/**/*.sol"],
+      "outputs": ["artifacts", "cache", "generated"],
+      "dependsOn": ["^build"]
+    },
     "test": {
       "inputs": ["src/**", "src/**/*.unit.ts", "tests-i9n/**", "tests-e2e/**"],
       "dependsOn": [
         "^build",
-        "generate:proto",
+        "^build:docker",
         "build:docker",
         "generate:client",
         "generate:schema"
@@ -58,6 +63,10 @@
         "generate:client",
         "generate:schema"
       ]
+    },
+    "test:hardhat": {
+      "inputs": ["src/**", "tests/**"],
+      "dependsOn": ["^build"]
     },
     "lint": {
       "outputs": []
