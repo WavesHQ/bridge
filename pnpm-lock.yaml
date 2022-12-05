@@ -4,11 +4,11 @@ importers:
 
   .:
     specifiers:
-      '@birthdayresearch/sticky-turbo': ^0.2.4
+      '@birthdayresearch/sticky-turbo': ^0.3.1
       husky: ^8.0.2
       lint-staged: ^13.0.4
     devDependencies:
-      '@birthdayresearch/sticky-turbo': 0.2.4
+      '@birthdayresearch/sticky-turbo': 0.3.1
       husky: 8.0.2
       lint-staged: 13.0.4
 
@@ -1610,6 +1610,12 @@ packages:
 
   /@birthdayresearch/sticky-turbo/0.2.4:
     resolution: {integrity: sha512-2oZKmtcYk8sjYh79lK5FNTOYQmM7BlTFO+q51cdo8mIxbnzTR2Y9kWl+nsDPLXpkvfWApzZLObUNY4vfcsbXbg==}
+    dependencies:
+      turbo: 1.6.3
+    dev: true
+
+  /@birthdayresearch/sticky-turbo/0.3.1:
+    resolution: {integrity: sha512-hrYfK+A6fu81+ANUsh2O1TLQpRuKRllGd0N5A4oUIKfb7DwQ76P1HGd4cuFTQ7t36M1PvW5D3tAmXfzHOG7iHA==}
     dependencies:
       turbo: 1.6.3
     dev: true
