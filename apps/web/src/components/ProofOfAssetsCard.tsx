@@ -40,7 +40,7 @@ export default function ProofOfAssetsCard() {
           />
         </div>
       </div>
-      <div className="flex flex-wrap gap-3 lg:gap-2 mt-2">
+      <div className="flex flex-wrap gap-3 lg:gap-2 mt-3 md:mt-2">
         <TokenSupplyItem token={selectedTokensA.tokenA} />
         <TokenSupplyItem token={selectedTokensB.tokenA} />
       </div>
@@ -63,15 +63,19 @@ function TokenSupplyItem({ token }: { token: TokenDetailI }) {
         height={100}
         src={token.icon}
         alt={token.name}
-        className="w-5 h-5 lg:w-6 lg:h-6"
+        className="w-7 h-7 md:w-5 md:h-5 lg:w-6 lg:h-6"
       />
-      <NumericFormat
-        className="text-left text-dark-900 lg:text-lg leading-5 lg:leading-6 tracking-[0.01em] lg:tracking-normal ml-2 lg:ml-1"
-        value={token.supply}
-        decimalScale={4}
-        thousandSeparator
-        suffix={` ${token.name}`}
-      />
+      <span>
+        <NumericFormat
+          className="text-left text-dark-900 text-lg md:text-base lg:text-lg leading-5 lg:leading-6 tracking-[0.01em] lg:tracking-normal ml-2 lg:ml-1"
+          value={token.supply}
+          decimalScale={4}
+          thousandSeparator
+        />
+        <span className="text-xs lg:text-sm text-dark-900 ml-1">
+          {token.name}
+        </span>
+      </span>
     </div>
   );
 }

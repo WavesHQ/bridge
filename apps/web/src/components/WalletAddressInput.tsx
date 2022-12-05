@@ -236,7 +236,7 @@ function AddressWithVerifiedBadge({
   const { isLg } = useResponsive();
   return (
     <div
-      aria-hidden="true"
+      role="button"
       className={clsx(
         "relative mr-10 w-full break-all bg-transparent text-sm text-dark-1000 after:absolute focus:outline-none lg:text-xl",
         isLg
@@ -244,6 +244,8 @@ function AddressWithVerifiedBadge({
           : "after:ml-1 after:content-[url('/verified-20x20.svg')]"
       )}
       onClick={() => onClick()}
+      onKeyDown={() => {}}
+      tabIndex={0}
     >
       {value}
     </div>
