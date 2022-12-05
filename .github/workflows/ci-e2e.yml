@@ -13,9 +13,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  CEC_NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   main:
     name: Cypress

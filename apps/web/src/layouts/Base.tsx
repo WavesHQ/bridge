@@ -13,6 +13,8 @@ import { ConnectKitProvider, getDefaultClient } from "connectkit";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
 import { getInitialTheme, ThemeProvider } from "@contexts/ThemeProvider";
+import { NetworkEnvironmentProvider } from "@contexts/NetworkEnvironmentContext";
+import { NetworkProvider } from "@contexts/NetworkContext";
 
 const metamask = new MetaMaskConnector();
 
@@ -80,14 +82,18 @@ function Base({ children }: PropsWithChildren<any>): JSX.Element | null {
       <WagmiConfig client={client}>
         <ConnectKitProvider>
           {mounted && (
-            <ThemeProvider theme={initialTheme}>
-              <div className="relative">
-                <Header />
-                <main className="relative z-[1] flex-grow">{children}</main>
-                <div className="absolute top-0 left-0 z-auto h-full w-full bg-[url('/background/mobile.png')] bg-cover bg-local bg-clip-padding bg-top bg-no-repeat bg-origin-padding mix-blend-screen md:bg-[url('/background/tablet.png')] lg:bg-[url('/background/desktop.png')] lg:bg-center" />
-                <Footer />
-              </div>
-            </ThemeProvider>
+            <NetworkProvider>
+              <NetworkEnvironmentProvider>
+                <ThemeProvider theme={initialTheme}>
+                  <div className="relative">
+                    <Header />
+                    <main className="relative z-[1] flex-grow">{children}</main>
+                    <div className="absolute top-0 left-0 z-auto h-full w-full bg-[url('/background/mobile.png')] bg-cover bg-local bg-clip-padding bg-top bg-no-repeat bg-origin-padding mix-blend-screen md:bg-[url('/background/tablet.png')] lg:bg-[url('/background/desktop.png')] lg:bg-center" />
+                    <Footer />
+                  </div>
+                </ThemeProvider>
+              </NetworkEnvironmentProvider>
+            </NetworkProvider>
           )}
         </ConnectKitProvider>
       </WagmiConfig>

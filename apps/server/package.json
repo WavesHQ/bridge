@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "nest start --watch",
     "build": "tsc -b ./tsconfig.build.json",
-    "build:docker": "codex-nestjs-docker build",
     "clean": "rm -rf dist",
     "lint": "eslint .",
     "test": "jest",
@@ -18,54 +17,54 @@
       "project": "./tsconfig.json"
     },
     "extends": [
-      "@cec-org"
+      "@birthdayresearch"
     ]
   },
   "jest": {
-    "preset": "@cec-org/codex-turbo-jest",
-    "projects": [
-      {
-        "displayName": "test:unit",
-        "preset": "@cec-org/codex-turbo-jest",
-        "testRegex": ".*\\.unit\\.ts$"
-      },
-      {
-        "displayName": "test:i9n",
-        "preset": "@cec-org/codex-turbo-jest",
-        "testRegex": ".*\\.i9n\\.ts$"
-      },
-      {
-        "displayName": "test:e2e",
-        "preset": "@cec-org/codex-turbo-jest",
-        "testRegex": ".*\\.e2e\\.ts$"
-      }
-    ]
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
   },
   "dependencies": {
-    "@cec-org/codex-nestjs-app": "^0.20.11",
-    "@cec-org/codex-nestjs-jsonrpc": "^0.20.11",
     "@nestjs/common": "^9.2.1",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.2.1",
-    "@nestjs/platform-fastify": "^9.2.1",
-    "@nestjs/terminus": "^9.1.4",
-    "@nestjs/typeorm": "^9.0.1",
+    "@nestjs/platform-express": "^9.2.1",
     "class-validator": "^0.13.2",
     "pg": "^8.8.0",
-    "typeorm": "^0.3.10"
+    "typeorm": "^0.3.11"
   },
   "devDependencies": {
-    "@cec-org/codex-prettier": "^0.20.11",
-    "@cec-org/codex-nestjs-actuator": "^0.20.11",
-    "@cec-org/codex-nestjs-docker": "^0.20.11",
-    "@cec-org/codex-nestjs-testcontainers": "^0.20.11",
-    "@cec-org/codex-nestjs-testing": "^0.20.11",
-    "@cec-org/codex-testcontainers": "^0.20.11",
-    "@cec-org/codex-turbo-jest": "^0.20.11",
-    "@cec-org/codex-typescript": "^0.20.11",
-    "@cec-org/eslint-config": "^0.20.11",
+    "@birthdayresearch/eslint-config": "^0.2.4",
+    "@birthdayresearch/sticky-prettier": "^0.2.4",
+    "@birthdayresearch/sticky-typescript": "^0.3.0",
+    "@birthdayresearch/sticky-turbo-jest": "^0.2.4",
+    "@nestjs/cli": "^9.1.5",
+    "@nestjs/schematics": "^9.0.3",
     "@nestjs/testing": "^9.2.1",
-    "light-my-request": "^5.6.1"
+    "@types/express": "^4.17.14",
+    "@types/jest": "^29.2.3",
+    "@types/node": "^18.11.9",
+    "@types/supertest": "^2.0.12",
+    "light-my-request": "^5.7.0",
+    "source-map-support": "^0.5.21",
+    "supertest": "^6.3.2",
+    "ts-jest": "^29.0.3",
+    "ts-loader": "^9.4.1",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.0"
   },
   "lint-staged": {
     "*": [
@@ -75,5 +74,5 @@
       "eslint --fix"
     ]
   },
-  "prettier": "@cec-org/codex-prettier"
+  "prettier": "@birthdayresearch/sticky-prettier"
 }

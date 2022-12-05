@@ -1,13 +1,9 @@
-import { CodexNestJsonRpcApp } from '@cec-org/codex-nestjs-jsonrpc';
+import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './AppModule';
 
-class BridgeServerApp extends CodexNestJsonRpcApp {
-  override provideRootModule(): typeof AppModule {
-    return AppModule;
-  }
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  await app.listen(5471);
 }
-
-if (require.main === module) {
-  void new BridgeServerApp().start();
-}
+bootstrap();

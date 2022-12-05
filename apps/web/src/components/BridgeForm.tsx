@@ -1,110 +1,30 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { shift, autoUpdate, size, useFloating } from "@floating-ui/react-dom";
 import { FiInfo } from "react-icons/fi";
 import BigNumber from "bignumber.js";
-import {
-  InputSelector,
-  SelectionType,
-  TokensI,
-  NetworkOptionsI,
-} from "./InputSelector";
+import { networks, useNetworkContext } from "@contexts/NetworkContext";
+import { Network, SelectionType, TokensI, NetworkOptionsI } from "types";
+import { QuickInputCard } from "./commons/QuickInputCard";
+import { InputSelector } from "./InputSelector";
 import { SwitchIcon } from "./icons/SwitchIcon";
 import { ArrowDownIcon } from "./icons/ArrowDownIcon";
 import NumericFormat from "./commons/NumericFormat";
-import { QuickInputCard } from "./commons/QuickInputCard";
-
-export enum Network {
-  Ethereum = "Ethereum",
-  DeFiChain = "DeFiChain",
-}
-
-const networks: NetworkOptionsI[] = [
-  {
-    name: Network.Ethereum,
-    icon: "/tokens/Ethereum.svg",
-    tokens: [
-      {
-        tokenA: { name: "wBTC", icon: "/tokens/wBTC.svg" },
-        tokenB: { name: "dBTC", icon: "/tokens/dBTC.svg" },
-      },
-      {
-        tokenA: { name: "USDT", icon: "/tokens/USDT.svg" },
-        tokenB: { name: "dUSDT", icon: "/tokens/dUSDT.svg" },
-      },
-      {
-        tokenA: { name: "USDC", icon: "/tokens/USDC.svg" },
-        tokenB: { name: "dUSDC", icon: "/tokens/dUSDC.svg" },
-      },
-      {
-        tokenA: { name: "ETH", icon: "/tokens/ETH.svg" },
-        tokenB: { name: "dETH", icon: "/tokens/dETH.svg" },
-      },
-    ],
-  },
-  {
-    name: Network.DeFiChain,
-    icon: "/tokens/DeFichain.svg",
-    tokens: [
-      {
-        tokenA: { name: "dBTC", icon: "/tokens/dBTC.svg" },
-        tokenB: { name: "wBTC", icon: "/tokens/wBTC.svg" },
-      },
-      {
-        tokenA: { name: "dUSDT", icon: "/tokens/dUSDT.svg" },
-        tokenB: { name: "USDT", icon: "/tokens/USDT.svg" },
-      },
-      {
-        tokenA: { name: "dUSDC", icon: "/tokens/dUSDC.svg" },
-        tokenB: { name: "USDC", icon: "/tokens/USDC.svg" },
-      },
-      {
-        tokenA: { name: "dETH", icon: "/tokens/dETH.svg" },
-        tokenB: { name: "ETH", icon: "/tokens/ETH.svg" },
-      },
-    ],
-  },
-];
+import WalletAddressInput from "./WalletAddressInput";
 
 export default function BridgeForm() {
-  const [defaultNetworkA, defaultNetworkB] = networks;
-  const [selectedNetworkA, setSelectedNetworkA] =
-    useState<NetworkOptionsI>(defaultNetworkA);
-  const [selectedTokensA, setSelectedTokensA] = useState<TokensI>(
-    defaultNetworkA.tokens[0]
-  );
-  const [selectedNetworkB, setSelectedNetworkB] =
-    useState<NetworkOptionsI>(defaultNetworkB);
-  const [selectedTokensB, setSelectedTokensB] = useState<TokensI>(
-    defaultNetworkB.tokens[0]
-  );
+  const {
+    selectedNetworkA,
+    selectedTokensA,
+    selectedNetworkB,
+    selectedTokensB,
+    setSelectedNetworkA,
+    setSelectedTokensA,
+  } = useNetworkContext();
+
   const [amount, setAmount] = useState<string>("");
   const [amountErr, setAmountErr] = useState<string>("");
   // TODO remove hardcoded max amount
   const maxAmount = new BigNumber(100);
-
-  useEffect(() => {
-    const networkB = networks.find(
-      (network) => network.name !== selectedNetworkA.name
-    );
-    if (networkB !== undefined) {
-      setSelectedNetworkB(networkB);
-      const tokens = selectedNetworkA.tokens.find(
-        (item) => item.tokenA.name === selectedTokensB.tokenA.name
-      );
-      if (tokens !== undefined) {
-        setSelectedTokensA(tokens);
-      }
-    }
-  }, [selectedNetworkA]);
-
-  useEffect(() => {
-    const tokens = selectedNetworkB.tokens.find(
-      (item) => item.tokenA.name === selectedTokensA.tokenB.name
-    );
-    if (tokens !== undefined) {
-      setSelectedTokensB(tokens);
-    }
-  }, [selectedTokensA]);
 
   const switchNetwork = () => {
     setSelectedNetworkA(selectedNetworkB);
@@ -152,7 +72,7 @@ export default function BridgeForm() {
   };
 
   return (
-    <div className="dark-card-bg-image w-full rounded-lg border border-dark-200 p-6 pb-16 backdrop-blur-[18px] md:pt-8 lg:p-12">
+    <div className="w-full sm:w-[calc(100%+2px)] lg:w-full dark-card-bg-image p-6 md:pt-8 pb-16 lg:p-12 rounded-lg border border-dark-200 backdrop-blur-[18px]">
       <div className="flex flex-row items-center" ref={reference}>
         <div className="w-1/2">
           <InputSelector
@@ -209,7 +129,7 @@ export default function BridgeForm() {
       </div>
       <SwitchButton onClick={switchNetwork} />
 
-      <div className="mb-8 flex flex-row items-center">
+      <div className="flex flex-row items-end mb-4 lg:mb-5">
         <div className="w-1/2">
           <InputSelector
             label="Destination Network"
@@ -231,7 +151,15 @@ export default function BridgeForm() {
           />
         </div>
       </div>
-      <div className="flex flex-row items-center justify-between  px-4 lg:px-5">
+      <div className="mb-8">
+        <WalletAddressInput
+          label="Address"
+          blockchain={selectedNetworkB.name as Network}
+          /* TODO: disabled should be based on whether wallet is connected or not */
+          disabled={false}
+        />
+      </div>
+      <div className="flex flex-row justify-between items-center px-4 lg:px-5">
         <div className="flex flex-row items-center">
           <span className="text-xs text-dark-700 lg:text-base">Fees</span>
           {/* TODO add onclick info */}

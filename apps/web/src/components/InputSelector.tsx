@@ -5,25 +5,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import { MdCheckCircle } from "react-icons/md";
 import { FiChevronDown, FiArrowRight } from "react-icons/fi";
 import { Strategy } from "@floating-ui/react-dom";
-
-export enum SelectionType {
-  Network = "Network",
-  Token = "Token",
-}
-
-export interface TokenDetailI {
-  name: string;
-  icon: string;
-}
-
-export interface TokensI {
-  tokenA: TokenDetailI;
-  tokenB: TokenDetailI;
-}
-
-export interface NetworkOptionsI extends TokenDetailI {
-  tokens: TokensI[];
-}
+import { SelectionType, NetworkOptionsI, TokensI } from "types";
 
 interface SelectorI {
   disabled?: boolean;
@@ -59,7 +41,7 @@ export function InputSelector({
       : (value as TokensI).tokenA;
   return (
     <div>
-      <span className="pl-4 text-xs font-semibold text-dark-900 lg:pl-5 lg:text-base">
+      <span className="text-dark-900 pl-4 lg:pl-5 text-xs font-semibold lg:text-base xl:tracking-wider">
         {label}
       </span>
       <Listbox value={value} onChange={onSelect}>
