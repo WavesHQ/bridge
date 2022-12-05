@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FiInfo } from "react-icons/fi";
 import { TokenDetailI } from "types";
 import { truncateTextFromMiddle } from "@utils/textHelper";
 import { useNetworkContext } from "@contexts/NetworkContext";
@@ -9,6 +8,7 @@ import NumericFormat from "./commons/NumericFormat";
 import BrLogo from "./icons/BrLogo";
 import DailyLimit from "./DailyLimit";
 import { mockWallet } from "./Header";
+import IconTooltip from "./commons/IconTooltip";
 
 export default function ProofOfAssetsCard() {
   const { isMd, isLg } = useResponsive();
@@ -33,10 +33,12 @@ export default function ProofOfAssetsCard() {
         <span className="text-xs lg:text-sm font-semibold lg:tracking-wide text-dark-700">
           TOKEN SUPPLY
         </span>
-        <button type="button" className="ml-2 focus:outline-none">
-          {/* TODO: Disply token supply info onclick */}
-          <FiInfo size={16} className="text-dark-700" />
-        </button>
+        <div className="ml-2">
+          <IconTooltip
+            title="Token Supply"
+            content="Token supply indicates the amount of liquidity currently available for a particular token pair on DeFi Bridge"
+          />
+        </div>
       </div>
       <div className="flex flex-wrap gap-3 lg:gap-2 mt-2">
         <TokenSupplyItem token={selectedTokensA.tokenA} />

@@ -1,7 +1,7 @@
 import { useNetworkContext } from "@contexts/NetworkContext";
 import useResponsive from "@hooks/useResponsive";
 import BigNumber from "bignumber.js";
-import { FiInfo } from "react-icons/fi";
+import IconTooltip from "./commons/IconTooltip";
 import NumericFormat from "./commons/NumericFormat";
 import ProgressBar from "./commons/ProgressBar";
 
@@ -34,10 +34,12 @@ export default function DailyLimit() {
         <span className="text-xs lg:text-sm font-semibold lg:tracking-wide text-dark-700 md:uppercase">
           Daily limit
         </span>
-        <button type="button" className="ml-2">
-          {/* TODO: Disply daily limit info onclick */}
-          <FiInfo size={16} className="text-dark-700" />
-        </button>
+        <div className="ml-2">
+          <IconTooltip
+            title="Daily Limit"
+            content="DeFi Bridge has a daily hard cap for each token pair. Once this limit is reached, you will not be able to transfer to DeFiChain or Ethereum until the next day."
+          />
+        </div>
       </div>
       <div className="w-full order-last mt-2 md:mt-0">
         <ProgressBar
