@@ -49,7 +49,7 @@
   "devDependencies": {
     "@birthdayresearch/eslint-config": "^0.2.4",
     "@birthdayresearch/sticky-prettier": "^0.2.4",
-    "@birthdayresearch/sticky-typescript": "^0.3.0",
+    "@birthdayresearch/sticky-typescript": "^0.3.1",
     "@birthdayresearch/sticky-turbo-jest": "^0.2.4",
     "@nestjs/cli": "^9.1.5",
     "@nestjs/schematics": "^9.0.3",

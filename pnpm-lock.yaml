@@ -17,7 +17,7 @@ importers:
       '@birthdayresearch/eslint-config': ^0.2.4
       '@birthdayresearch/sticky-prettier': ^0.2.4
       '@birthdayresearch/sticky-turbo-jest': ^0.2.4
-      '@birthdayresearch/sticky-typescript': ^0.3.0
+      '@birthdayresearch/sticky-typescript': ^0.3.1
       '@nestjs/cli': ^9.1.5
       '@nestjs/common': ^9.2.1
       '@nestjs/config': ^2.2.0
@@ -51,7 +51,7 @@ importers:
       '@birthdayresearch/eslint-config': 0.2.4_typescript@4.9.3
       '@birthdayresearch/sticky-prettier': 0.2.4
       '@birthdayresearch/sticky-turbo-jest': 0.2.4_47sz4poe4lptz2zyaue2bpr6be
-      '@birthdayresearch/sticky-typescript': 0.3.0
+      '@birthdayresearch/sticky-typescript': 0.3.1
       '@nestjs/cli': 9.1.5
       '@nestjs/schematics': 9.0.3_typescript@4.9.3
       '@nestjs/testing': 9.2.1_wdbvfsxfdwzlwdfiyh2gynjl4m
@@ -1614,8 +1614,8 @@ packages:
       turbo: 1.6.3
     dev: true
 
-  /@birthdayresearch/sticky-typescript/0.3.0:
-    resolution: {integrity: sha512-c4Z4t/wXD1UTz68VkIsA4hHmtuIpErr/R9bc6xyxg8I9oYFZnaWBv2AM9gLmG/7phNZ1xWQIJFXGSrdiCG1FXw==}
+  /@birthdayresearch/sticky-typescript/0.3.1:
+    resolution: {integrity: sha512-O4Pw6NbtbkpT2z8avqtKm4OuifND9cTzp4+PPucwlmN2S1fHVED4O27cH0aU0dspFrTEZu6g+9dWl1mudSVzQA==}
     dependencies:
       typescript: 4.7.4
     dev: true
