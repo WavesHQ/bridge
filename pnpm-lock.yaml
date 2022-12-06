@@ -145,7 +145,7 @@ importers:
       chai: 4.3.7
       cross-fetch: ^3.1.5
       ethers: ~5.7.2
-      hardhat: 2.12.0
+      hardhat: 2.12.3
       hardhat-gas-reporter: 1.0.9
       mocha: 10.0.0
       solidity-coverage: 0.8.2
@@ -157,20 +157,20 @@ importers:
       '@birthdayresearch/sticky-typescript': 0.3.1
       '@ethersproject/abi': 5.7.0
       '@ethersproject/providers': 5.7.2
-      '@nomicfoundation/hardhat-chai-matchers': 1.0.5_dsghsxgqjfatoftl5i66zgejcm
-      '@nomiclabs/hardhat-ethers': 2.2.1_rio3alvrwqjfrtzrxzvizw4x7e
+      '@nomicfoundation/hardhat-chai-matchers': 1.0.5_5p4lbxg4ssvv5rhtg6az37ozvy
+      '@nomiclabs/hardhat-ethers': 2.2.1_gsql6crh4t5imixi2nhgp37drm
       '@typechain/ethers-v5': 10.1.1_smufkffb6t7im2kajasb2dheve
-      '@typechain/hardhat': 6.1.3_ozn6se6tfw5reqv3ppzf5abzgm
+      '@typechain/hardhat': 6.1.3_dyvvmzk3e44kiaxai7tx45odfy
       '@types/chai': 4.3.4
       '@types/mocha': 10.0.0
       base64-sol: 1.0.1
       chai: 4.3.7
       cross-fetch: 3.1.5
       ethers: 5.7.2
-      hardhat: 2.12.0_2dtigtkb225m7ii7q45utxqwgi
-      hardhat-gas-reporter: 1.0.9_hardhat@2.12.0
+      hardhat: 2.12.3_2dtigtkb225m7ii7q45utxqwgi
+      hardhat-gas-reporter: 1.0.9_hardhat@2.12.3
       mocha: 10.0.0
-      solidity-coverage: 0.8.2_hardhat@2.12.0
+      solidity-coverage: 0.8.2_hardhat@2.12.3
       ts-node: 10.9.1_zhirybrk4zoofuxp64necizyzy
 
 packages:
@@ -3383,7 +3383,7 @@ packages:
       - supports-color
     dev: true
 
-  /@nomicfoundation/hardhat-chai-matchers/1.0.5_dsghsxgqjfatoftl5i66zgejcm:
+  /@nomicfoundation/hardhat-chai-matchers/1.0.5_5p4lbxg4ssvv5rhtg6az37ozvy:
     resolution: {integrity: sha512-+W5C/+5FHI2xBajUN9THSNc1UP6FUsA7LeLmfnaC9VMi/50/DEjjxd8OmizEXgV1Bjck7my4NVQLL1Ti39FkpA==}
     peerDependencies:
       '@nomiclabs/hardhat-ethers': ^2.0.0
@@ -3392,14 +3392,14 @@ packages:
       hardhat: ^2.9.4
     dependencies:
       '@ethersproject/abi': 5.7.0
-      '@nomiclabs/hardhat-ethers': 2.2.1_rio3alvrwqjfrtzrxzvizw4x7e
+      '@nomiclabs/hardhat-ethers': 2.2.1_gsql6crh4t5imixi2nhgp37drm
       '@types/chai-as-promised': 7.1.5
       chai: 4.3.7
       chai-as-promised: 7.1.1_chai@4.3.7
       chalk: 2.4.2
       deep-eql: 4.1.3
       ethers: 5.7.2
-      hardhat: 2.12.0_2dtigtkb225m7ii7q45utxqwgi
+      hardhat: 2.12.3_2dtigtkb225m7ii7q45utxqwgi
       ordinal: 1.0.3
     dev: true
 
@@ -3509,14 +3509,14 @@ packages:
       '@nomicfoundation/solidity-analyzer-win32-x64-msvc': 0.1.0
     dev: true
 
-  /@nomiclabs/hardhat-ethers/2.2.1_rio3alvrwqjfrtzrxzvizw4x7e:
+  /@nomiclabs/hardhat-ethers/2.2.1_gsql6crh4t5imixi2nhgp37drm:
     resolution: {integrity: sha512-RHWYwnxryWR8hzRmU4Jm/q4gzvXpetUOJ4OPlwH2YARcDB+j79+yAYCwO0lN1SUOb4++oOTJEe6AWLEc42LIvg==}
     peerDependencies:
       ethers: ^5.0.0
       hardhat: ^2.0.0
     dependencies:
       ethers: 5.7.2
-      hardhat: 2.12.0_2dtigtkb225m7ii7q45utxqwgi
+      hardhat: 2.12.3_2dtigtkb225m7ii7q45utxqwgi
     dev: true
 
   /@nuxtjs/opencollective/0.3.2:
@@ -4100,7 +4100,7 @@ packages:
       typescript: 4.9.3
     dev: true
 
-  /@typechain/hardhat/6.1.3_ozn6se6tfw5reqv3ppzf5abzgm:
+  /@typechain/hardhat/6.1.3_dyvvmzk3e44kiaxai7tx45odfy:
     resolution: {integrity: sha512-e1H9MVl286ma0HuD9CBL248+pbdA7lWF6+I7FYwzykIrjilKhvLUv0Q7LtcyZztzgbP2g4Tyg1UPE+xy+qR7cA==}
     peerDependencies:
       '@ethersproject/abi': ^5.4.7
@@ -4115,7 +4115,7 @@ packages:
       '@typechain/ethers-v5': 10.1.1_smufkffb6t7im2kajasb2dheve
       ethers: 5.7.2
       fs-extra: 9.1.0
-      hardhat: 2.12.0_2dtigtkb225m7ii7q45utxqwgi
+      hardhat: 2.12.3_2dtigtkb225m7ii7q45utxqwgi
       typechain: 8.1.1_typescript@4.9.3
     dev: true
 
@@ -4485,7 +4485,7 @@ packages:
     resolution: {integrity: sha512-Cn6WYCm0tXv8p6k+A8PvbDG763EDpBoTzHdA+Q/MF6H3sapGjCm9NzoaJncJS9tUKSuCoDs9XHxYYsQDgxR6kw==}
     requiresBuild: true
     dependencies:
-      '@types/node': 18.11.10
+      '@types/node': 18.11.11
     dev: true
     optional: true
 
@@ -9464,21 +9464,21 @@ packages:
       har-schema: 2.0.0
     dev: true
 
-  /hardhat-gas-reporter/1.0.9_hardhat@2.12.0:
+  /hardhat-gas-reporter/1.0.9_hardhat@2.12.3:
     resolution: {integrity: sha512-INN26G3EW43adGKBNzYWOlI3+rlLnasXTwW79YNnUhXPDa+yHESgt639dJEs37gCjhkbNKcRRJnomXEuMFBXJg==}
     peerDependencies:
       hardhat: ^2.0.2
     dependencies:
       array-uniq: 1.0.3
       eth-gas-reporter: 0.2.25
-      hardhat: 2.12.0_2dtigtkb225m7ii7q45utxqwgi
+      hardhat: 2.12.3_2dtigtkb225m7ii7q45utxqwgi
       sha1: 1.1.1
     transitivePeerDependencies:
       - '@codechecks/client'
     dev: true
 
-  /hardhat/2.12.0_2dtigtkb225m7ii7q45utxqwgi:
-    resolution: {integrity: sha512-mNJFbVG479HwOzxiaLxobyvED2M1aEAuPPYhEo1+88yicMDSTrU2JIS7vV+V0GSNQKaDoiHCmV6bcKjiljT/dQ==}
+  /hardhat/2.12.3_2dtigtkb225m7ii7q45utxqwgi:
+    resolution: {integrity: sha512-qxOvRNgQnLqRFssn5f8VP5KN3caytShU0HNeKxmPVK1Ix/0xDVhIC7JOLxG69DjOihUfmxmjqspsHbZvFj6EhQ==}
     engines: {node: ^14.0.0 || ^16.0.0 || ^18.0.0}
     hasBin: true
     peerDependencies:
@@ -14647,7 +14647,7 @@ packages:
       - debug
     dev: true
 
-  /solidity-coverage/0.8.2_hardhat@2.12.0:
+  /solidity-coverage/0.8.2_hardhat@2.12.3:
     resolution: {integrity: sha512-cv2bWb7lOXPE9/SSleDO6czkFiMHgP4NXPj+iW9W7iEKLBk7Cj0AGBiNmGX3V1totl9wjPrT0gHmABZKZt65rQ==}
     hasBin: true
     peerDependencies:
@@ -14663,7 +14663,7 @@ packages:
       ghost-testrpc: 0.0.2
       global-modules: 2.0.0
       globby: 10.0.2
-      hardhat: 2.12.0_2dtigtkb225m7ii7q45utxqwgi
+      hardhat: 2.12.3_2dtigtkb225m7ii7q45utxqwgi
       jsonschema: 1.4.1
       lodash: 4.17.21
       mocha: 7.1.2
@@ -14754,7 +14754,7 @@ packages:
     resolution: {integrity: sha512-DI7/OuAUD+GMpR6dmu8lliO2Wg5zfeh+/xsdyJZCzd8o5JgFUjCeLsBDuZjIQJdwXS3J0L/uZYrELKYqx+PXog==}
     engines: {node: '>=8.0'}
     dependencies:
-      '@types/node': 18.11.10
+      '@types/node': 18.11.11
       image-ssim: 0.2.0
       jpeg-js: 0.4.4
     dev: true
