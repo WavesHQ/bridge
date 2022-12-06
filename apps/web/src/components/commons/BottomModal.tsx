@@ -40,7 +40,7 @@ export default function BottomModal({
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-95"
         >
-          <Dialog.Panel className="transform transition-all fixed inset-0 bg-dark-00 bg-opacity-90">
+          <Dialog.Panel className="transform transition-all fixed inset-0 bg-dark-00 bg-opacity-1">
             <div className="absolute bottom-0 w-full border border-dark-card-stroke rounded-t-xl backdrop-blur-[18px] bg-dark-00 p-6 pt-8">
               <Dialog.Title
                 as="div"

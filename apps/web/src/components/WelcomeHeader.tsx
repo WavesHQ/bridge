@@ -16,8 +16,8 @@ export default function WelcomeHeader() {
           Consortium
         </span>
         <button type="button" className="ml-1 align-middle">
-          {/* TODO: Add proper tooltip description */}
-          <IconTooltip content="DeFiChain Consortium ..." />
+          {/* TODO: Add title for mobile */}
+          <IconTooltip content="DeFiChain members that have been given the rights to mint and burn the Tokenized Assets on DeFiChain." />
         </button>
       </div>
       <div className="hidden md:block">
