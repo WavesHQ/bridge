@@ -138,7 +138,7 @@ importers:
       '@nomicfoundation/hardhat-chai-matchers': 1.0.5
       '@nomiclabs/hardhat-ethers': 2.2.1
       '@typechain/ethers-v5': 10.1.1
-      '@typechain/hardhat': 6.1.3
+      '@typechain/hardhat': 6.1.4
       '@types/chai': 4.3.4
       '@types/mocha': 10.0.0
       base64-sol: 1.1.0
@@ -160,7 +160,7 @@ importers:
       '@nomicfoundation/hardhat-chai-matchers': 1.0.5_5p4lbxg4ssvv5rhtg6az37ozvy
       '@nomiclabs/hardhat-ethers': 2.2.1_gsql6crh4t5imixi2nhgp37drm
       '@typechain/ethers-v5': 10.1.1_smufkffb6t7im2kajasb2dheve
-      '@typechain/hardhat': 6.1.3_dyvvmzk3e44kiaxai7tx45odfy
+      '@typechain/hardhat': 6.1.4_dyvvmzk3e44kiaxai7tx45odfy
       '@types/chai': 4.3.4
       '@types/mocha': 10.0.0
       base64-sol: 1.1.0
@@ -4100,15 +4100,15 @@ packages:
       typescript: 4.9.3
     dev: true
 
-  /@typechain/hardhat/6.1.3_dyvvmzk3e44kiaxai7tx45odfy:
-    resolution: {integrity: sha512-e1H9MVl286ma0HuD9CBL248+pbdA7lWF6+I7FYwzykIrjilKhvLUv0Q7LtcyZztzgbP2g4Tyg1UPE+xy+qR7cA==}
+  /@typechain/hardhat/6.1.4_dyvvmzk3e44kiaxai7tx45odfy:
+    resolution: {integrity: sha512-S8k5d1Rjc+plwKpkorlifmh72M7Ki0XNUOVVLtdbcA/vLaEkuqZSJFdddpBgS5QxiJP+6CbRa/yO6EVTE2+fMQ==}
     peerDependencies:
       '@ethersproject/abi': ^5.4.7
       '@ethersproject/providers': ^5.4.7
-      '@typechain/ethers-v5': ^10.1.0
+      '@typechain/ethers-v5': ^10.1.1
       ethers: ^5.4.7
       hardhat: ^2.9.9
-      typechain: ^8.1.0
+      typechain: ^8.1.1
     dependencies:
       '@ethersproject/abi': 5.7.0
       '@ethersproject/providers': 5.7.2
