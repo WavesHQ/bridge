@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import clsx from "clsx";
 import * as ethers from "ethers";
+import { useAccount } from "wagmi";
 import { FiClipboard } from "react-icons/fi";
 import { IoCloseCircle } from "react-icons/io5";
 import { fromAddress } from "@defichain/jellyfish-address";
@@ -66,6 +67,7 @@ export default function WalletAddressInput({
   const [error, setError] = useState({ message: "", isError: false });
   const [copiedFromClipboard, setCopiedFromClipboard] = useState(false);
 
+  const { isConnected } = useAccount();
   const { networkEnv, networkEnvDisplayName } = useNetworkEnvironmentContext();
   const { isMd } = useResponsive();
   useAutoResizeTextArea(textAreaRef.current, [addressInput, placeholder]);
@@ -113,7 +115,7 @@ export default function WalletAddressInput({
       setPlaceholder(`Enter ${displayedName} address`);
     }
     onAddressInputChange(""); // Reset input on network change
-  }, [blockchain, networkEnv]);
+  }, [blockchain, networkEnv, isConnected]);
 
   useEffect(() => {
     if (addressInput === "") {
