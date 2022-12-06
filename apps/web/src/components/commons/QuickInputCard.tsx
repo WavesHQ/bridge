@@ -91,47 +91,45 @@ export function QuickInputCard({
   return (
     <div
       className={clsx(
-        "w-full outline-0 group bg-dark-300/50 p-px rounded-lg mt-1 lg:mt-2",
+        "relative w-full outline-0 group p-px rounded-lg mt-1 lg:mt-2 border",
         error === ""
-          ? "hover:bg-dark-500 focus-within:bg-gradient-2"
-          : "bg-error"
+          ? "border-dark-300 hover:border-dark-500 focus-within:!border-transparent focus-within:before:dark-gradient-2 focus-within:before:-inset-[1px] focus-within:before:rounded-lg focus-within:before:p-px"
+          : "border-error"
       )}
     >
-      <div className="bg-dark-100 bg-dark-image-gradient-1 rounded-lg">
-        <div className="flex flex-row px-5 py-[18px] lg:py-[22px] bg-dark-image-gradient-1">
-          <input
-            className={clsx(
-              "w-full max-h-36 grow resize-none bg-transparent text-lg lg:text-2xl text-dark-1000 focus:outline-none caret-dark-1000 placeholder-dark-500 hover:placeholder-dark-800 focus:placeholder-dark-300"
-            )}
-            placeholder="0.00"
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            disabled={disabled}
-            spellCheck={false}
-          />
-          {value !== "" && (
-            <IoCloseCircleSharp
-              size={20}
-              onClick={() => onChange("")}
-              className="text-dark-500 self-center"
-            />
+      <div className="flex flex-row px-5 py-[18px] lg:py-[22px]">
+        <input
+          className={clsx(
+            "w-full max-h-36 grow resize-none bg-transparent text-lg lg:text-2xl text-dark-1000 focus:outline-none caret-dark-1000 placeholder-dark-500 hover:placeholder-dark-800 focus:placeholder-dark-300"
           )}
-        </div>
-        {showAmountsBtn && (
-          <div className="flex flex-row justify-between items-center py-1.5 lg:p-2 border-t border-dark-300/50 bg-dark-gradient-3">
-            {Object.values(AmountButtonTypes).map((type, index, { length }) => (
-              <SetAmountButton
-                key={type}
-                amount={maxValue}
-                onClick={onChange}
-                type={type}
-                hasBorder={length - 1 !== index}
-                disabled={disabled}
-              />
-            ))}
-          </div>
+          placeholder="0.00"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          disabled={disabled}
+          spellCheck={false}
+        />
+        {value !== "" && (
+          <IoCloseCircleSharp
+            size={20}
+            onClick={() => onChange("")}
+            className="text-dark-500 self-center cursor-pointer"
+          />
         )}
       </div>
+      {showAmountsBtn && (
+        <div className="flex flex-row justify-between items-center py-1.5 lg:p-2 border-t border-dark-300/50 bg-dark-gradient-3">
+          {Object.values(AmountButtonTypes).map((type, index, { length }) => (
+            <SetAmountButton
+              key={type}
+              amount={maxValue}
+              onClick={onChange}
+              type={type}
+              hasBorder={length - 1 !== index}
+              disabled={disabled}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
