@@ -22,7 +22,119 @@ interface SelectorI {
   value: NetworkOptionsI | TokensI;
 }
 
-export function InputSelector({
+function Divider() {
+  return <div className="mx-5 border-t-[0.5px] border-[#42424280] lg:mx-6" />;
+}
+
+function NetworkOptions({ options }: { options: NetworkOptionsI[] }) {
+  return (
+    <>
+      {options.map((option) => (
+        <Listbox.Option
+          key={option.name}
+          className="relative select-none cursor-pointer"
+          value={option}
+        >
+          {({ selected, active }) => (
+            <>
+              <Divider />
+              <div
+                className={clsx(
+                  "px-5 lg:px-6 py-3 lg:py-4 my-1 lg:my-2",
+                  active && "bg-dark-gradient-1"
+                )}
+              >
+                <div className="flex flex-row justify-between items-center">
+                  <div className="flex flex-row items-center">
+                    <Image
+                      width={100}
+                      height={100}
+                      className="w-6 h-6 lg:w-[28px] lg:h-[28px]"
+                      data-testid={option.name}
+                      src={option.icon}
+                      alt={option.name}
+                    />
+                    <span className="truncate text-dark-1000 ml-2 text-base lg:text-lg">
+                      {option.name}
+                    </span>
+                  </div>
+                  {selected && (
+                    <MdCheckCircle className="h-6 w-6 text-[#00AD1D]" />
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+        </Listbox.Option>
+      ))}
+    </>
+  );
+}
+
+function TokenOptions({ options }: { options: TokensI[] }) {
+  return (
+    <div>
+      {options?.map((option) => (
+        <Listbox.Option
+          key={option.tokenA.name}
+          className="relative cursor-pointer select-none"
+          value={option}
+        >
+          {({ selected, active }) => (
+            <>
+              <Divider />
+              <div
+                className={clsx(
+                  "my-1 px-5 py-3 lg:my-2 lg:px-6 lg:py-4",
+                  active && "bg-dark-gradient-1"
+                )}
+              >
+                <div className="flex flex-row items-center justify-between">
+                  <div className="flex w-4/12 flex-row items-center">
+                    <Image
+                      width={100}
+                      height={100}
+                      className="h-6 w-6 lg:h-[28px] lg:w-[28px]"
+                      data-testid={option.tokenA.name}
+                      src={option.tokenA.icon}
+                      alt={option.tokenA.name}
+                    />
+                    <span className="ml-2 truncate text-base lg:text-lg text-dark-1000">
+                      {option.tokenA.name}
+                    </span>
+                  </div>
+                  <div className="flex w-2/12 flex-row items-center justify-center">
+                    <FiArrowRight size={15} className="h-4 w-4 text-dark-500" />
+                  </div>
+                  <div className="flex w-4/12 flex-row items-center">
+                    <Image
+                      width={100}
+                      height={100}
+                      className="h-6 w-6 lg:h-[28px] lg:w-[28px]"
+                      data-testid={option.tokenB.name}
+                      src={option.tokenB.icon}
+                      alt={option.tokenB.name}
+                    />
+                    <span className="ml-2 truncate text-base lg:text-lg text-dark-900">
+                      {option.tokenB.name}
+                    </span>
+                  </div>
+                  <div className="flex w-2/12 flex-row items-center justify-end">
+                    {selected && (
+                      <MdCheckCircle className="h-6 w-6 text-[#00AD1D]" />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </Listbox.Option>
+      ))}
+    </div>
+  );
+}
+
+export default function InputSelector({
   options,
   label,
   popUpLabel,
@@ -135,116 +247,4 @@ export function InputSelector({
       </Listbox>
     </div>
   );
-}
-
-function NetworkOptions({ options }: { options: NetworkOptionsI[] }) {
-  return (
-    <>
-      {options.map((option) => (
-        <Listbox.Option
-          key={option.name}
-          className="relative select-none cursor-pointer"
-          value={option}
-        >
-          {({ selected, active }) => (
-            <>
-              <Divider />
-              <div
-                className={clsx(
-                  "px-5 lg:px-6 py-3 lg:py-4 my-1 lg:my-2",
-                  active && "bg-dark-gradient-1"
-                )}
-              >
-                <div className="flex flex-row justify-between items-center">
-                  <div className="flex flex-row items-center">
-                    <Image
-                      width={100}
-                      height={100}
-                      className="w-6 h-6 lg:w-[28px] lg:h-[28px]"
-                      data-testid={option.name}
-                      src={option.icon}
-                      alt={option.name}
-                    />
-                    <span className="truncate text-dark-1000 ml-2 text-base lg:text-lg">
-                      {option.name}
-                    </span>
-                  </div>
-                  {selected && (
-                    <MdCheckCircle className="h-6 w-6 text-[#00AD1D]" />
-                  )}
-                </div>
-              </div>
-            </>
-          )}
-        </Listbox.Option>
-      ))}
-    </>
-  );
-}
-
-function TokenOptions({ options }: { options: TokensI[] }) {
-  return (
-    <div>
-      {options?.map((option) => (
-        <Listbox.Option
-          key={option.tokenA.name}
-          className="relative cursor-pointer select-none"
-          value={option}
-        >
-          {({ selected, active }) => (
-            <>
-              <Divider />
-              <div
-                className={clsx(
-                  "my-1 px-5 py-3 lg:my-2 lg:px-6 lg:py-4",
-                  active && "bg-dark-gradient-1"
-                )}
-              >
-                <div className="flex flex-row items-center justify-between">
-                  <div className="flex w-4/12 flex-row items-center">
-                    <Image
-                      width={100}
-                      height={100}
-                      className="h-6 w-6 lg:h-[28px] lg:w-[28px]"
-                      data-testid={option.tokenA.name}
-                      src={option.tokenA.icon}
-                      alt={option.tokenA.name}
-                    />
-                    <span className="ml-2 truncate text-base text-dark-1000 lg:text-lg">
-                      {option.tokenA.name}
-                    </span>
-                  </div>
-                  <div className="flex w-2/12 flex-row items-center justify-center">
-                    <FiArrowRight size={15} className="h-4 w-4 text-dark-500" />
-                  </div>
-                  <div className="flex w-4/12 flex-row items-center">
-                    <Image
-                      width={100}
-                      height={100}
-                      className="h-6 w-6 lg:h-[28px] lg:w-[28px]"
-                      data-testid={option.tokenB.name}
-                      src={option.tokenB.icon}
-                      alt={option.tokenB.name}
-                    />
-                    <span className="ml-2 truncate text-base text-dark-900 lg:text-lg">
-                      {option.tokenB.name}
-                    </span>
-                  </div>
-                  <div className="flex w-2/12 flex-row items-center justify-end">
-                    {selected && (
-                      <MdCheckCircle className="h-6 w-6 text-[#00AD1D]" />
-                    )}
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
-        </Listbox.Option>
-      ))}
-    </div>
-  );
-}
-
-function Divider() {
-  return <div className="mx-5 border-t-[0.5px] border-[#42424280] lg:mx-6" />;
 }

@@ -22,6 +22,37 @@ const blockchainNameMap: Record<Network, string> = {
   Ethereum: "ERC20",
 };
 
+/**
+ * Displays wallet address with verified badge
+ * Acts like a 'clone' for textarea, since ::after pseudo doesnt work for textarea
+ * When displayed, textarea is hidden
+ */
+function AddressWithVerifiedBadge({
+  value,
+  onClick,
+}: {
+  value: string;
+  onClick: () => void;
+}): JSX.Element {
+  const { isLg } = useResponsive();
+  return (
+    <div
+      role="button"
+      className={clsx(
+        "relative mr-10 w-full break-all bg-transparent text-sm text-dark-1000 after:absolute focus:outline-none lg:text-xl",
+        isLg
+          ? "after:-bottom-1 after:ml-2 after:content-[url('/verified-24x24.svg')]"
+          : "after:ml-1 after:content-[url('/verified-20x20.svg')]"
+      )}
+      onClick={() => onClick()}
+      onKeyDown={() => {}}
+      tabIndex={0}
+    >
+      {value}
+    </div>
+  );
+}
+
 export default function WalletAddressInput({
   blockchain,
   label,
@@ -36,7 +67,7 @@ export default function WalletAddressInput({
   const [copiedFromClipboard, setCopiedFromClipboard] = useState(false);
 
   const { networkEnv, networkEnvDisplayName } = useNetworkEnvironmentContext();
-  const { isSm } = useResponsive();
+  const { isMd } = useResponsive();
   useAutoResizeTextArea(textAreaRef.current, [addressInput, placeholder]);
 
   const validateAddressInput = (input: string): void => {
@@ -156,7 +187,7 @@ export default function WalletAddressInput({
             "cursor-pointer hover:bg-dark-200 active:dark-btn-pressed":
               !disabled,
           })}
-          disableTooltip={disabled || !isSm} // Disable tooltip for mobile
+          disableTooltip={disabled || !isMd} // Disable tooltip for mobile
         >
           <FiClipboard
             size={20}
@@ -218,34 +249,5 @@ export default function WalletAddressInput({
         {error.message && !disabled ? error.message : ""}
       </span>
     </>
-  );
-}
-
-/**
- * Displays wallet address with verified badge
- * Acts like a 'clone' for textarea, since ::after pseudo doesnt work for textarea
- * When displayed, textarea is hidden
- */
-function AddressWithVerifiedBadge({
-  value,
-  onClick,
-}: {
-  value: string;
-  onClick: () => void;
-}): JSX.Element {
-  const { isLg } = useResponsive();
-  return (
-    <div
-      aria-hidden="true"
-      className={clsx(
-        "relative mr-10 w-full break-all bg-transparent text-sm text-dark-1000 after:absolute focus:outline-none lg:text-xl",
-        isLg
-          ? "after:-bottom-1 after:ml-2 after:content-[url('/verified-24x24.svg')]"
-          : "after:ml-1 after:content-[url('/verified-20x20.svg')]"
-      )}
-      onClick={() => onClick()}
-    >
-      {value}
-    </div>
   );
 }

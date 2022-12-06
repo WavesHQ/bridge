@@ -23,20 +23,60 @@ export const networks = [
     icon: "/tokens/Ethereum.svg",
     tokens: [
       {
-        tokenA: { name: "wBTC", icon: "/tokens/wBTC.svg", supply: "19255432" },
-        tokenB: { name: "dBTC", icon: "/tokens/dBTC.svg", supply: "17625543" },
+        tokenA: {
+          name: "wBTC",
+          symbol: "BTC",
+          icon: "/tokens/wBTC.svg",
+          supply: "1925543.1234",
+        },
+        tokenB: {
+          name: "dBTC",
+          symbol: "BTC",
+          icon: "/tokens/dBTC.svg",
+          supply: "1925543.1234",
+        },
       },
       {
-        tokenA: { name: "USDT", icon: "/tokens/USDT.svg", supply: "213123" },
-        tokenB: { name: "dUSDT", icon: "/tokens/dUSDT.svg", supply: "130992" },
+        tokenA: {
+          name: "USDT",
+          symbol: "USDT",
+          icon: "/tokens/USDT.svg",
+          supply: "6503681021.125",
+        },
+        tokenB: {
+          name: "dUSDT",
+          symbol: "USDT",
+          icon: "/tokens/dUSDT.svg",
+          supply: "6503681021.125",
+        },
       },
       {
-        tokenA: { name: "USDC", icon: "/tokens/USDC.svg", supply: "2310.4352" },
-        tokenB: { name: "dUSDC", icon: "/tokens/dUSDC.svg", supply: "2818.21" },
+        tokenA: {
+          name: "USDC",
+          symbol: "USDC",
+          icon: "/tokens/USDC.svg",
+          supply: "43666178314.768",
+        },
+        tokenB: {
+          name: "dUSDC",
+          symbol: "USDC",
+          icon: "/tokens/dUSDC.svg",
+          supply: "43666178314.768",
+        },
       },
       {
-        tokenA: { name: "ETH", icon: "/tokens/ETH.svg", supply: "523289.9012" },
-        tokenB: { name: "dETH", icon: "/tokens/dETH.svg", supply: "131104.12" },
+        tokenA: {
+          name: "ETH",
+          symbol: "ETH",
+          icon: "/tokens/ETH.svg",
+          supply: "120052901.9012",
+        },
+        tokenB: {
+          name: "dETH",
+          symbol: "ETH",
+          icon: "/tokens/dETH.svg",
+          supply: "120052901.9012",
+        },
       },
     ],
   },
@@ -45,20 +85,60 @@ export const networks = [
     icon: "/tokens/DeFichain.svg",
     tokens: [
       {
-        tokenA: { name: "dBTC", icon: "/tokens/dBTC.svg", supply: "17625543" },
-        tokenB: { name: "wBTC", icon: "/tokens/wBTC.svg", supply: "19255432" },
+        tokenA: {
+          name: "dBTC",
+          symbol: "BTC",
+          icon: "/tokens/dBTC.svg",
+          supply: "1801245.4321",
+        },
+        tokenB: {
+          name: "wBTC",
+          symbol: "BTC",
+          icon: "/tokens/wBTC.svg",
+          supply: "1801245.4321",
+        },
       },
       {
-        tokenA: { name: "dUSDT", icon: "/tokens/dUSDT.svg", supply: "130992" },
-        tokenB: { name: "USDT", icon: "/tokens/USDT.svg", supply: "213123" },
+        tokenA: {
+          name: "dUSDT",
+          symbol: "USDT",
+          icon: "/tokens/dUSDT.svg",
+          supply: "5903681123.781",
+        },
+        tokenB: {
+          name: "USDT",
+          symbol: "USDT",
+          icon: "/tokens/USDT.svg",
+          supply: "5903681123.781",
+        },
       },
       {
-        tokenA: { name: "dUSDC", icon: "/tokens/dUSDC.svg", supply: "2818.21" },
-        tokenB: { name: "USDC", icon: "/tokens/USDC.svg", supply: "2310.4352" },
+        tokenA: {
+          name: "dUSDC",
+          symbol: "USDC",
+          icon: "/tokens/dUSDC.svg",
+          supply: "33777178314.091",
+        },
+        tokenB: {
+          name: "USDC",
+          symbol: "USDC",
+          icon: "/tokens/USDC.svg",
+          supply: "33777178314.091",
+        },
       },
       {
-        tokenA: { name: "dETH", icon: "/tokens/dETH.svg", supply: "131104.12" },
-        tokenB: { name: "ETH", icon: "/tokens/ETH.svg", supply: "523289.9012" },
+        tokenA: {
+          name: "dETH",
+          symbol: "ETH",
+          icon: "/tokens/dETH.svg",
+          supply: "107732901.8210",
+        },
+        tokenB: {
+          name: "ETH",
+          symbol: "ETH",
+          icon: "/tokens/ETH.svg",
+          supply: "107732901.8210",
+        },
       },
     ],
   },

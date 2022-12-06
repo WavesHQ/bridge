@@ -5,11 +5,33 @@ import BigNumber from "bignumber.js";
 import { networks, useNetworkContext } from "@contexts/NetworkContext";
 import { Network, SelectionType, TokensI, NetworkOptionsI } from "types";
 import { QuickInputCard } from "./commons/QuickInputCard";
-import { InputSelector } from "./InputSelector";
-import { SwitchIcon } from "./icons/SwitchIcon";
-import { ArrowDownIcon } from "./icons/ArrowDownIcon";
+import InputSelector from "./InputSelector";
+import SwitchIcon from "./icons/SwitchIcon";
+import ArrowDownIcon from "./icons/ArrowDownIcon";
 import NumericFormat from "./commons/NumericFormat";
 import WalletAddressInput from "./WalletAddressInput";
+import DailyLimit from "./DailyLimit";
+
+function SwitchButton({ onClick }: { onClick: () => void }) {
+  return (
+    <div className="my-8 flex flex-row">
+      <div className="mt-6 flex w-full flex-1 justify-between border-t border-dark-300 border-opacity-50" />
+      <button
+        type="button"
+        onClick={onClick}
+        className="dark-card-bg dark-bg-card-section group flex h-12 w-12 items-center justify-center rounded-full"
+      >
+        <div className="hidden group-hover:hidden lg:block">
+          <ArrowDownIcon size={24} className="fill-dark-700" />
+        </div>
+        <div className="group-hover:block lg:hidden">
+          <SwitchIcon size={24} className="fill-dark-700" />
+        </div>
+      </button>
+      <div className="mt-6 flex w-full flex-1 justify-between border-t border-dark-300 border-opacity-50" />
+    </div>
+  );
+}
 
 export default function BridgeForm() {
   const {
@@ -72,7 +94,7 @@ export default function BridgeForm() {
   };
 
   return (
-    <div className="w-full sm:w-[calc(100%+2px)] lg:w-full dark-card-bg-image p-6 md:pt-8 pb-16 lg:p-12 rounded-lg border border-dark-200 backdrop-blur-[18px]">
+    <div className="w-full md:w-[calc(100%+2px)] lg:w-full dark-card-bg-image p-6 md:pt-8 pb-16 lg:p-12 rounded-lg lg:rounded-xl border border-dark-200 backdrop-blur-[18px]">
       <div className="flex flex-row items-center" ref={reference}>
         <div className="w-1/2">
           <InputSelector
@@ -161,7 +183,9 @@ export default function BridgeForm() {
       </div>
       <div className="flex flex-row justify-between items-center px-4 lg:px-5">
         <div className="flex flex-row items-center">
-          <span className="text-xs text-dark-700 lg:text-base">Fees</span>
+          <span className="text-dark-700 text-xs lg:text-base font-semibold md:font-normal">
+            Fees
+          </span>
           {/* TODO add onclick info */}
           <button type="button">
             <FiInfo size={16} className="ml-2 text-dark-700" />
@@ -175,6 +199,9 @@ export default function BridgeForm() {
           suffix={` ${selectedTokensA.tokenA.name}`}
         />
       </div>
+      <div className="block md:hidden px-5 mt-4">
+        <DailyLimit />
+      </div>
       <div className="mt-8 px-6 md:mt-6 md:px-4 lg:mt-16 lg:mb-0 lg:px-[88px]">
         <button
           type="button"
@@ -183,27 +210,6 @@ export default function BridgeForm() {
           Connect wallet
         </button>
       </div>
-    </div>
-  );
-}
-
-function SwitchButton({ onClick }: { onClick: () => void }) {
-  return (
-    <div className="my-8 flex flex-row">
-      <div className="mt-6 flex w-full flex-1 justify-between border-t border-dark-300 border-opacity-50" />
-      <button
-        type="button"
-        onClick={onClick}
-        className="dark-card-bg dark-bg-card-section group flex h-12 w-12 items-center justify-center rounded-full"
-      >
-        <div className="hidden group-hover:hidden lg:block">
-          <ArrowDownIcon size={24} className="fill-dark-700" />
-        </div>
-        <div className="group-hover:block lg:hidden">
-          <SwitchIcon size={24} className="fill-dark-700" />
-        </div>
-      </button>
-      <div className="mt-6 flex w-full flex-1 justify-between border-t border-dark-300 border-opacity-50" />
     </div>
   );
 }

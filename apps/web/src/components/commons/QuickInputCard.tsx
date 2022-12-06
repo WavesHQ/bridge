@@ -11,6 +11,14 @@ interface QuickInputCardProps {
   disabled?: boolean;
 }
 
+interface SetAmountButtonProps {
+  type: AmountButtonTypes;
+  onClick: (amount: string) => void;
+  amount: BigNumber;
+  hasBorder?: boolean;
+  disabled?: boolean;
+}
+
 export enum AmountButtonTypes {
   TwentyFive = "25%",
   Half = "50%",
@@ -22,6 +30,54 @@ export enum TransactionCardStatus {
   Default,
   Active,
   Error,
+}
+
+function SetAmountButton({
+  type,
+  onClick,
+  amount,
+  hasBorder,
+  disabled,
+}: SetAmountButtonProps): JSX.Element {
+  const decimalPlace = 8;
+  let value = amount.toFixed(decimalPlace);
+  switch (type) {
+    case AmountButtonTypes.TwentyFive:
+      value = amount.multipliedBy(0.25).toFixed(decimalPlace);
+      break;
+    case AmountButtonTypes.Half:
+      value = amount.multipliedBy(0.5).toFixed(decimalPlace);
+      break;
+    case AmountButtonTypes.SeventyFive:
+      value = amount.multipliedBy(0.75).toFixed(decimalPlace);
+      break;
+    case AmountButtonTypes.Max:
+    default:
+      value = amount.toFixed(decimalPlace);
+      break;
+  }
+
+  return (
+    <button
+      type="button"
+      className={clsx(
+        "w-full bg-dark-700 hover:hover-text-gradient-1 bg-clip-text",
+        {
+          "border-r-[0.5px] border-dark-300/50": hasBorder,
+        }
+      )}
+      onClick={(): void => {
+        onClick(value);
+      }}
+      disabled={disabled}
+    >
+      <div className="py-1 lg:py-1.5">
+        <span className="font-semibold text-base lg:text-lg text-transparent">
+          {type}
+        </span>
+      </div>
+    </button>
+  );
 }
 
 export function QuickInputCard({
@@ -77,61 +133,5 @@ export function QuickInputCard({
         )}
       </div>
     </div>
-  );
-}
-
-interface SetAmountButtonProps {
-  type: AmountButtonTypes;
-  onClick: (amount: string) => void;
-  amount: BigNumber;
-  hasBorder?: boolean;
-  disabled?: boolean;
-}
-
-function SetAmountButton({
-  type,
-  onClick,
-  amount,
-  hasBorder,
-  disabled,
-}: SetAmountButtonProps): JSX.Element {
-  const decimalPlace = 8;
-  let value = amount.toFixed(decimalPlace);
-  switch (type) {
-    case AmountButtonTypes.TwentyFive:
-      value = amount.multipliedBy(0.25).toFixed(decimalPlace);
-      break;
-    case AmountButtonTypes.Half:
-      value = amount.multipliedBy(0.5).toFixed(decimalPlace);
-      break;
-    case AmountButtonTypes.SeventyFive:
-      value = amount.multipliedBy(0.75).toFixed(decimalPlace);
-      break;
-    case AmountButtonTypes.Max:
-    default:
-      value = amount.toFixed(decimalPlace);
-      break;
-  }
-
-  return (
-    <button
-      type="button"
-      className={clsx(
-        "w-full bg-dark-700 hover:hover-text-gradient-1 bg-clip-text",
-        {
-          "border-r-[0.5px] border-dark-300/50": hasBorder,
-        }
-      )}
-      onClick={(): void => {
-        onClick(value);
-      }}
-      disabled={disabled}
-    >
-      <div className="py-1 lg:py-1.5">
-        <span className="font-semibold text-base lg:text-lg text-transparent">
-          {type}
-        </span>
-      </div>
-    </button>
   );
 }

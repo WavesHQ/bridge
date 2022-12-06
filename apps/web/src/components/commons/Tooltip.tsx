@@ -29,11 +29,13 @@ export default function Tooltip({
 
   return (
     <div
-      aria-hidden="true"
+      role="button"
       className={clsx("relative inline-block rounded-full p-1", containerClass)}
       onMouseEnter={showTooltip}
       onMouseLeave={hideTooltip}
       onMouseDown={hideTooltip}
+      onKeyDown={() => {}}
+      tabIndex={0}
     >
       {children}
       {!disableTooltip && active && (
