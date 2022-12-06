@@ -7,7 +7,7 @@ import { fromAddress } from "@defichain/jellyfish-address";
 import { useNetworkEnvironmentContext } from "@contexts/NetworkEnvironmentContext";
 import useResponsive from "@hooks/useResponsive";
 import useAutoResizeTextArea from "@hooks/useAutoResizeTextArea";
-import { Network } from "types";
+import { Network, NetworkAddressToken } from "types";
 import Tooltip from "./commons/Tooltip";
 import EnvironmentNetworkSwitch from "./EnvironmentNetworkSwitch";
 
@@ -15,12 +15,8 @@ interface Props {
   blockchain: Network;
   label: string;
   disabled?: boolean;
+  setHasAddressInputErr: (isInvalid: boolean) => void;
 }
-
-const blockchainNameMap: Record<Network, string> = {
-  DeFiChain: "DeFiChain",
-  Ethereum: "ERC20",
-};
 
 /**
  * Displays wallet address with verified badge
@@ -57,6 +53,7 @@ export default function WalletAddressInput({
   blockchain,
   label,
   disabled = false,
+  setHasAddressInputErr,
 }: Props): JSX.Element {
   const [addressInput, setAddressInput] = useState<string>("");
   const [isValidAddress, setIsValidAddress] = useState(false);
@@ -104,7 +101,7 @@ export default function WalletAddressInput({
   };
 
   useEffect(() => {
-    const displayedName = blockchainNameMap[blockchain];
+    const displayedName = NetworkAddressToken[blockchain];
     if (networkEnv === "testnet" && blockchain === Network.DeFiChain) {
       setPlaceholder(
         `Enter ${displayedName} (${networkEnvDisplayName}) address`
@@ -129,10 +126,12 @@ export default function WalletAddressInput({
     const hasInvalidInput = !!(addressInput && !isValidAddress);
     if (hasInvalidInput) {
       const dfiNetwork = isDeFiChain ? ` ${networkEnvDisplayName}` : "";
-      message = `Use correct address for ${blockchainNameMap[blockchain]}${dfiNetwork}`;
+      message = `Use correct address for ${NetworkAddressToken[blockchain]}${dfiNetwork}`;
+      setHasAddressInputErr(true);
     } else {
       const isTestnet = isDeFiChain && networkEnv === "testnet";
       message = isTestnet ? "Make sure to only use TestNet for testing" : "";
+      setHasAddressInputErr(false);
     }
     setError({ message, isError: hasInvalidInput });
   }, [addressInput, isValidAddress, blockchain, networkEnv]);

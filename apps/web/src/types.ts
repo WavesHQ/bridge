@@ -7,6 +7,11 @@ export enum Network {
   DeFiChain = "DeFiChain",
 }
 
+export enum NetworkAddressToken {
+  Ethereum = "ERC20",
+  DeFiChain = "DeFiChain",
+}
+
 export type NetworkEnvironment = "mainnet" | "testnet";
 
 export interface TokenDetailI {
