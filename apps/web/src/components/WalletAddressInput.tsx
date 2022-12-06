@@ -15,7 +15,9 @@ interface Props {
   blockchain: Network;
   label: string;
   disabled?: boolean;
-  setHasAddressInputErr: (isInvalid: boolean) => void;
+  addressInput: string;
+  onAddressInputChange: (address: string) => void;
+  onAddressInputError: (hasError: boolean) => void;
 }
 
 /**
@@ -53,9 +55,10 @@ export default function WalletAddressInput({
   blockchain,
   label,
   disabled = false,
-  setHasAddressInputErr,
+  addressInput,
+  onAddressInputChange,
+  onAddressInputError,
 }: Props): JSX.Element {
-  const [addressInput, setAddressInput] = useState<string>("");
   const [isValidAddress, setIsValidAddress] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -82,7 +85,7 @@ export default function WalletAddressInput({
     if (disabled) return;
     const copiedText = await navigator.clipboard.readText();
     if (copiedText) {
-      setAddressInput(copiedText);
+      onAddressInputChange(copiedText);
       setCopiedFromClipboard(true);
     }
   };
@@ -109,7 +112,7 @@ export default function WalletAddressInput({
     } else {
       setPlaceholder(`Enter ${displayedName} address`);
     }
-    setAddressInput(""); // Reset input on network change
+    onAddressInputChange(""); // Reset input on network change
   }, [blockchain, networkEnv]);
 
   useEffect(() => {
@@ -127,13 +130,12 @@ export default function WalletAddressInput({
     if (hasInvalidInput) {
       const dfiNetwork = isDeFiChain ? ` ${networkEnvDisplayName}` : "";
       message = `Use correct address for ${NetworkAddressToken[blockchain]}${dfiNetwork}`;
-      setHasAddressInputErr(true);
     } else {
       const isTestnet = isDeFiChain && networkEnv === "testnet";
       message = isTestnet ? "Make sure to only use TestNet for testing" : "";
-      setHasAddressInputErr(false);
     }
     setError({ message, isError: hasInvalidInput });
+    onAddressInputError(!addressInput || !isValidAddress);
   }, [addressInput, isValidAddress, blockchain, networkEnv]);
 
   useEffect(() => {
@@ -217,7 +219,7 @@ export default function WalletAddressInput({
           value={addressInput}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          onChange={(e) => setAddressInput(e.target.value)}
+          onChange={(e) => onAddressInputChange(e.target.value)}
           onKeyPress={(e) => {
             if (e.key === "Enter") e.preventDefault();
           }}
@@ -231,7 +233,7 @@ export default function WalletAddressInput({
             size={20}
             className="ml-4 mr-1 shrink-0 cursor-pointer fill-dark-500"
             onMouseDown={() => {
-              setAddressInput("");
+              onAddressInputChange("");
               handleFocusWithCursor();
             }}
           />

@@ -26,6 +26,18 @@
     rgba(46, 46, 46, 0.95) -0.38%,
     rgba(18, 18, 18, 0.95) 100.17%
   );
+  --ui-dark-cta-hover: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15)
+    ),
+    #ffffff;
+  --ui-dark-cta-pressed: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
+    ),
+    #ffffff;
 
   /* Light mode UI colors */
   --ui-light-card-bg: linear-gradient(
@@ -47,7 +59,7 @@
   );
 
   --ui-dark-gradient-3: linear-gradient(
-    144deg, 
+    144deg,
     rgba(29, 29, 29, 0.3) -0.38%,
     rgba(28, 28, 28, 0.3) 100.17%,
     rgba(28, 28, 28, 0.3) 100.17%
@@ -132,6 +144,12 @@ body {
     background: linear-gradient(#000000, #000000) padding-box,
       var(--accent-gradient-1) border-box;
   }
+  .dark-cta-hover {
+    background: var(--ui-dark-cta-hover);
+  }
+  .dark-cta-pressed {
+    background: var(--ui-dark-cta-pressed);
+  }
 
   /* To style :before of element and add gradient border with transparent background */
   .dark-gradient-2 {
@@ -172,7 +190,7 @@ body {
     background: var(--ui-dark-gradient-3);
   }
   .hover-text-gradient-1 {
-    background-image: linear-gradient(90deg, #FF00FF 0%, #EC0C8D 100.04%)
+    background-image: linear-gradient(90deg, #ff00ff 0%, #ec0c8d 100.04%);
   }
 }
 

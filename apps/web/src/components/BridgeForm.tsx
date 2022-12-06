@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAccount, useBalance } from "wagmi";
 import { shift, autoUpdate, size, useFloating } from "@floating-ui/react-dom";
+import { ConnectKitButton } from "connectkit";
 import BigNumber from "bignumber.js";
 import { networks, useNetworkContext } from "@contexts/NetworkContext";
 import {
@@ -53,10 +54,11 @@ export default function BridgeForm() {
 
   const [amount, setAmount] = useState<string>("");
   const [amountErr, setAmountErr] = useState<string>("");
+  const [addressInput, setAddressInput] = useState<string>("");
   const [hasAddressInputErr, setHasAddressInputErr] = useState<boolean>(false);
 
   const { address, isConnected } = useAccount();
-  const { data } = useBalance({ address: address });
+  const { data } = useBalance({ address });
   const maxAmount = new BigNumber(data?.formatted ?? 0);
 
   const switchNetwork = () => {
@@ -74,6 +76,10 @@ export default function BridgeForm() {
       }
       setAmountErr(err);
     }
+  };
+
+  const onTransferTokens = (): void => {
+    /* TODO: Handle token transfer here */
   };
 
   const { y, reference, floating, strategy, refs } = useFloating({
@@ -188,8 +194,10 @@ export default function BridgeForm() {
         <WalletAddressInput
           label="Address"
           blockchain={selectedNetworkB.name as Network}
+          addressInput={addressInput}
+          onAddressInputChange={(addrInput) => setAddressInput(addrInput)}
+          onAddressInputError={(hasError) => setHasAddressInputErr(hasError)}
           disabled={!isConnected}
-          setHasAddressInputErr={setHasAddressInputErr}
         />
       </div>
       <div className="flex flex-row justify-between items-center px-4 lg:px-5">
@@ -215,15 +223,20 @@ export default function BridgeForm() {
       <div className="block md:hidden px-5 mt-4">
         <DailyLimit />
       </div>
-      <div className="mt-8 px-6 md:mt-6 md:px-4 lg:mt-16 lg:mb-0 lg:px-[88px]">
-        <ActionButton
-          label={
-            isConnected
-              ? `Transfer to ${NetworkAddressToken[selectedNetworkB.name]}`
-              : "Connect wallet"
-          }
-          disabled={!isConnected || !!amountErr || hasAddressInputErr}
-        />
+      <div className="mt-8 px-6 md:mt-6 md:px-4 lg:mt-16 lg:mb-0 lg:px-0 xl:px-20">
+        <ConnectKitButton.Custom>
+          {({ show }) => (
+            <ActionButton
+              label={
+                isConnected
+                  ? `Transfer to ${NetworkAddressToken[selectedNetworkB.name]}`
+                  : "Connect wallet"
+              }
+              disabled={!!amountErr || hasAddressInputErr}
+              onClick={!isConnected ? show : onTransferTokens}
+            />
+          )}
+        </ConnectKitButton.Custom>
       </div>
     </div>
   );
