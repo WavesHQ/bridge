@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useAccount } from "wagmi";
 import { TokenDetailI } from "types";
 import truncateTextFromMiddle from "@utils/textHelper";
 import { useNetworkContext } from "@contexts/NetworkContext";
@@ -7,7 +8,6 @@ import useResponsive from "@hooks/useResponsive";
 import NumericFormat from "./commons/NumericFormat";
 import BrLogo from "./icons/BrLogo";
 import DailyLimit from "./DailyLimit";
-import { mockWallet } from "./Header";
 import IconTooltip from "./commons/IconTooltip";
 
 function TokenSupplyItem({ token }: { token: TokenDetailI }) {
@@ -38,20 +38,18 @@ function TokenSupplyItem({ token }: { token: TokenDetailI }) {
 export default function ProofOfAssetsCard() {
   const { isMd, isLg } = useResponsive();
   const { selectedTokensA, selectedTokensB } = useNetworkContext();
+  const { address } = useAccount();
 
   return (
     <div className="h-full md:h-auto relative w-full md:dark-card-bg-image md:rounded-lg lg:rounded-xl md:border md:border-dark-200 md:backdrop-blur-[18px] md:px-6 md:pt-6 lg:px-8 lg:pt-8">
       <span className="hidden md:block text-lg lg:text-2xl font-semibold leading-6 lg:leading-9 tracking-wide text-dark-900">
         Proof of assets
       </span>
-      <Link
-        href={`/address/${mockWallet.address}`}
-        className="focus:outline-none"
-      >
+      <Link href={`/address/${address ?? ""}`} className="focus:outline-none">
         <div className="text-sm md:text-xs lg:text-sm text-valid break-all pr-[76px] md:pr-0 hover:underline">
           {isMd
-            ? truncateTextFromMiddle(mockWallet.address, isLg ? 16 : 10)
-            : mockWallet.address}
+            ? truncateTextFromMiddle(address ?? "", isLg ? 16 : 10)
+            : address}
         </div>
       </Link>
       <div className="flex items-center mt-5 lg:mt-6">
