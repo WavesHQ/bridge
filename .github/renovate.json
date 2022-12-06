@@ -33,6 +33,10 @@
     {
       "matchPackagePatterns": ["^@birthdayresearch/contented"],
       "groupName": "@birthdayresearch/contented"
+    },
+    {
+      "matchPackagePatterns": ["^@birthdayresearch/sticky-"],
+      "groupName": "@birthdayresearch/sticky"
     }
   ]
 }
