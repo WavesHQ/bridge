@@ -97,7 +97,7 @@ importers:
       postcss: ^8.4.19
       sass: ^1.56.1
       tailwindcss: ^3.2.4
-      wagmi: ^0.8.9
+      wagmi: ^0.8.10
     dependencies:
       '@babel/types': 7.20.5
       '@floating-ui/react-dom': 1.0.1_biqbaboplfbrettd7655fr4n2y
@@ -3781,6 +3781,7 @@ packages:
 
   /@types/node/18.11.10:
     resolution: {integrity: sha512-juG3RWMBOqcOuXC643OAdSA525V44cVgGV6dUDuiFtss+8Fk5x1hI93Rsld43VeJVIeqlP9I7Fn9/qaVqoEAuQ==}
+    dev: true
 
   /@types/node/18.11.11:
     resolution: {integrity: sha512-KJ021B1nlQUBLopzZmPBVuGU9un7WJd/W4ya7Ih02B4Uwky5Nja0yGYav2EfYIk0RR2Q9oVhf60S2XR1BCWJ2g==}
@@ -3796,7 +3797,7 @@ packages:
   /@types/pbkdf2/3.1.0:
     resolution: {integrity: sha512-Cf63Rv7jCQ0LaL8tNXmEyqTHuIJxRdlS5vMh1mj5voN4+QFhVZnlZruezqpWYDiJ8UTzhP0VmeLXCmBk66YrMQ==}
     dependencies:
-      '@types/node': 18.11.10
+      '@types/node': 18.11.11
     dev: false
 
   /@types/prettier/2.7.1:
@@ -3836,7 +3837,7 @@ packages:
   /@types/secp256k1/4.0.3:
     resolution: {integrity: sha512-Da66lEIFeIz9ltsdMZcpQvmrmmoqrfju8pm1BH8WbYjZSwUgCwXLb9C+9XYogwBITnbsSaMdVPb2ekf7TV+03w==}
     dependencies:
-      '@types/node': 18.11.10
+      '@types/node': 18.11.11
     dev: false
 
   /@types/semver/7.3.13:
@@ -3878,7 +3879,7 @@ packages:
   /@types/ws/7.4.7:
     resolution: {integrity: sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==}
     dependencies:
-      '@types/node': 18.11.10
+      '@types/node': 18.11.11
     dev: false
 
   /@types/yargs-parser/21.0.0:
@@ -3906,7 +3907,7 @@ packages:
     resolution: {integrity: sha512-Cn6WYCm0tXv8p6k+A8PvbDG763EDpBoTzHdA+Q/MF6H3sapGjCm9NzoaJncJS9tUKSuCoDs9XHxYYsQDgxR6kw==}
     requiresBuild: true
     dependencies:
-      '@types/node': 18.11.10
+      '@types/node': 18.11.11
     dev: true
     optional: true
 
@@ -12859,7 +12860,7 @@ packages:
     resolution: {integrity: sha512-DI7/OuAUD+GMpR6dmu8lliO2Wg5zfeh+/xsdyJZCzd8o5JgFUjCeLsBDuZjIQJdwXS3J0L/uZYrELKYqx+PXog==}
     engines: {node: '>=8.0'}
     dependencies:
-      '@types/node': 18.11.10
+      '@types/node': 18.11.11
       image-ssim: 0.2.0
       jpeg-js: 0.4.4
     dev: true
