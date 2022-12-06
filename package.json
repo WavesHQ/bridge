@@ -17,6 +17,9 @@
     "lint": "turbo run lint",
     "format": "prettier --write ."
   },
+  "dependencies": {
+    "@defichain/jellyfish-address": "^3.5.2"
+  },
   "devDependencies": {
     "@birthdayresearch/sticky-turbo": "^0.3.1",
     "husky": "^8.0.2",

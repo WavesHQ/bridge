@@ -34,7 +34,7 @@ function Base({ children }: PropsWithChildren<any>): JSX.Element | null {
   }, []);
 
   return (
-    <div className="bg-dark-00 flex min-h-screen flex-col antialiased">
+    <div className="flex min-h-screen flex-col bg-dark-00 antialiased">
       <Head>
         <base href="/" />
         <meta name="application-name" content={appName} />

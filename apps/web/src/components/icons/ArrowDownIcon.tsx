@@ -3,7 +3,7 @@ interface ArrowDownIconProps {
   size: number;
 }
 
-export function ArrowDownIcon({
+export default function ArrowDownIcon({
   className,
   size = 24,
 }: ArrowDownIconProps): JSX.Element {

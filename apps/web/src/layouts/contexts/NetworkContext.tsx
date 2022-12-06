@@ -6,7 +6,7 @@ import React, {
   PropsWithChildren,
   useEffect,
 } from "react";
-import { NetworkOptionsI, TokensI } from "types";
+import { Network, NetworkOptionsI, TokensI } from "types";
 
 interface NetworkContextI {
   selectedNetworkA: NetworkOptionsI;
@@ -19,7 +19,7 @@ interface NetworkContextI {
 
 export const networks = [
   {
-    name: "Ethereum",
+    name: Network.Ethereum,
     icon: "/tokens/Ethereum.svg",
     tokens: [
       {
@@ -81,7 +81,7 @@ export const networks = [
     ],
   },
   {
-    name: "DeFiChain",
+    name: Network.DeFiChain,
     icon: "/tokens/DeFichain.svg",
     tokens: [
       {
@@ -154,12 +154,14 @@ export function NetworkProvider({
   children,
 }: PropsWithChildren<{}>): JSX.Element | null {
   const [defaultNetworkA, defaultNetworkB] = networks;
-  const [selectedNetworkA, setSelectedNetworkA] = useState(defaultNetworkA);
-  const [selectedTokensA, setSelectedTokensA] = useState(
+  const [selectedNetworkA, setSelectedNetworkA] =
+    useState<NetworkOptionsI>(defaultNetworkA);
+  const [selectedTokensA, setSelectedTokensA] = useState<TokensI>(
     defaultNetworkA.tokens[0]
   );
-  const [selectedNetworkB, setSelectedNetworkB] = useState(defaultNetworkB);
-  const [selectedTokensB, setSelectedTokensB] = useState(
+  const [selectedNetworkB, setSelectedNetworkB] =
+    useState<NetworkOptionsI>(defaultNetworkB);
+  const [selectedTokensB, setSelectedTokensB] = useState<TokensI>(
     defaultNetworkB.tokens[0]
   );
 

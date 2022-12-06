@@ -31,14 +31,14 @@ const SocialItems = [
 
 export default function Footer() {
   return (
-    <footer className="bg-dark-00 border-dark-300 relative z-[1] w-full border-t pb-8 pt-4 md:border-t-0 md:pb-12 md:pt-3">
+    <footer className="relative z-[1] w-full border-t border-dark-300 bg-dark-00 pb-8 pt-4 md:border-t-0 md:pb-12 md:pt-3">
       <Container className="px-5 md:px-12 lg:px-[120px]">
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-col md:flex-row">
-            <div className="text-dark-700 text-xs font-semibold">
+            <div className="text-xs font-semibold text-dark-700">
               Developed by&nbsp;
             </div>
-            <div className="text-dark-700 text-xs font-semibold">
+            <div className="text-xs font-semibold text-dark-700">
               Birthday Research
             </div>
           </div>

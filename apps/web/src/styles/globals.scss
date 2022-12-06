@@ -46,6 +46,13 @@
     rgba(18, 18, 18, 0.4) 100.17%
   );
 
+  --ui-dark-gradient-3: linear-gradient(
+    144deg, 
+    rgba(29, 29, 29, 0.3) -0.38%,
+    rgba(28, 28, 28, 0.3) 100.17%,
+    rgba(28, 28, 28, 0.3) 100.17%
+  );
+
   /* Accent gradients */
   --accent-gradient-1: linear-gradient(
     72.57deg,
@@ -149,6 +156,9 @@ body {
   .bg-dark-gradient-1 {
     background: var(--ui-dark-gradient-1);
   }
+  .bg-dark-image-gradient-1 {
+    background-image: var(--ui-dark-gradient-1);
+  }
   .bg-dark-gradient-2 {
     background: var(--ui-dark-gradient-2);
   }
@@ -157,6 +167,12 @@ body {
   }
   .dark-bg-card-section {
     background: var(--ui-dark-card-section);
+  }
+  .bg-dark-gradient-3 {
+    background: var(--ui-dark-gradient-3);
+  }
+  .hover-text-gradient-1 {
+    background-image: linear-gradient(90deg, #FF00FF 0%, #EC0C8D 100.04%)
   }
 }
 

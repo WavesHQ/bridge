@@ -3,7 +3,7 @@ interface SwitchIconProps {
   size: number;
 }
 
-export function SwitchIcon({
+export default function SwitchIcon({
   className,
   size = 24,
 }: SwitchIconProps): JSX.Element {

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { TokenDetailI } from "types";
-import { truncateTextFromMiddle } from "@utils/textHelper";
+import truncateTextFromMiddle from "@utils/textHelper";
 import { useNetworkContext } from "@contexts/NetworkContext";
 import useResponsive from "@hooks/useResponsive";
 import NumericFormat from "./commons/NumericFormat";
@@ -9,6 +9,31 @@ import BrLogo from "./icons/BrLogo";
 import DailyLimit from "./DailyLimit";
 import { mockWallet } from "./Header";
 import IconTooltip from "./commons/IconTooltip";
+
+function TokenSupplyItem({ token }: { token: TokenDetailI }) {
+  return (
+    <div className="flex flex-row items-center min-w-[45%] 2xl:min-w-[30%]">
+      <Image
+        width={100}
+        height={100}
+        src={token.icon}
+        alt={token.name}
+        className="w-7 h-7 md:w-5 md:h-5 lg:w-6 lg:h-6"
+      />
+      <span>
+        <NumericFormat
+          className="text-left text-dark-900 text-lg md:text-base lg:text-lg leading-5 lg:leading-6 tracking-[0.01em] lg:tracking-normal ml-2 lg:ml-1"
+          value={token.supply}
+          decimalScale={4}
+          thousandSeparator
+        />
+        <span className="text-xs lg:text-sm text-dark-900 ml-1">
+          {token.name}
+        </span>
+      </span>
+    </div>
+  );
+}
 
 export default function ProofOfAssetsCard() {
   const { isMd, isLg } = useResponsive();
@@ -51,31 +76,6 @@ export default function ProofOfAssetsCard() {
         <span className="text-xs text-dark-700 mr-2 lg:mr-3">Backed by</span>
         <BrLogo size={isLg ? 20 : 14} />
       </div>
-    </div>
-  );
-}
-
-function TokenSupplyItem({ token }: { token: TokenDetailI }) {
-  return (
-    <div className="flex flex-row items-center min-w-[45%] 2xl:min-w-[30%]">
-      <Image
-        width={100}
-        height={100}
-        src={token.icon}
-        alt={token.name}
-        className="w-7 h-7 md:w-5 md:h-5 lg:w-6 lg:h-6"
-      />
-      <span>
-        <NumericFormat
-          className="text-left text-dark-900 text-lg md:text-base lg:text-lg leading-5 lg:leading-6 tracking-[0.01em] lg:tracking-normal ml-2 lg:ml-1"
-          value={token.supply}
-          decimalScale={4}
-          thousandSeparator
-        />
-        <span className="text-xs lg:text-sm text-dark-900 ml-1">
-          {token.name}
-        </span>
-      </span>
     </div>
   );
 }
