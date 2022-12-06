@@ -37,7 +37,7 @@ export default function DailyLimit() {
         <div className="ml-2">
           <IconTooltip
             title="Daily Limit"
-            content="DeFi Bridge has a daily hard cap for each token pair. Once this limit is reached, you will not be able to transfer to DeFiChain or Ethereum until the next day."
+            content="DeFiChain Bridge has a daily hard cap for each token pair. Once this limit is reached, you will not be able to transfer to DeFiChain or Ethereum until the next day."
           />
         </div>
       </div>

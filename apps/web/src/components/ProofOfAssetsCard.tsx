@@ -61,7 +61,7 @@ export default function ProofOfAssetsCard() {
         <div className="ml-2">
           <IconTooltip
             title="Token Supply"
-            content="Token supply indicates the amount of liquidity currently available for a particular token pair on DeFi Bridge"
+            content="Token supply indicates the amount of liquidity currently available for a particular token pair on DeFiChain Bridge"
           />
         </div>
       </div>
