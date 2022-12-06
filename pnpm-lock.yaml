@@ -134,7 +134,7 @@ importers:
       '@birthdayresearch/sticky-turbo-jest': ^0.3.1
       '@birthdayresearch/sticky-typescript': ^0.3.1
       '@ethersproject/abi': 5.7.0
-      '@ethersproject/providers': 5.7.1
+      '@ethersproject/providers': 5.7.2
       '@nomicfoundation/hardhat-chai-matchers': 1.0.4
       '@nomiclabs/hardhat-ethers': 2.2.1
       '@typechain/ethers-v5': 10.1.1
@@ -156,11 +156,11 @@ importers:
       '@birthdayresearch/sticky-turbo-jest': 0.3.1_yxh5bmo56rl2ho3dno2tfcudzu
       '@birthdayresearch/sticky-typescript': 0.3.1
       '@ethersproject/abi': 5.7.0
-      '@ethersproject/providers': 5.7.1
+      '@ethersproject/providers': 5.7.2
       '@nomicfoundation/hardhat-chai-matchers': 1.0.4_3wn4v7ualgsx7y3vt2qsjnz3ui
       '@nomiclabs/hardhat-ethers': 2.2.1_rio3alvrwqjfrtzrxzvizw4x7e
-      '@typechain/ethers-v5': 10.1.1_a36ff5hmxnomwxalvi2b5uwl4q
-      '@typechain/hardhat': 6.1.3_5takv5g56x56klokoqbssmooaa
+      '@typechain/ethers-v5': 10.1.1_smufkffb6t7im2kajasb2dheve
+      '@typechain/hardhat': 6.1.3_ozn6se6tfw5reqv3ppzf5abzgm
       '@types/chai': 4.3.3
       '@types/mocha': 10.0.0
       base64-sol: 1.0.1
@@ -2054,34 +2054,6 @@ packages:
     resolution: {integrity: sha512-J87jy8suntrAkIZtecpxEPxY//szqr1mlBaYlQ0r4RCaiD2hjheqF9s1LVE8vVuJCXisjIP+JgtK/Do54ej4Sw==}
     dependencies:
       '@ethersproject/logger': 5.7.0
-
-  /@ethersproject/providers/5.7.1:
-    resolution: {integrity: sha512-vZveG/DLyo+wk4Ga1yx6jSEHrLPgmTt+dFv0dv8URpVCRf0jVhalps1jq/emN/oXnMRsC7cQgAF32DcXLL7BPQ==}
-    dependencies:
-      '@ethersproject/abstract-provider': 5.7.0
-      '@ethersproject/abstract-signer': 5.7.0
-      '@ethersproject/address': 5.7.0
-      '@ethersproject/base64': 5.7.0
-      '@ethersproject/basex': 5.7.0
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/constants': 5.7.0
-      '@ethersproject/hash': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/networks': 5.7.1
-      '@ethersproject/properties': 5.7.0
-      '@ethersproject/random': 5.7.0
-      '@ethersproject/rlp': 5.7.0
-      '@ethersproject/sha2': 5.7.0
-      '@ethersproject/strings': 5.7.0
-      '@ethersproject/transactions': 5.7.0
-      '@ethersproject/web': 5.7.1
-      bech32: 1.1.4
-      ws: 7.4.6
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-    dev: true
 
   /@ethersproject/providers/5.7.2:
     resolution: {integrity: sha512-g34EWZ1WWAVgr4aptGlVBF8mhl3VWjv+8hoAnzStu8Ah22VHBsuGzP17eb6xDVRzw895G4W7vvx60lFFur/1Rg==}
@@ -4108,7 +4080,7 @@ packages:
   /@tsconfig/node16/1.0.3:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
 
-  /@typechain/ethers-v5/10.1.1_a36ff5hmxnomwxalvi2b5uwl4q:
+  /@typechain/ethers-v5/10.1.1_smufkffb6t7im2kajasb2dheve:
     resolution: {integrity: sha512-o6nffJBxwmeX1ZiZpdnP/tqGd/7M7iYvQC88ZXaFFoyAGh7eYncynzVjOJV0XmaKzAc6puqyqZrnva+gJbk4sw==}
     peerDependencies:
       '@ethersproject/abi': ^5.0.0
@@ -4120,7 +4092,7 @@ packages:
     dependencies:
       '@ethersproject/abi': 5.7.0
       '@ethersproject/bytes': 5.7.0
-      '@ethersproject/providers': 5.7.1
+      '@ethersproject/providers': 5.7.2
       ethers: 5.7.2
       lodash: 4.17.21
       ts-essentials: 7.0.3_typescript@4.9.3
@@ -4128,7 +4100,7 @@ packages:
       typescript: 4.9.3
     dev: true
 
-  /@typechain/hardhat/6.1.3_5takv5g56x56klokoqbssmooaa:
+  /@typechain/hardhat/6.1.3_ozn6se6tfw5reqv3ppzf5abzgm:
     resolution: {integrity: sha512-e1H9MVl286ma0HuD9CBL248+pbdA7lWF6+I7FYwzykIrjilKhvLUv0Q7LtcyZztzgbP2g4Tyg1UPE+xy+qR7cA==}
     peerDependencies:
       '@ethersproject/abi': ^5.4.7
@@ -4139,8 +4111,8 @@ packages:
       typechain: ^8.1.0
     dependencies:
       '@ethersproject/abi': 5.7.0
-      '@ethersproject/providers': 5.7.1
-      '@typechain/ethers-v5': 10.1.1_a36ff5hmxnomwxalvi2b5uwl4q
+      '@ethersproject/providers': 5.7.2
+      '@typechain/ethers-v5': 10.1.1_smufkffb6t7im2kajasb2dheve
       ethers: 5.7.2
       fs-extra: 9.1.0
       hardhat: 2.12.0_2dtigtkb225m7ii7q45utxqwgi
