@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAccount } from "wagmi";
 import { shift, autoUpdate, size, useFloating } from "@floating-ui/react-dom";
 import BigNumber from "bignumber.js";
 import { networks, useNetworkContext } from "@contexts/NetworkContext";
@@ -42,7 +43,7 @@ export default function BridgeForm() {
     setSelectedNetworkA,
     setSelectedTokensA,
   } = useNetworkContext();
-
+  const { isConnected } = useAccount();
   const [amount, setAmount] = useState<string>("");
   const [amountErr, setAmountErr] = useState<string>("");
   // TODO remove hardcoded max amount
@@ -177,8 +178,7 @@ export default function BridgeForm() {
         <WalletAddressInput
           label="Address"
           blockchain={selectedNetworkB.name as Network}
-          /* TODO: disabled should be based on whether wallet is connected or not */
-          disabled={false}
+          disabled={!isConnected}
         />
       </div>
       <div className="flex flex-row justify-between items-center px-4 lg:px-5">
