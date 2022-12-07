@@ -1,7 +1,3 @@
-[build]
-publish = "apps/web/.next"
-command = "turbo run build:web"
-
 [[plugins]]
   package = "@netlify/plugin-lighthouse"
 
