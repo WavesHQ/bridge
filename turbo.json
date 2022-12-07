@@ -20,6 +20,10 @@
       "outputs": ["dist/**"],
       "dependsOn": ["^build", "generate:client", "generate:schema"]
     },
+    "web#build": {
+      "inputs": ["tsconfig.json", "tsconfig.build.json", "src/**"],
+      "outputs": []
+    },
     "build:docker": {
       "inputs": ["tsconfig.json", "tsconfig.build.json", "src/**"],
       "dependsOn": ["^build"]
