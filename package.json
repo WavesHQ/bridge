@@ -2,10 +2,6 @@
   "name": "bridge.defichain.com",
   "version": "0.0.0",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "scripts": {
     "prepare": "husky install",
     "write": "turbo run write",
@@ -19,7 +15,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@defichain/jellyfish-address": "^3.5.2"
+    "@waveshq/standard-defichain-jellyfishsdk": "^0.7.0"
   },
   "devDependencies": {
     "@birthdayresearch/sticky-turbo": "^0.3.1",
