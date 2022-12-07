@@ -1,9 +1,9 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigModule, registerAs } from '@nestjs/config';
 import { HardhatNetwork, HardhatNetworkContainer, StartedHardhatNetworkContainer } from 'smartcontracts';
-import { BridgeServerTestingApp } from 'src/BridgeServerTestingApp';
 
 import { AppModule } from '../src/AppModule';
+import { BridgeServerTestingApp } from '../src/BridgeServerTestingApp';
 
 @Module({})
 export class TestingExampleModule {
