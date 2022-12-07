@@ -21,7 +21,8 @@
       "dependsOn": ["^build", "generate:client", "generate:schema"]
     },
     "build:web": {
-      "inputs": ["tsconfig.json", "tsconfig.build.json", "src/**"]
+      "inputs": ["tsconfig.json", "tsconfig.build.json", "src/**"],
+      "outputs": [".next/**"]
     },
     "build:docker": {
       "inputs": ["tsconfig.json", "tsconfig.build.json", "src/**"],
