@@ -17,7 +17,7 @@
     },
     "build": {
       "inputs": ["tsconfig.json", "tsconfig.build.json", "src/**"],
-      "outputs": ["dist/**"],
+      "outputs": ["dist/**", ".next/**"],
       "dependsOn": ["^build", "generate:client", "generate:schema"]
     },
     "web#build": {
