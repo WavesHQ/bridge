@@ -59,7 +59,7 @@ export default function BridgeForm() {
 
   const { address, isConnected } = useAccount();
   const { data } = useBalance({ address });
-  const maxAmount = new BigNumber(data?.formatted ?? 0);
+  const maxAmount = new BigNumber(data?.formatted ?? 100); // TODO: Replace default 100 with 0 before release
 
   const switchNetwork = () => {
     setSelectedNetworkA(selectedNetworkB);
@@ -109,6 +109,9 @@ export default function BridgeForm() {
     y,
     floating,
   };
+
+  const isFormValid =
+    amount && new BigNumber(amount).gt(0) && !amountErr && !hasAddressInputErr;
 
   return (
     <div className="w-full md:w-[calc(100%+2px)] lg:w-full dark-card-bg-image p-6 md:pt-8 pb-16 lg:p-12 rounded-lg lg:rounded-xl border border-dark-200 backdrop-blur-[18px]">
@@ -232,7 +235,7 @@ export default function BridgeForm() {
                   ? `Transfer to ${NetworkAddressToken[selectedNetworkB.name]}`
                   : "Connect wallet"
               }
-              disabled={!!amountErr || hasAddressInputErr}
+              disabled={isConnected && !isFormValid}
               onClick={!isConnected ? show : onTransferTokens}
             />
           )}
