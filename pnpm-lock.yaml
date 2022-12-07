@@ -105,7 +105,7 @@ importers:
       postcss: ^8.4.19
       sass: ^1.56.1
       tailwindcss: ^3.2.4
-      wagmi: ^0.8.10
+      wagmi: ^0.9.0
     dependencies:
       '@babel/types': 7.20.5
       '@floating-ui/react-dom': 1.0.1_biqbaboplfbrettd7655fr4n2y
@@ -115,11 +115,11 @@ importers:
       axios: 1.2.1
       bignumber.js: 9.1.1
       clsx: 1.2.1
-      connectkit: 1.1.0_33z4fx6bbjz7jsqfochk5qwryy
+      connectkit: 1.1.0_vl537kptc7e55mvid5z2hehj3y
       dayjs: 1.11.7
       ethers: 5.7.2
       sass: 1.56.1
-      wagmi: 0.8.10_k24y3k3wvg2wr2zuthlm53kvlq
+      wagmi: 0.9.0_k24y3k3wvg2wr2zuthlm53kvlq
     devDependencies:
       '@cypress/code-coverage': 3.10.0_qph2n3asdhutqi3nmf2k55hhaa
       '@netlify/plugin-lighthouse': 4.0.3
@@ -4398,7 +4398,7 @@ packages:
   /@types/concat-stream/1.6.1:
     resolution: {integrity: sha512-eHE4cQPoj6ngxBZMvVf6Hw7Mh4jMW4U9lpGmS5GBPB9RYxlFg+CHaVN7ErNY4W9XfLIEn20b4VDYaIrbq0q4uA==}
     dependencies:
-      '@types/node': 8.10.66
+      '@types/node': 18.11.11
     dev: true
 
   /@types/connect/3.4.35:
@@ -4462,7 +4462,7 @@ packages:
   /@types/form-data/0.0.33:
     resolution: {integrity: sha512-8BSvG1kGm83cyJITQMZSulnl6QV8jqAGreJsc5tPu1Jq0vTSOiY/k24Wx82JRpWwZSqrala6sd5rWi6aNXvqcw==}
     dependencies:
-      '@types/node': 8.10.66
+      '@types/node': 18.11.11
     dev: true
 
   /@types/glob/7.2.0:
@@ -4835,10 +4835,14 @@ packages:
     resolution: {integrity: sha512-haGBC8noyA5BfjCRXRH+VIkHCDVW5iD5UX24P2nOdilwUxI4qWsattS/co8QBGq64XsNLRAMdM5pQUE3zxkF9Q==}
     dev: true
 
-  /@wagmi/core/0.7.9_5hvgmjn74qcngqzwitileagqei:
-    resolution: {integrity: sha512-97KCELUP5Q1AagRyE7SmpLh4/v3xdcy/XMbybLvvtQbgmi3y5oEzy4h/wJMY1hEZlmicqyWZAHHm6xIr1tP5HA==}
+  /@wagmi/chains/0.1.0:
+    resolution: {integrity: sha512-seQVLZRHG2id8xqG+VnieFQ2gdavwa5Do+90lxbm/5EqiBo0S9LPFns6BKsSjW8o8T6UnmqzqhZwd4Q6cz8fFg==}
+    dev: false
+
+  /@wagmi/core/0.8.0_5hvgmjn74qcngqzwitileagqei:
+    resolution: {integrity: sha512-249Iph7Z289ym2WQGtUHXSzUK4w/n33IYSAAIDpL4/csB7sOoAYAEAOH5bxH/x2KT7gPd1pNSgOWDzfoG3hI4w==}
     peerDependencies:
-      '@coinbase/wallet-sdk': '>=3.3.0'
+      '@coinbase/wallet-sdk': '>=3.6.0'
       '@walletconnect/ethereum-provider': '>=1.7.5'
       ethers: '>=5.5.1'
     peerDependenciesMeta:
@@ -4848,6 +4852,7 @@ packages:
         optional: true
     dependencies:
       '@coinbase/wallet-sdk': 3.6.2_yfpavxjksntwigdcm6lsx7mxbu
+      '@wagmi/chains': 0.1.0
       '@walletconnect/ethereum-provider': 1.8.0
       abitype: 0.1.8_typescript@4.9.3
       ethers: 5.7.2
@@ -7038,7 +7043,7 @@ packages:
       - supports-color
     dev: false
 
-  /connectkit/1.1.0_33z4fx6bbjz7jsqfochk5qwryy:
+  /connectkit/1.1.0_vl537kptc7e55mvid5z2hehj3y:
     resolution: {integrity: sha512-mPje78aAvRd+Fx736CkYx56W+h9WlmiVP2FR8Jurd256MFm2Du9eaDtZhGBSMPvqU9gVBMV2QZ+EMykoYlRp7Q==}
     engines: {node: '>=12.4'}
     peerDependencies:
@@ -7058,7 +7063,7 @@ packages:
       react-use-measure: 2.1.1_biqbaboplfbrettd7655fr4n2y
       resize-observer-polyfill: 1.5.1
       styled-components: 5.3.6_7i5myeigehqah43i5u7wbekgba
-      wagmi: 0.8.10_k24y3k3wvg2wr2zuthlm53kvlq
+      wagmi: 0.9.0_k24y3k3wvg2wr2zuthlm53kvlq
     transitivePeerDependencies:
       - react-is
     dev: false
@@ -16684,8 +16689,8 @@ packages:
     resolution: {integrity: sha512-gQpnTgkubC6hQgdIcRdYGDSDc+SaujOdyesZQMv6JlfQee/9Mp0Qhnys6WxDWvQnL5WZdT7o2Ul187aSt0Rq+w==}
     dev: false
 
-  /wagmi/0.8.10_k24y3k3wvg2wr2zuthlm53kvlq:
-    resolution: {integrity: sha512-svS/Debs6maJX3TlPDXNo+UDfZn8VCHzN2xcMMjPjcu2Z9k2iwFwC0TMLxM1itluzrTcw9n8F8E+f6gb+Aw+EQ==}
+  /wagmi/0.9.0_k24y3k3wvg2wr2zuthlm53kvlq:
+    resolution: {integrity: sha512-QTyAaAW/z7lls/q/ye/oveEr0Ak1aeyjEVaM64p0ciyGgLEtpYVNVUMycUblStUcYIxBTbJcFhCo+GxgnNH1Pw==}
     peerDependencies:
       ethers: '>=5.5.1'
       react: '>=17.0.0'
@@ -16694,7 +16699,7 @@ packages:
       '@tanstack/query-sync-storage-persister': 4.19.1_4qbjg4tlpn562ednaqke6w67yy
       '@tanstack/react-query': 4.19.1_cjpnlypd7k7kw5dzj4uskqoohq
       '@tanstack/react-query-persist-client': 4.19.1_ilghfa3hwmnddkjtrphmjaqzdq
-      '@wagmi/core': 0.7.9_5hvgmjn74qcngqzwitileagqei
+      '@wagmi/core': 0.8.0_5hvgmjn74qcngqzwitileagqei
       '@walletconnect/ethereum-provider': 1.8.0
       abitype: 0.1.8_typescript@4.9.3
       ethers: 5.7.2
