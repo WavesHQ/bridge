@@ -1,9 +1,9 @@
-import { NestFactory } from '@nestjs/core';
-
 import { AppModule } from './AppModule';
+import { BridgeServerApp } from './BridgeServerApp';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(5471);
+  const app = new BridgeServerApp(AppModule);
+  await app.start();
 }
+
 bootstrap();

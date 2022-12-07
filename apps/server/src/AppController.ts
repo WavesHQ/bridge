@@ -6,8 +6,8 @@ import { AppService } from './AppService';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('blockheight')
+  async getBlockHeight(): Promise<number> {
+    return this.appService.getBlockHeight();
   }
 }

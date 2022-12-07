@@ -21,32 +21,29 @@
     ]
   },
   "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "preset": "@birthdayresearch/sticky-turbo-jest",
+    "projects": [
+      {
+        "displayName": "test:i9n",
+        "preset": "@birthdayresearch/sticky-turbo-jest",
+        "testRegex": ".*\\.i9n\\.ts$"
+      }
+    ]
   },
   "dependencies": {
     "@nestjs/common": "^9.2.1",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.2.1",
-    "@nestjs/platform-express": "^9.2.1",
+    "@nestjs/platform-fastify": "^9.2.1",
     "class-validator": "^0.13.2",
     "pg": "^8.8.0",
-    "typeorm": "^0.3.11"
+    "typeorm": "^0.3.11",
+    "joi": "^17.7.0",
+    "nestjs-pino": "^3.1.1",
+    "ethers": "^5.7.2"
   },
   "devDependencies": {
+    "smartcontracts": "workspace:0.0.0",
     "@birthdayresearch/eslint-config": "^0.2.4",
     "@birthdayresearch/sticky-prettier": "^0.3.1",
     "@birthdayresearch/sticky-typescript": "^0.3.1",
