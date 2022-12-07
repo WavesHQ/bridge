@@ -16,7 +16,7 @@ export default function ActionButton({
     <button
       type="button"
       className={clsx(
-        `w-full rounded-[92px] bg-dark-1000 text-lg font-bold text-dark-100 p-3.5 md:px-2.5 lg:py-4 lg:px-8 xl:px-14 lg:text-xl lg:leading-8
+        `w-full flex items-center justify-center rounded-[92px] bg-dark-1000 text-lg font-bold text-dark-100 p-3.5 md:px-2.5 lg:py-4 lg:px-8 xl:px-14 lg:text-xl lg:leading-8
         hover:dark-cta-hover active:dark-cta-pressed disabled:opacity-30`,
         {
           "dark-cta-pressed": isLoading,
@@ -30,7 +30,7 @@ export default function ActionButton({
       {isLoading && (
         <RiLoader2Line
           size={24}
-          className="inline-block animate-spin text-dark-100"
+          className="inline-block animate-spin text-dark-100 ml-2"
         />
       )}
     </button>
