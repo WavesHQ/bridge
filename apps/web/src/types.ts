@@ -12,7 +12,11 @@ export enum NetworkAddressToken {
   DeFiChain = "DeFiChain",
 }
 
-export type NetworkEnvironment = "mainnet" | "testnet";
+export enum NetworkEnvironment {
+  mainnet = "mainnet",
+  testnet = "testnet",
+  local = "regtest",
+}
 
 export interface TokenDetailI {
   name: string;

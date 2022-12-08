@@ -4,23 +4,23 @@ importers:
 
   .:
     specifiers:
-      '@birthdayresearch/sticky-turbo': ^0.3.1
-      '@waveshq/standard-defichain-jellyfishsdk': ^0.7.1
+      '@birthdayresearch/sticky-turbo': ^0.3.2
+      '@waveshq/standard-defichain-jellyfishsdk': ^0.8.0
       husky: ^8.0.2
       lint-staged: ^13.1.0
     dependencies:
-      '@waveshq/standard-defichain-jellyfishsdk': 0.7.1
+      '@waveshq/standard-defichain-jellyfishsdk': 0.8.0
     devDependencies:
-      '@birthdayresearch/sticky-turbo': 0.3.1
+      '@birthdayresearch/sticky-turbo': 0.3.2
       husky: 8.0.2
       lint-staged: 13.1.0
 
   apps/server:
     specifiers:
       '@birthdayresearch/eslint-config': ^0.2.4
-      '@birthdayresearch/sticky-prettier': ^0.3.1
-      '@birthdayresearch/sticky-turbo-jest': ^0.3.1
-      '@birthdayresearch/sticky-typescript': ^0.3.1
+      '@birthdayresearch/sticky-prettier': ^0.3.2
+      '@birthdayresearch/sticky-turbo-jest': ^0.3.2
+      '@birthdayresearch/sticky-typescript': ^0.3.2
       '@nestjs/cli': ^9.1.5
       '@nestjs/common': ^9.2.1
       '@nestjs/config': ^2.2.0
@@ -59,9 +59,9 @@ importers:
       typeorm: 0.3.11_pg@8.8.0+ts-node@10.9.1
     devDependencies:
       '@birthdayresearch/eslint-config': 0.2.4_typescript@4.9.3
-      '@birthdayresearch/sticky-prettier': 0.3.1
-      '@birthdayresearch/sticky-turbo-jest': 0.3.1_yxh5bmo56rl2ho3dno2tfcudzu
-      '@birthdayresearch/sticky-typescript': 0.3.1
+      '@birthdayresearch/sticky-prettier': 0.3.2
+      '@birthdayresearch/sticky-turbo-jest': 0.3.2_yxh5bmo56rl2ho3dno2tfcudzu
+      '@birthdayresearch/sticky-typescript': 0.3.2
       '@nestjs/cli': 9.1.5
       '@nestjs/schematics': 9.0.3_typescript@4.9.3
       '@nestjs/testing': 9.2.1_hjcqpoaebdr7gdo5hgc22hthbe
@@ -90,8 +90,8 @@ importers:
       '@tailwindcss/typography': ^0.5.8
       '@testing-library/cypress': ^8.0.7
       '@types/node': 18.11.11
-      '@waveshq/standard-web': ^0.7.1
-      '@waveshq/standard-web-linter': ^0.7.1
+      '@waveshq/standard-web': ^0.8.0
+      '@waveshq/standard-web-linter': ^0.8.0
       autoprefixer: ^10.4.13
       axios: ^1.2.1
       babel-plugin-istanbul: ^6.1.1
@@ -111,7 +111,7 @@ importers:
       '@floating-ui/react-dom': 1.0.1_biqbaboplfbrettd7655fr4n2y
       '@headlessui/react': 1.7.4_biqbaboplfbrettd7655fr4n2y
       '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.4
-      '@waveshq/standard-web': 0.7.1_dj4i3p2lb3xu5tg3pyrtmeqn4u
+      '@waveshq/standard-web': 0.8.0_dj4i3p2lb3xu5tg3pyrtmeqn4u
       axios: 1.2.1
       bignumber.js: 9.1.1
       clsx: 1.2.1
@@ -127,7 +127,7 @@ importers:
       '@tailwindcss/typography': 0.5.8_tailwindcss@3.2.4
       '@testing-library/cypress': 8.0.7_cypress@12.0.1
       '@types/node': 18.11.11
-      '@waveshq/standard-web-linter': 0.7.1_23tzj4nhcmtlzyysjvr4xi2e3u
+      '@waveshq/standard-web-linter': 0.8.0_23tzj4nhcmtlzyysjvr4xi2e3u
       autoprefixer: 10.4.13_postcss@8.4.19
       babel-plugin-istanbul: 6.1.1
       babel-plugin-jsx-remove-data-test-id: 3.0.0_@babel+core@7.20.5
@@ -138,9 +138,9 @@ importers:
   packages/smartcontracts:
     specifiers:
       '@birthdayresearch/eslint-config': ^0.3.1
-      '@birthdayresearch/sticky-testcontainers': ^0.3.1
-      '@birthdayresearch/sticky-turbo-jest': ^0.3.1
-      '@birthdayresearch/sticky-typescript': ^0.3.1
+      '@birthdayresearch/sticky-testcontainers': ^0.3.2
+      '@birthdayresearch/sticky-turbo-jest': ^0.3.2
+      '@birthdayresearch/sticky-typescript': ^0.3.2
       '@ethersproject/abi': 5.7.0
       '@ethersproject/providers': 5.7.2
       '@nomicfoundation/hardhat-chai-matchers': 1.0.5
@@ -160,9 +160,9 @@ importers:
       ts-node: 10.9.1
     devDependencies:
       '@birthdayresearch/eslint-config': 0.3.1_typescript@4.9.3
-      '@birthdayresearch/sticky-testcontainers': 0.3.1
-      '@birthdayresearch/sticky-turbo-jest': 0.3.1_yxh5bmo56rl2ho3dno2tfcudzu
-      '@birthdayresearch/sticky-typescript': 0.3.1
+      '@birthdayresearch/sticky-testcontainers': 0.3.2
+      '@birthdayresearch/sticky-turbo-jest': 0.3.2_yxh5bmo56rl2ho3dno2tfcudzu
+      '@birthdayresearch/sticky-typescript': 0.3.2
       '@ethersproject/abi': 5.7.0
       '@ethersproject/providers': 5.7.2
       '@nomicfoundation/hardhat-chai-matchers': 1.0.5_5p4lbxg4ssvv5rhtg6az37ozvy
@@ -1603,8 +1603,8 @@ packages:
       - typescript
     dev: true
 
-  /@birthdayresearch/sticky-jest/0.3.1_yxh5bmo56rl2ho3dno2tfcudzu:
-    resolution: {integrity: sha512-23GRx+Bp5X8e3DcrGDbOPuI3sf6kZDSHGaZPIdsns0yp0laXVGQ8zDhnCVLyb8AUc92aCRoPz+DkW+T/h6/H1g==}
+  /@birthdayresearch/sticky-jest/0.3.2_yxh5bmo56rl2ho3dno2tfcudzu:
+    resolution: {integrity: sha512-zj9GFKnaewKccLcrwPukS1AHv4sHIcLr6J9cVyW2gPmrkxTghQhb5zKhRVb9yl9rL3zxxytMptxcTlGdei3wpw==}
     dependencies:
       '@types/jest': 29.2.4
       jest: 29.3.1_k7quxe733nexnlgzi4yxvxoplq
@@ -1623,8 +1623,8 @@ packages:
       - typescript
     dev: true
 
-  /@birthdayresearch/sticky-prettier/0.3.1:
-    resolution: {integrity: sha512-zLGQG+sguIO8Ncf5JEGMwXPAEmEWUOP6KrEImO86qm9I0t6Zg9QBYfYBn+Eek1sa0leOCelt9vWNr035fNMSmQ==}
+  /@birthdayresearch/sticky-prettier/0.3.2:
+    resolution: {integrity: sha512-xvAHpeVoA3VE+OcCeBzEyXslSvelIU31wYrT3Xp2kzySUK0LHcd07VfyZqcykK0kyAr/8jX9retjYbthSNqXUA==}
     dependencies:
       husky: 8.0.2
       lint-staged: 13.1.0
@@ -1635,8 +1635,8 @@ packages:
       - supports-color
     dev: true
 
-  /@birthdayresearch/sticky-testcontainers/0.3.1:
-    resolution: {integrity: sha512-4rYphnEgr+d6uS5FLRldoye/Pjf9dY8v0zr/G9tNBtlMQuPE1EgqQGQ/Xp8KKg416m8FIe9eW6Mm24Cfz/mVvQ==}
+  /@birthdayresearch/sticky-testcontainers/0.3.2:
+    resolution: {integrity: sha512-GzZKfabOC9ZknCQD/O4fzaHkaoe22oHFUg6/RbsiRe+cstoKVSpPxNr84dibHNt9iva1oMPcxaoj4CtbImrdnQ==}
     dependencies:
       testcontainers: 9.0.1
       uuid: 9.0.0
@@ -1644,11 +1644,11 @@ packages:
       - supports-color
     dev: true
 
-  /@birthdayresearch/sticky-turbo-jest/0.3.1_yxh5bmo56rl2ho3dno2tfcudzu:
-    resolution: {integrity: sha512-8she0oAJg6unYsfQh8AKSdmG/goA0XFUoyoCQkr7cFeMeH/nYxntfHVuffv9eFM4WOcIPc1Y8Cee+VHJiyHEow==}
+  /@birthdayresearch/sticky-turbo-jest/0.3.2_yxh5bmo56rl2ho3dno2tfcudzu:
+    resolution: {integrity: sha512-PoWiti3rO8sSddm/zwuF2crF2EIxeehh745NPY1WryhQh1bCGBBp31g4RFhXP+orm+zHMxQBbJIhM6MRT7kV3A==}
     dependencies:
-      '@birthdayresearch/sticky-jest': 0.3.1_yxh5bmo56rl2ho3dno2tfcudzu
-      '@birthdayresearch/sticky-turbo': 0.3.1
+      '@birthdayresearch/sticky-jest': 0.3.2_yxh5bmo56rl2ho3dno2tfcudzu
+      '@birthdayresearch/sticky-turbo': 0.3.2
     transitivePeerDependencies:
       - '@babel/core'
       - '@jest/types'
@@ -1661,14 +1661,14 @@ packages:
       - typescript
     dev: true
 
-  /@birthdayresearch/sticky-turbo/0.3.1:
-    resolution: {integrity: sha512-hrYfK+A6fu81+ANUsh2O1TLQpRuKRllGd0N5A4oUIKfb7DwQ76P1HGd4cuFTQ7t36M1PvW5D3tAmXfzHOG7iHA==}
+  /@birthdayresearch/sticky-turbo/0.3.2:
+    resolution: {integrity: sha512-9YM2AMXRIkHkav3rPOF4PG4aNJMmp6/ZdL38/SZe4MPeEypsnBDyx+pprFm6froW5joy0JrRJKELX9Qhj0xknw==}
     dependencies:
       turbo: 1.6.3
     dev: true
 
-  /@birthdayresearch/sticky-typescript/0.3.1:
-    resolution: {integrity: sha512-O4Pw6NbtbkpT2z8avqtKm4OuifND9cTzp4+PPucwlmN2S1fHVED4O27cH0aU0dspFrTEZu6g+9dWl1mudSVzQA==}
+  /@birthdayresearch/sticky-typescript/0.3.2:
+    resolution: {integrity: sha512-EtGrAO7EvvfncbIwbq6VQPI0pNZCVj+xJCsMbN+OK/SLhJ0Jmgd4NFsAiKYdCjT4evWu9QhHF4u8djV5IE0KHQ==}
     dependencies:
       typescript: 4.7.4
     dev: true
@@ -4398,7 +4398,7 @@ packages:
   /@types/concat-stream/1.6.1:
     resolution: {integrity: sha512-eHE4cQPoj6ngxBZMvVf6Hw7Mh4jMW4U9lpGmS5GBPB9RYxlFg+CHaVN7ErNY4W9XfLIEn20b4VDYaIrbq0q4uA==}
     dependencies:
-      '@types/node': 8.10.66
+      '@types/node': 18.11.11
     dev: true
 
   /@types/connect/3.4.35:
@@ -4462,7 +4462,7 @@ packages:
   /@types/form-data/0.0.33:
     resolution: {integrity: sha512-8BSvG1kGm83cyJITQMZSulnl6QV8jqAGreJsc5tPu1Jq0vTSOiY/k24Wx82JRpWwZSqrala6sd5rWi6aNXvqcw==}
     dependencies:
-      '@types/node': 8.10.66
+      '@types/node': 18.11.11
     dev: true
 
   /@types/glob/7.2.0:
@@ -5063,8 +5063,8 @@ packages:
       '@walletconnect/window-getters': 1.0.0
     dev: false
 
-  /@waveshq/standard-defichain-jellyfishsdk/0.7.1:
-    resolution: {integrity: sha512-9UJ7XfRH608fAorFVXZ+MqOB689f4eIrEaYf0U5f3y+9fP+iEhDR+b3wuBbY6dA7qT8wrA0KKENaKtDc0D6fjA==}
+  /@waveshq/standard-defichain-jellyfishsdk/0.8.0:
+    resolution: {integrity: sha512-GUX5wnj/Y7x/a8/DF/WFf5IfyM7cKMflUQWCJIsWGLHXjnV8JwQwfn36SS5B5cyHw94T+dzPgZGhr1MOWedilw==}
     dependencies:
       '@defichain/jellyfish-address': 3.5.3_defichain@3.5.3
       '@defichain/jellyfish-api-core': 3.5.3_defichain@3.5.3
@@ -5082,8 +5082,8 @@ packages:
       - encoding
     dev: false
 
-  /@waveshq/standard-web-linter/0.7.1_23tzj4nhcmtlzyysjvr4xi2e3u:
-    resolution: {integrity: sha512-etiivCPf6g54PqSnzQOZ5LzeoiL/JbHbn/BZP6AOs+vH6FNImoiGhX9N0uS67suVr3HbU5HPUYVpDEKlrYnb9Q==}
+  /@waveshq/standard-web-linter/0.8.0_23tzj4nhcmtlzyysjvr4xi2e3u:
+    resolution: {integrity: sha512-BWWTrl801NGMWvJZosVdhVzFLVL8JJHCV83WvMQ0HRlbzr1JNs5k1jefA7S+XrHomMWcZhuglVNbHze7iHP3SQ==}
     dependencies:
       eslint: 8.29.0
       eslint-config-airbnb: 19.0.4_u6r7wmyqgznou2plc6ye67x2ku
@@ -5118,8 +5118,8 @@ packages:
       - supports-color
     dev: true
 
-  /@waveshq/standard-web/0.7.1_dj4i3p2lb3xu5tg3pyrtmeqn4u:
-    resolution: {integrity: sha512-BsOGarD8dGPktXTDUggRw17Ze/0qrY4+qAdpuk97FEMUWgfWEZr9bojsotBW1xv4DVzyrcoITt1bLNpaw2JYEw==}
+  /@waveshq/standard-web/0.8.0_dj4i3p2lb3xu5tg3pyrtmeqn4u:
+    resolution: {integrity: sha512-9kuQYrUVNiw6Ai8Cd9KGJ7v929RILI9uVfvgPOZDoV4d+1IJBTiEQi9il5r0A7sHCamqzkITjD+T8yaBBxbcig==}
     dependencies:
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.9
@@ -9654,7 +9654,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.4
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
@@ -10776,7 +10776,7 @@ packages:
     dependencies:
       '@babel/core': 7.20.5
       '@istanbuljs/schema': 0.1.3
-      istanbul-lib-coverage: 3.0.0
+      istanbul-lib-coverage: 3.2.0
       semver: 6.3.0
     transitivePeerDependencies:
       - supports-color
@@ -10811,7 +10811,7 @@ packages:
     resolution: {integrity: sha512-wcdi+uAKzfiGT2abPpKZ0hSU1rGQjUQnLvtY5MpQ7QCTahD3VODhcu4wcfY1YtkGaDD5yuydOLINXsfbus9ROw==}
     engines: {node: '>=8'}
     dependencies:
-      istanbul-lib-coverage: 3.0.0
+      istanbul-lib-coverage: 3.2.0
       make-dir: 3.1.0
       supports-color: 7.2.0
     dev: true
@@ -12994,7 +12994,7 @@ packages:
       foreground-child: 2.0.0
       get-package-type: 0.1.0
       glob: 7.2.3
-      istanbul-lib-coverage: 3.0.0
+      istanbul-lib-coverage: 3.2.0
       istanbul-lib-hook: 3.0.0
       istanbul-lib-instrument: 4.0.3
       istanbul-lib-processinfo: 2.0.3

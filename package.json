@@ -15,10 +15,10 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@waveshq/standard-defichain-jellyfishsdk": "^0.7.1"
+    "@waveshq/standard-defichain-jellyfishsdk": "^0.8.0"
   },
   "devDependencies": {
-    "@birthdayresearch/sticky-turbo": "^0.3.1",
+    "@birthdayresearch/sticky-turbo": "^0.3.2",
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0"
   },

@@ -8,7 +8,7 @@ import { fromAddress } from "@defichain/jellyfish-address";
 import { useNetworkEnvironmentContext } from "@contexts/NetworkEnvironmentContext";
 import useResponsive from "@hooks/useResponsive";
 import useAutoResizeTextArea from "@hooks/useAutoResizeTextArea";
-import { Network, NetworkAddressToken } from "types";
+import { Network, NetworkAddressToken, NetworkEnvironment } from "types";
 import Tooltip from "./commons/Tooltip";
 import EnvironmentNetworkSwitch from "./EnvironmentNetworkSwitch";
 
@@ -133,8 +133,14 @@ export default function WalletAddressInput({
       const dfiNetwork = isDeFiChain ? ` ${networkEnvDisplayName}` : "";
       message = `Use correct address for ${NetworkAddressToken[blockchain]}${dfiNetwork}`;
     } else {
-      const isTestnet = isDeFiChain && networkEnv === "testnet";
-      message = isTestnet ? "Make sure to only use TestNet for testing" : "";
+      const isTestnet =
+        isDeFiChain &&
+        [NetworkEnvironment.testnet, NetworkEnvironment.local].includes(
+          networkEnv
+        );
+      message = isTestnet
+        ? `Make sure to only use ${networkEnvDisplayName} for testing`
+        : "";
     }
     setError({ message, isError: hasInvalidInput });
     onAddressInputError(!addressInput || !isValidAddress);
