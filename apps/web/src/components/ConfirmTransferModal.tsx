@@ -108,7 +108,7 @@ export default function ConfirmTransferModal({
     selectedTokensB,
   } = useNetworkContext();
   const { address } = useAccount();
-  const { isMd } = useResponsive();
+  const { isMobile } = useResponsive();
 
   const data = {
     from: {
@@ -128,12 +128,11 @@ export default function ConfirmTransferModal({
       amount: new BigNumber(amount),
     },
   };
-  console.log({ data, amount, isMd });
 
   return (
     <Dialog as="div" className="relative z-10" open={show} onClose={onClose}>
       <Dialog.Panel className="transform transition-all fixed inset-0 bg-dark-00 bg-opacity-70 backdrop-blur-[18px]">
-        <div className="w-full h-full md:w-[626px] md:h-auto md:translate-y-[20vh] dark-card-bg-image md:rounded-xl md:border border-dark-card-stroke backdrop-blur-[18px] m-auto px-6 py-8 md:p-8 md:pb-16">
+        <div className="relative w-full h-full md:w-[626px] md:h-auto md:top-1/2 md:-translate-y-1/2 dark-card-bg-image md:rounded-xl md:border border-dark-card-stroke backdrop-blur-[18px] m-auto px-6 pt-8 pb-12 md:p-8 md:pb-16 overflow-auto">
           <Dialog.Title
             as="div"
             className="flex items-center justify-between mb-8 md:mb-6"
@@ -142,7 +141,7 @@ export default function ConfirmTransferModal({
               Transfer
             </h3>
             <FiXCircle
-              size={!isMd ? 24 : 28}
+              size={isMobile ? 24 : 28}
               className="text-dark-900 cursor-pointer hover:opacity-70 text-2xl md:text-[28px]"
               onClick={onClose}
             />
@@ -167,7 +166,7 @@ export default function ConfirmTransferModal({
               value={0}
               decimalScale={2}
               thousandSeparator
-              suffix={` DFI`}
+              suffix=" DFI" // TODO: Create hook to get fee based on source/destination
             />
           </div>
 
@@ -198,7 +197,7 @@ export default function ConfirmTransferModal({
           </div>
 
           {/* Note */}
-          <div className="flex items-center dark-bg-card-section rounded-[8px] mt-4 px-4 py-3">
+          <div className="flex items-center dark-bg-card-section rounded-[8px] mt-20 md:mt-4 px-4 py-3">
             <FiAlertTriangle size={20} className="shrink-0 text-dark-500" />
             <span className="text-xs text-dark-700 ml-3">
               Make sure that your Destination address and details are correct.
@@ -208,7 +207,7 @@ export default function ConfirmTransferModal({
 
           {/* Action */}
           <div className="px-6 py-8 md:px-[72px] md:pt-16 md:pb-0">
-            <ActionButton label="Confirm transfer on wallet" />
+            <ActionButton label="Confirm transfer" />
           </div>
         </div>
       </Dialog.Panel>

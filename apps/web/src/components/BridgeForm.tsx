@@ -221,7 +221,7 @@ export default function BridgeForm() {
           value={0}
           decimalScale={2}
           thousandSeparator
-          suffix={` ${selectedTokensA.tokenA.name}`}
+          suffix=" DFI" // TODO: Create hook to get fee based on source/destination
         />
       </div>
       <div className="block md:hidden px-5 mt-4">

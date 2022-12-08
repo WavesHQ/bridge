@@ -69,7 +69,7 @@ export default function WalletAddressInput({
 
   const { isConnected } = useAccount();
   const { networkEnv, networkEnvDisplayName } = useNetworkEnvironmentContext();
-  const { isMd } = useResponsive();
+  const { isMobile } = useResponsive();
   useAutoResizeTextArea(textAreaRef.current, [addressInput, placeholder]);
 
   const validateAddressInput = (input: string): void => {
@@ -196,7 +196,7 @@ export default function WalletAddressInput({
             "cursor-pointer hover:bg-dark-200 active:dark-btn-pressed":
               !disabled,
           })}
-          disableTooltip={disabled || !isMd} // Disable tooltip for mobile
+          disableTooltip={disabled || isMobile} // Disable tooltip for mobile
         >
           <FiClipboard
             size={20}
