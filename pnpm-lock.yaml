@@ -5,11 +5,11 @@ importers:
   .:
     specifiers:
       '@birthdayresearch/sticky-turbo': ^0.3.1
-      '@waveshq/standard-defichain-jellyfishsdk': ^0.7.1
+      '@waveshq/standard-defichain-jellyfishsdk': ^0.8.0
       husky: ^8.0.2
       lint-staged: ^13.1.0
     dependencies:
-      '@waveshq/standard-defichain-jellyfishsdk': 0.7.1
+      '@waveshq/standard-defichain-jellyfishsdk': 0.8.0
     devDependencies:
       '@birthdayresearch/sticky-turbo': 0.3.1
       husky: 8.0.2
@@ -90,8 +90,8 @@ importers:
       '@tailwindcss/typography': ^0.5.8
       '@testing-library/cypress': ^8.0.7
       '@types/node': 18.11.11
-      '@waveshq/standard-web': ^0.7.1
-      '@waveshq/standard-web-linter': ^0.7.1
+      '@waveshq/standard-web': ^0.8.0
+      '@waveshq/standard-web-linter': ^0.8.0
       autoprefixer: ^10.4.13
       axios: ^1.2.1
       babel-plugin-istanbul: ^6.1.1
@@ -111,7 +111,7 @@ importers:
       '@floating-ui/react-dom': 1.0.1_biqbaboplfbrettd7655fr4n2y
       '@headlessui/react': 1.7.4_biqbaboplfbrettd7655fr4n2y
       '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.4
-      '@waveshq/standard-web': 0.7.1_dj4i3p2lb3xu5tg3pyrtmeqn4u
+      '@waveshq/standard-web': 0.8.0_dj4i3p2lb3xu5tg3pyrtmeqn4u
       axios: 1.2.1
       bignumber.js: 9.1.1
       clsx: 1.2.1
@@ -127,7 +127,7 @@ importers:
       '@tailwindcss/typography': 0.5.8_tailwindcss@3.2.4
       '@testing-library/cypress': 8.0.7_cypress@12.0.1
       '@types/node': 18.11.11
-      '@waveshq/standard-web-linter': 0.7.1_23tzj4nhcmtlzyysjvr4xi2e3u
+      '@waveshq/standard-web-linter': 0.8.0_23tzj4nhcmtlzyysjvr4xi2e3u
       autoprefixer: 10.4.13_postcss@8.4.19
       babel-plugin-istanbul: 6.1.1
       babel-plugin-jsx-remove-data-test-id: 3.0.0_@babel+core@7.20.5
@@ -3287,7 +3287,7 @@ packages:
       chalk: 4.1.2
       destr: 1.2.2
       execa: 5.1.1
-      follow-redirects: 1.15.2_debug@4.3.4
+      follow-redirects: 1.15.2
       fs-extra: 10.1.0
       globby: 11.1.0
       merge-stream: 2.0.0
@@ -4398,7 +4398,7 @@ packages:
   /@types/concat-stream/1.6.1:
     resolution: {integrity: sha512-eHE4cQPoj6ngxBZMvVf6Hw7Mh4jMW4U9lpGmS5GBPB9RYxlFg+CHaVN7ErNY4W9XfLIEn20b4VDYaIrbq0q4uA==}
     dependencies:
-      '@types/node': 8.10.66
+      '@types/node': 18.11.11
     dev: true
 
   /@types/connect/3.4.35:
@@ -4462,7 +4462,7 @@ packages:
   /@types/form-data/0.0.33:
     resolution: {integrity: sha512-8BSvG1kGm83cyJITQMZSulnl6QV8jqAGreJsc5tPu1Jq0vTSOiY/k24Wx82JRpWwZSqrala6sd5rWi6aNXvqcw==}
     dependencies:
-      '@types/node': 8.10.66
+      '@types/node': 18.11.11
     dev: true
 
   /@types/glob/7.2.0:
@@ -5063,8 +5063,8 @@ packages:
       '@walletconnect/window-getters': 1.0.0
     dev: false
 
-  /@waveshq/standard-defichain-jellyfishsdk/0.7.1:
-    resolution: {integrity: sha512-9UJ7XfRH608fAorFVXZ+MqOB689f4eIrEaYf0U5f3y+9fP+iEhDR+b3wuBbY6dA7qT8wrA0KKENaKtDc0D6fjA==}
+  /@waveshq/standard-defichain-jellyfishsdk/0.8.0:
+    resolution: {integrity: sha512-GUX5wnj/Y7x/a8/DF/WFf5IfyM7cKMflUQWCJIsWGLHXjnV8JwQwfn36SS5B5cyHw94T+dzPgZGhr1MOWedilw==}
     dependencies:
       '@defichain/jellyfish-address': 3.5.3_defichain@3.5.3
       '@defichain/jellyfish-api-core': 3.5.3_defichain@3.5.3
@@ -5082,8 +5082,8 @@ packages:
       - encoding
     dev: false
 
-  /@waveshq/standard-web-linter/0.7.1_23tzj4nhcmtlzyysjvr4xi2e3u:
-    resolution: {integrity: sha512-etiivCPf6g54PqSnzQOZ5LzeoiL/JbHbn/BZP6AOs+vH6FNImoiGhX9N0uS67suVr3HbU5HPUYVpDEKlrYnb9Q==}
+  /@waveshq/standard-web-linter/0.8.0_23tzj4nhcmtlzyysjvr4xi2e3u:
+    resolution: {integrity: sha512-BWWTrl801NGMWvJZosVdhVzFLVL8JJHCV83WvMQ0HRlbzr1JNs5k1jefA7S+XrHomMWcZhuglVNbHze7iHP3SQ==}
     dependencies:
       eslint: 8.29.0
       eslint-config-airbnb: 19.0.4_u6r7wmyqgznou2plc6ye67x2ku
@@ -5118,8 +5118,8 @@ packages:
       - supports-color
     dev: true
 
-  /@waveshq/standard-web/0.7.1_dj4i3p2lb3xu5tg3pyrtmeqn4u:
-    resolution: {integrity: sha512-BsOGarD8dGPktXTDUggRw17Ze/0qrY4+qAdpuk97FEMUWgfWEZr9bojsotBW1xv4DVzyrcoITt1bLNpaw2JYEw==}
+  /@waveshq/standard-web/0.8.0_dj4i3p2lb3xu5tg3pyrtmeqn4u:
+    resolution: {integrity: sha512-9kuQYrUVNiw6Ai8Cd9KGJ7v929RILI9uVfvgPOZDoV4d+1IJBTiEQi9il5r0A7sHCamqzkITjD+T8yaBBxbcig==}
     dependencies:
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.9
@@ -5855,7 +5855,7 @@ packages:
   /axios/0.21.4:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.15.2_debug@4.3.4
+      follow-redirects: 1.15.2
     transitivePeerDependencies:
       - debug
     dev: false
@@ -5863,7 +5863,7 @@ packages:
   /axios/1.2.1:
     resolution: {integrity: sha512-I88cFiGu9ryt/tfVEi4kX2SITsvDddTajXTOFmt2uK1ZVA8LytjtdeyefdQWEf5PU8w+4SSJDoYnggflB5tW4A==}
     dependencies:
-      follow-redirects: 1.15.2_debug@4.3.4
+      follow-redirects: 1.15.2
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -9266,7 +9266,7 @@ packages:
     engines: {node: '>=0.4.0'}
     dev: false
 
-  /follow-redirects/1.15.2_debug@4.3.4:
+  /follow-redirects/1.15.2:
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
     engines: {node: '>=4.0'}
     peerDependencies:
@@ -9274,8 +9274,6 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
-    dependencies:
-      debug: 4.3.4
 
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -9654,7 +9652,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.4
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
@@ -15116,7 +15114,7 @@ packages:
     dependencies:
       command-exists: 1.2.9
       commander: 3.0.2
-      follow-redirects: 1.15.2_debug@4.3.4
+      follow-redirects: 1.15.2
       fs-extra: 0.30.0
       js-sha3: 0.8.0
       memorystream: 0.3.1
