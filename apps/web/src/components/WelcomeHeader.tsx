@@ -1,5 +1,6 @@
 import { FiBook, FiHelpCircle } from "react-icons/fi";
 import IconTooltip from "./commons/IconTooltip";
+import { CONSORTIUM_INFO } from "../constants";
 
 export default function WelcomeHeader() {
   return (
@@ -17,8 +18,8 @@ export default function WelcomeHeader() {
         </span>
         <button type="button" className="ml-1 align-middle">
           <IconTooltip
-            title="DeFiChain Consortium"
-            content="DeFiChain members that have been given the rights to mint and burn the Tokenized Assets on DeFiChain."
+            title={CONSORTIUM_INFO.title}
+            content={CONSORTIUM_INFO.content}
           />
         </button>
       </div>

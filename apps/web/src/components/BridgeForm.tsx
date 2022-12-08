@@ -20,6 +20,8 @@ import WalletAddressInput from "./WalletAddressInput";
 import DailyLimit from "./DailyLimit";
 import IconTooltip from "./commons/IconTooltip";
 import ActionButton from "./commons/ActionButton";
+import ConfirmTransferModal from "./ConfirmTransferModal";
+import { FEES_INFO } from "../constants";
 
 function SwitchButton({ onClick }: { onClick: () => void }) {
   return (
@@ -56,6 +58,7 @@ export default function BridgeForm() {
   const [amountErr, setAmountErr] = useState<string>("");
   const [addressInput, setAddressInput] = useState<string>("");
   const [hasAddressInputErr, setHasAddressInputErr] = useState<boolean>(false);
+  const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
 
   const { address, isConnected } = useAccount();
   const { data } = useBalance({ address });
@@ -80,6 +83,7 @@ export default function BridgeForm() {
 
   const onTransferTokens = (): void => {
     /* TODO: Handle token transfer here */
+    setShowConfirmModal(true);
   };
 
   const { y, reference, floating, strategy, refs } = useFloating({
@@ -209,10 +213,7 @@ export default function BridgeForm() {
             Fees
           </span>
           <div className="ml-2">
-            <IconTooltip
-              title="Fees"
-              content="Fees to cover the cost of transactions on DeFiChain and Ethereum networks. For more information, visit our user guide."
-            />
+            <IconTooltip title={FEES_INFO.title} content={FEES_INFO.content} />
           </div>
         </div>
         <NumericFormat
@@ -241,6 +242,12 @@ export default function BridgeForm() {
           )}
         </ConnectKitButton.Custom>
       </div>
+      <ConfirmTransferModal
+        show={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        amount={amount}
+        toAddress={addressInput}
+      />
     </div>
   );
 }

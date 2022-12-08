@@ -4,6 +4,7 @@ import BigNumber from "bignumber.js";
 import IconTooltip from "./commons/IconTooltip";
 import NumericFormat from "./commons/NumericFormat";
 import ProgressBar from "./commons/ProgressBar";
+import { DAILY_LIMIT_INFO } from "../constants";
 
 const DAILY_CAP = {
   dailyLimit: 25,
@@ -36,8 +37,8 @@ export default function DailyLimit() {
         </span>
         <div className="ml-2">
           <IconTooltip
-            title="Daily Limit"
-            content="DeFiChain Bridge has a daily hard cap for each token pair. Once this limit is reached, you will not be able to transfer to DeFiChain or Ethereum until the next day."
+            title={DAILY_LIMIT_INFO.title}
+            content={DAILY_LIMIT_INFO.content}
           />
         </div>
       </div>

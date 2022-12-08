@@ -9,6 +9,7 @@ import NumericFormat from "./commons/NumericFormat";
 import BrLogo from "./icons/BrLogo";
 import DailyLimit from "./DailyLimit";
 import IconTooltip from "./commons/IconTooltip";
+import { TOKEN_SUPPLY_INFO } from "../constants";
 
 function TokenSupplyItem({ token }: { token: TokenDetailI }) {
   return (
@@ -58,8 +59,8 @@ export default function ProofOfAssetsCard() {
         </span>
         <div className="ml-2">
           <IconTooltip
-            title="Token Supply"
-            content="Token supply indicates the amount of liquidity currently available for a particular token pair on DeFiChain Bridge"
+            title={TOKEN_SUPPLY_INFO.title}
+            content={TOKEN_SUPPLY_INFO.content}
           />
         </div>
       </div>
