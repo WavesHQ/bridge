@@ -7,10 +7,11 @@ import React, {
 } from "react";
 import { NetworkEnvironment } from "types";
 
-const DEFAULT_ENV_NETWORK = "mainnet";
+const DEFAULT_ENV_NETWORK = NetworkEnvironment.mainnet;
 const NETWORK_ENV_DISPLAY_NAME: Record<NetworkEnvironment, string> = {
   mainnet: "MainNet",
   testnet: "TestNet",
+  regtest: "Local",
 };
 
 interface NetworkContextI {
