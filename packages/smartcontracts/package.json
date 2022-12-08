@@ -53,7 +53,7 @@
   "dependencies": {},
   "devDependencies": {
     "ethers": "~5.7.2",
-    "@birthdayresearch/eslint-config": "^0.3.1",
+    "@birthdayresearch/eslint-config": "^0.3.2",
     "@birthdayresearch/sticky-turbo-jest": "^0.3.2",
     "@birthdayresearch/sticky-testcontainers": "^0.3.2",
     "@birthdayresearch/sticky-typescript": "^0.3.2",
