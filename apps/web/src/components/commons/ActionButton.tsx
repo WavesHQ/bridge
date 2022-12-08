@@ -17,7 +17,7 @@ export default function ActionButton({
       type="button"
       className={clsx(
         `w-full flex items-center justify-center rounded-[92px] bg-dark-1000 text-lg font-bold text-dark-100 p-3.5 md:px-2.5 lg:py-4 lg:px-8 xl:px-14 lg:text-xl lg:leading-8
-        hover:dark-cta-hover active:dark-cta-pressed disabled:opacity-30`,
+        focus-visible:outline-none hover:dark-cta-hover active:dark-cta-pressed disabled:opacity-30`,
         {
           "dark-cta-pressed": isLoading,
           "pointer-events-none": disabled || isLoading,

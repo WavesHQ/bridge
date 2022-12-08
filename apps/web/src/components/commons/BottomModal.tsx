@@ -1,6 +1,7 @@
 import { Fragment, PropsWithChildren, useEffect } from "react";
 import { FiXCircle } from "react-icons/fi";
 import { Dialog, Transition } from "@headlessui/react";
+import useDisableEscapeKey from "@hooks/useDisableEscapeKey";
 
 interface Props {
   isOpen: boolean;
@@ -14,19 +15,7 @@ export default function BottomModal({
   children,
   title = "",
 }: PropsWithChildren<Props>) {
-  useEffect(() => {
-    // Prevent modal from closing when Esc key is pressed
-    const disableEscapeKeyPress = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-      }
-    };
-    window.addEventListener("keydown", disableEscapeKeyPress);
-
-    return () => {
-      window.removeEventListener("keydown", disableEscapeKeyPress);
-    };
-  }, []);
+  useDisableEscapeKey(isOpen);
 
   return (
     <Transition appear show={isOpen} as={Fragment}>

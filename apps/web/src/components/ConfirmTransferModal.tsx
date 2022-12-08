@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useAccount } from "wagmi";
 import { useNetworkContext } from "@contexts/NetworkContext";
 import useResponsive from "@hooks/useResponsive";
+import useDisableEscapeKey from "@hooks/useDisableEscapeKey";
 import truncateTextFromMiddle from "@utils/textHelper";
 import { NetworkAddressToken } from "types";
 import { FiXCircle, FiAlertTriangle } from "react-icons/fi";
@@ -109,6 +110,7 @@ export default function ConfirmTransferModal({
   } = useNetworkContext();
   const { address } = useAccount();
   const { isMobile } = useResponsive();
+  useDisableEscapeKey(show);
 
   const data = {
     from: {

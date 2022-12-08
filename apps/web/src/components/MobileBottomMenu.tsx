@@ -45,7 +45,7 @@ export default function MobileBottomMenu() {
             <li key={item.title}>
               <button
                 type="button"
-                className="w-full flex flex-col items-center gap-2 cursor-pointer hover:opacity-70"
+                className="w-full flex flex-col items-center gap-2 cursor-pointer focus-visible:outline-none hover:opacity-70"
                 onClick={item.onClick}
               >
                 <Icon size={28} className="text-dark-900" />
