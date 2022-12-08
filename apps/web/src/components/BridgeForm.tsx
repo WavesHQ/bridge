@@ -237,7 +237,7 @@ export default function BridgeForm() {
                   : "Connect wallet"
               }
               disabled={isConnected && !isFormValid}
-              onClick={!isConnected ? show : onTransferTokens}
+              onClick={!isConnected ? show : () => onTransferTokens()}
             />
           )}
         </ConnectKitButton.Custom>
