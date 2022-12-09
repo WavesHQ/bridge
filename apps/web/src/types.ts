@@ -7,7 +7,7 @@ export enum Network {
   DeFiChain = "DeFiChain",
 }
 
-export enum NetworkAddressToken {
+export enum NetworkName {
   Ethereum = "ERC20",
   DeFiChain = "DeFiChain",
 }

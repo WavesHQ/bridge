@@ -26,3 +26,5 @@ export const DAILY_LIMIT_INFO: TooltipInfoI = {
   content:
     "DeFiChain Bridge has a daily hard cap for each token pair. Once this limit is reached, you will not be able to transfer to DeFiChain or Ethereum until the next day.",
 };
+
+export const DFC_TO_ERC_TIME_LIMIT = 1800; // 30 mins

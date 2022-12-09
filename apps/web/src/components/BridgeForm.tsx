@@ -9,7 +9,7 @@ import {
   SelectionType,
   TokensI,
   NetworkOptionsI,
-  NetworkAddressToken,
+  NetworkName,
 } from "types";
 import { QuickInputCard } from "./commons/QuickInputCard";
 import InputSelector from "./InputSelector";
@@ -233,7 +233,7 @@ export default function BridgeForm() {
             <ActionButton
               label={
                 isConnected
-                  ? `Transfer to ${NetworkAddressToken[selectedNetworkB.name]}`
+                  ? `Transfer to ${NetworkName[selectedNetworkB.name]}`
                   : "Connect wallet"
               }
               disabled={isConnected && !isFormValid}

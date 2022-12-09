@@ -6,18 +6,19 @@ import { useNetworkContext } from "@contexts/NetworkContext";
 import useResponsive from "@hooks/useResponsive";
 import useDisableEscapeKey from "@hooks/useDisableEscapeKey";
 import truncateTextFromMiddle from "@utils/textHelper";
-import { NetworkAddressToken } from "types";
+import { NetworkName } from "types";
 import { FiXCircle, FiAlertTriangle } from "react-icons/fi";
 import { Dialog } from "@headlessui/react";
 import IconTooltip from "./commons/IconTooltip";
 import ActionButton from "./commons/ActionButton";
 import NumericFormat from "./commons/NumericFormat";
 import BrLogoIcon from "./icons/BrLogoIcon";
+import DeFiChainToERC20Transfer from "./DeFiChainToERC20Transfer";
 import { CONSORTIUM_INFO, FEES_INFO } from "../constants";
 
 interface RowDataI {
   address: string;
-  networkName: NetworkAddressToken;
+  networkName: NetworkName;
   networkIcon: string;
   tokenName: string;
   tokenIcon: string;
@@ -91,6 +92,24 @@ function RowData({
   );
 }
 
+function ERC20ToDeFiChainTransfer() {
+  return (
+    <>
+      <div className="flex items-center dark-bg-card-section rounded-md mt-20 md:mt-4 px-4 py-3">
+        <FiAlertTriangle size={20} className="shrink-0 text-dark-500" />
+        <span className="text-xs text-dark-700 ml-3">
+          Make sure that your Destination address and details are correct.
+          Transactions are irreversible.
+        </span>
+      </div>
+      <div className="px-6 py-8 md:px-[72px] md:pt-16 md:pb-0">
+        {/* TODO: Add onClick function */}
+        <ActionButton label="Confirm transfer" onClick={() => {}} />
+      </div>
+    </>
+  );
+}
+
 export default function ConfirmTransferModal({
   show,
   onClose,
@@ -115,7 +134,7 @@ export default function ConfirmTransferModal({
   const data = {
     from: {
       address: address ?? "",
-      networkName: NetworkAddressToken[selectedNetworkA.name],
+      networkName: NetworkName[selectedNetworkA.name],
       networkIcon: selectedNetworkA.icon,
       tokenName: selectedTokensA.tokenA.name,
       tokenIcon: selectedTokensA.tokenA.icon,
@@ -123,7 +142,7 @@ export default function ConfirmTransferModal({
     },
     to: {
       address: toAddress,
-      networkName: NetworkAddressToken[selectedNetworkB.name],
+      networkName: NetworkName[selectedNetworkB.name],
       networkIcon: selectedNetworkB.icon,
       tokenName: selectedTokensB.tokenA.name,
       tokenIcon: selectedTokensB.tokenA.icon,
@@ -131,10 +150,13 @@ export default function ConfirmTransferModal({
     },
   };
 
+  // Direction of transfer
+  const isSendingToDeFiChain = data.to.networkName === NetworkName.DeFiChain;
+
   return (
     <Dialog as="div" className="relative z-10" open={show} onClose={onClose}>
-      <Dialog.Panel className="transform transition-all fixed inset-0 bg-dark-00 bg-opacity-70 backdrop-blur-[18px]">
-        <div className="relative w-full h-full md:w-[626px] md:h-auto md:top-1/2 md:-translate-y-1/2 dark-card-bg-image md:rounded-xl md:border border-dark-card-stroke backdrop-blur-[18px] m-auto px-6 pt-8 pb-12 md:p-8 md:pb-16 overflow-auto">
+      <Dialog.Panel className="transform transition-all fixed inset-0 bg-dark-00 bg-opacity-70 backdrop-blur-[18px] overflow-auto">
+        <div className="relative w-full h-full md:w-[626px] md:h-auto md:top-1/2 md:-translate-y-1/2 dark-card-bg-image md:rounded-xl md:border border-dark-card-stroke backdrop-blur-[18px] m-auto px-6 pt-8 pb-12 md:p-8 md:pb-16">
           <Dialog.Title
             as="div"
             className="flex items-center justify-between mb-8 md:mb-6"
@@ -198,19 +220,11 @@ export default function ConfirmTransferModal({
             </div>
           </div>
 
-          {/* Note */}
-          <div className="flex items-center dark-bg-card-section rounded-[8px] mt-20 md:mt-4 px-4 py-3">
-            <FiAlertTriangle size={20} className="shrink-0 text-dark-500" />
-            <span className="text-xs text-dark-700 ml-3">
-              Make sure that your Destination address and details are correct.
-              Transactions are irreversible.
-            </span>
-          </div>
-
-          {/* Action */}
-          <div className="px-6 py-8 md:px-[72px] md:pt-16 md:pb-0">
-            <ActionButton label="Confirm transfer" />
-          </div>
+          {isSendingToDeFiChain ? (
+            <ERC20ToDeFiChainTransfer />
+          ) : (
+            <DeFiChainToERC20Transfer />
+          )}
         </div>
       </Dialog.Panel>
     </Dialog>

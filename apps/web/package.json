@@ -27,6 +27,7 @@
     "connectkit": "^1.1.0",
     "dayjs": "^1.11.7",
     "ethers": "^5.7.2",
+    "react-qr-code": "^2.0.8",
     "sass": "^1.56.1",
     "wagmi": "^0.8.10"
   },
@@ -36,8 +37,8 @@
     "@netlify/plugin-nextjs": "^4.29.3",
     "@tailwindcss/typography": "^0.5.8",
     "@testing-library/cypress": "^8.0.7",
-    "@waveshq/standard-web-linter": "^0.8.0",
     "@types/node": "18.11.11",
+    "@waveshq/standard-web-linter": "^0.8.0",
     "autoprefixer": "^10.4.13",
     "babel-plugin-istanbul": "^6.1.1",
     "babel-plugin-jsx-remove-data-test-id": "^3.0.0",

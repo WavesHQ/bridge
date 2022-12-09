@@ -1,4 +1,4 @@
-import { Fragment, PropsWithChildren, useEffect } from "react";
+import { Fragment, PropsWithChildren } from "react";
 import { FiXCircle } from "react-icons/fi";
 import { Dialog, Transition } from "@headlessui/react";
 import useDisableEscapeKey from "@hooks/useDisableEscapeKey";
