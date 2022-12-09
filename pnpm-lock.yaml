@@ -103,7 +103,7 @@ importers:
       dayjs: ^1.11.7
       ethers: ^5.7.2
       postcss: ^8.4.19
-      sass: ^1.56.1
+      sass: ^1.56.2
       tailwindcss: ^3.2.4
       wagmi: ^0.8.10
     dependencies:
@@ -111,14 +111,14 @@ importers:
       '@floating-ui/react-dom': 1.0.1_biqbaboplfbrettd7655fr4n2y
       '@headlessui/react': 1.7.4_biqbaboplfbrettd7655fr4n2y
       '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.4
-      '@waveshq/standard-web': 0.8.0_dj4i3p2lb3xu5tg3pyrtmeqn4u
+      '@waveshq/standard-web': 0.8.0_2vqh5fjduf4ic2y7ty6fxcrg4q
       axios: 1.2.1
       bignumber.js: 9.1.1
       clsx: 1.2.1
       connectkit: 1.1.0_33z4fx6bbjz7jsqfochk5qwryy
       dayjs: 1.11.7
       ethers: 5.7.2
-      sass: 1.56.1
+      sass: 1.56.2
       wagmi: 0.8.10_k24y3k3wvg2wr2zuthlm53kvlq
     devDependencies:
       '@cypress/code-coverage': 3.10.0_qph2n3asdhutqi3nmf2k55hhaa
@@ -127,7 +127,7 @@ importers:
       '@tailwindcss/typography': 0.5.8_tailwindcss@3.2.4
       '@testing-library/cypress': 8.0.7_cypress@12.0.1
       '@types/node': 18.11.11
-      '@waveshq/standard-web-linter': 0.8.0_23tzj4nhcmtlzyysjvr4xi2e3u
+      '@waveshq/standard-web-linter': 0.8.0_n2faeg6sxq2z5fwtgiimvh2qia
       autoprefixer: 10.4.13_postcss@8.4.19
       babel-plugin-istanbul: 6.1.1
       babel-plugin-jsx-remove-data-test-id: 3.0.0_@babel+core@7.20.5
@@ -5082,7 +5082,7 @@ packages:
       - encoding
     dev: false
 
-  /@waveshq/standard-web-linter/0.8.0_23tzj4nhcmtlzyysjvr4xi2e3u:
+  /@waveshq/standard-web-linter/0.8.0_n2faeg6sxq2z5fwtgiimvh2qia:
     resolution: {integrity: sha512-BWWTrl801NGMWvJZosVdhVzFLVL8JJHCV83WvMQ0HRlbzr1JNs5k1jefA7S+XrHomMWcZhuglVNbHze7iHP3SQ==}
     dependencies:
       eslint: 8.29.0
@@ -5099,7 +5099,7 @@ packages:
       eslint-plugin-react-hooks: 4.6.0_eslint@8.29.0
       husky: 8.0.2
       lint-staged: 13.1.0
-      next: 13.0.6_kzvotn2zipzqwaptii5a7wxu3y
+      next: 13.0.6_mz53pcrhrtbilczuivypd336dm
       prettier: 2.8.1
       typescript: 4.9.3
     transitivePeerDependencies:
@@ -5118,12 +5118,12 @@ packages:
       - supports-color
     dev: true
 
-  /@waveshq/standard-web/0.8.0_dj4i3p2lb3xu5tg3pyrtmeqn4u:
+  /@waveshq/standard-web/0.8.0_2vqh5fjduf4ic2y7ty6fxcrg4q:
     resolution: {integrity: sha512-9kuQYrUVNiw6Ai8Cd9KGJ7v929RILI9uVfvgPOZDoV4d+1IJBTiEQi9il5r0A7sHCamqzkITjD+T8yaBBxbcig==}
     dependencies:
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.9
-      next: 13.0.6_kzvotn2zipzqwaptii5a7wxu3y
+      next: 13.0.6_mz53pcrhrtbilczuivypd336dm
       next-sitemap: 3.1.32_2x7vdsltqnntkvmayxgsj26u5i
       nextjs-progressbar: 0.0.16_next@13.0.6+react@18.2.0
       react: 18.2.0
@@ -12772,10 +12772,10 @@ packages:
       '@corex/deepmerge': 4.0.29
       '@next/env': 13.0.6
       minimist: 1.2.7
-      next: 13.0.6_kzvotn2zipzqwaptii5a7wxu3y
+      next: 13.0.6_mz53pcrhrtbilczuivypd336dm
     dev: false
 
-  /next/13.0.6_kzvotn2zipzqwaptii5a7wxu3y:
+  /next/13.0.6_mz53pcrhrtbilczuivypd336dm:
     resolution: {integrity: sha512-COvigvms2LRt1rrzfBQcMQ2GZd86Mvk1z+LOLY5pniFtL4VrTmhZ9salrbKfSiXbhsD01TrDdD68ec3ABDyscA==}
     engines: {node: '>=14.6.0'}
     hasBin: true
@@ -12799,7 +12799,7 @@ packages:
       postcss: 8.4.14
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      sass: 1.56.1
+      sass: 1.56.2
       styled-jsx: 5.1.0_zavbqmrropwrojvx6ojaa4s7im
     optionalDependencies:
       '@next/swc-android-arm-eabi': 13.0.6
@@ -12826,7 +12826,7 @@ packages:
       react: '>= 16.0.0'
     dependencies:
       '@types/nprogress': 0.2.0
-      next: 13.0.6_kzvotn2zipzqwaptii5a7wxu3y
+      next: 13.0.6_mz53pcrhrtbilczuivypd336dm
       nprogress: 0.2.0
       prop-types: 15.8.1
       react: 18.2.0
@@ -14743,8 +14743,8 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
 
-  /sass/1.56.1:
-    resolution: {integrity: sha512-VpEyKpyBPCxE7qGDtOcdJ6fFbcpOM+Emu7uZLxVrkX8KVU/Dp5UF7WLvzqRuUhB6mqqQt1xffLoG+AndxTZrCQ==}
+  /sass/1.56.2:
+    resolution: {integrity: sha512-ciEJhnyCRwzlBCB+h5cCPM6ie/6f8HrhZMQOf5vlU60Y1bI1rx5Zb0vlDZvaycHsg/MqFfF1Eq2eokAa32iw8w==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
