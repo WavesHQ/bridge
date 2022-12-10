@@ -39,3 +39,8 @@ export interface NetworkOptionsI {
   icon: string;
   tokens: TokensI[];
 }
+
+export interface ProgressStepI {
+  step: number;
+  label: string;
+}

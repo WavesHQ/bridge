@@ -1,19 +1,19 @@
 import clsx from "clsx";
 import BigNumber from "bignumber.js";
 import Image from "next/image";
+import { NetworkName } from "types";
+import { FiXCircle, FiAlertTriangle } from "react-icons/fi";
+import { Dialog } from "@headlessui/react";
 import { useAccount } from "wagmi";
 import { useNetworkContext } from "@contexts/NetworkContext";
 import useResponsive from "@hooks/useResponsive";
 import useDisableEscapeKey from "@hooks/useDisableEscapeKey";
 import truncateTextFromMiddle from "@utils/textHelper";
-import { NetworkName } from "types";
-import { FiXCircle, FiAlertTriangle } from "react-icons/fi";
-import { Dialog } from "@headlessui/react";
-import IconTooltip from "./commons/IconTooltip";
-import ActionButton from "./commons/ActionButton";
-import NumericFormat from "./commons/NumericFormat";
-import BrLogoIcon from "./icons/BrLogoIcon";
-import DeFiChainToERC20Transfer from "./DeFiChainToERC20Transfer";
+import IconTooltip from "@components/commons/IconTooltip";
+import ActionButton from "@components/commons/ActionButton";
+import NumericFormat from "@components/commons/NumericFormat";
+import BrLogoIcon from "@components/icons/BrLogoIcon";
+import DeFiChainToERC20Transfer from "@components/erc-transfer/DeFiChainToERC20Transfer";
 import { CONSORTIUM_INFO, FEES_INFO } from "../constants";
 
 interface RowDataI {
@@ -45,30 +45,46 @@ function RowData({
           height={100}
           src={data.networkIcon}
           alt={data.networkName}
-          className="block md:hidden w-7 h-7 md:w-9 md:h-9"
+          className={clsx("block w-7 h-7", "md:hidden md:w-9 md:h-9")}
         />
         <hr className="w-full border-dark-200" />
       </div>
-      <div className="flex gap-4 md:gap-2 py-6 md:py-4">
+      <div className={clsx("flex gap-4 py-6", "md:gap-2 md:py-4")}>
         <Image
           width={100}
           height={100}
           src={data.networkIcon}
           alt={data.networkName}
-          className="hidden md:block w-7 h-7 md:w-9 md:h-9 ml-2 md:ml-0"
+          className={clsx(
+            "hidden w-7 h-7 ml-2",
+            "md:block md:w-9 md:h-9 md:ml-0"
+          )}
         />
-        <div className="flex flex-col md:grow w-1/2 md:w-auto">
-          <span className="text-sm md:text-base text-dark-900 !leading-5 break-all md:break-normal">
+        <div className={clsx("flex flex-col w-1/2", "md:grow md:w-auto")}>
+          <span
+            className={clsx(
+              "text-sm text-dark-900 !leading-5 break-all",
+              "md:text-base md:break-normal"
+            )}
+          >
             {data.address}
           </span>
-          <span className="text-xs md:text-sm text-dark-700 mt-1 md:mt-0">
+          <span
+            className={clsx("text-xs text-dark-700 mt-1", "md:text-sm md:mt-0")}
+          >
             {networkLabel} ({data.networkName})
           </span>
         </div>
-        <div className="flex flex-col self-center md:self-end w-1/2 md:w-auto">
+        <div
+          className={clsx(
+            "flex flex-col self-center w-1/2",
+            "md:self-end md:w-auto"
+          )}
+        >
           <span
             className={clsx(
-              "!text-xl font-bold md:text-lg md:font-semibold leading-6 text-right",
+              "!text-xl font-bold leading-6 text-right",
+              "md:text-lg md:font-semibold",
               data.amount.isPositive() ? "text-valid" : "text-error"
             )}
           >
@@ -80,7 +96,10 @@ function RowData({
               height={100}
               src={data.tokenIcon}
               alt={data.tokenName}
-              className="w-5 h-5 md:w-4 md:h-4 order-last md:order-none"
+              className={clsx(
+                "w-5 h-5 order-last",
+                "md:w-4 md:h-4 md:order-none"
+              )}
             />
             <span className="text-sm text-dark-700 mt-0.5 md:mt-0">
               {data.tokenName}
@@ -93,6 +112,7 @@ function RowData({
 }
 
 function ERC20ToDeFiChainTransfer() {
+  const { isMobile } = useResponsive();
   return (
     <>
       <div className="flex items-center dark-bg-card-section rounded-md mt-20 md:mt-4 px-4 py-3">
@@ -102,9 +122,12 @@ function ERC20ToDeFiChainTransfer() {
           Transactions are irreversible.
         </span>
       </div>
-      <div className="px-6 py-8 md:px-[72px] md:pt-16 md:pb-0">
+      <div className={clsx("px-6 py-8", "md:px-[72px] md:pt-16")}>
         {/* TODO: Add onClick function */}
-        <ActionButton label="Confirm transfer" onClick={() => {}} />
+        <ActionButton
+          label={isMobile ? "Confirm transfer" : "Confirm transfer on wallet"}
+          onClick={() => {}}
+        />
       </div>
     </>
   );
@@ -156,12 +179,22 @@ export default function ConfirmTransferModal({
   return (
     <Dialog as="div" className="relative z-10" open={show} onClose={onClose}>
       <Dialog.Panel className="transform transition-all fixed inset-0 bg-dark-00 bg-opacity-70 backdrop-blur-[18px] overflow-auto">
-        <div className="relative w-full h-full md:w-[626px] md:h-auto md:top-1/2 md:-translate-y-1/2 dark-card-bg-image md:rounded-xl md:border border-dark-card-stroke backdrop-blur-[18px] m-auto px-6 pt-8 pb-12 md:p-8 md:pb-16">
+        <div
+          className={clsx(
+            "relative w-full h-full dark-card-bg-image border-dark-card-stroke backdrop-blur-[18px] m-auto px-6 pt-8 pb-12",
+            "md:w-[626px] md:h-auto md:top-[calc(50%+30px)] md:-translate-y-1/2 md:rounded-xl md:border md:p-8 overflow-auto"
+          )}
+        >
           <Dialog.Title
             as="div"
             className="flex items-center justify-between mb-8 md:mb-6"
           >
-            <h3 className="text-2xl font-bold md:font-semibold md:leading-9 md:tracking-wide text-dark-900">
+            <h3
+              className={clsx(
+                "text-2xl font-bold text-dark-900",
+                "md:font-semibold md:leading-9 md:tracking-wide"
+              )}
+            >
               Transfer
             </h3>
             <FiXCircle

@@ -25,6 +25,9 @@ export default function ActionButton({
         isUtilityBtn
           ? "md:w-auto md:text-sm md:font-semibold md:px-5 md:py-2.5"
           : "lg:text-xl lg:leading-8 md:px-2.5 lg:py-4 lg:px-8 xl:px-14",
+        isLoading || disabled
+          ? "text-dark-00"
+          : "text-dark-100 hover:text-dark-00",
         {
           "dark-cta-pressed": isLoading,
           "pointer-events-none": disabled || isLoading,
@@ -36,8 +39,11 @@ export default function ActionButton({
       {label}
       {isLoading && (
         <RiLoader2Line
-          size={24}
-          className="inline-block animate-spin text-dark-100 ml-2"
+          size={isUtilityBtn ? 16 : 24}
+          className={clsx(
+            "inline-block animate-spin text-dark-100",
+            isUtilityBtn ? "ml-1" : "ml-2"
+          )}
         />
       )}
       {isUtilityBtn && !isLoading && (
