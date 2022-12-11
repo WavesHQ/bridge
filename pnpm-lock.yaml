@@ -155,7 +155,7 @@ importers:
       ethers: ~5.7.2
       hardhat: 2.12.4
       hardhat-gas-reporter: 1.0.9
-      mocha: 10.1.0
+      mocha: 10.2.0
       solidity-coverage: 0.8.2
       ts-node: 10.9.1
     devDependencies:
@@ -177,7 +177,7 @@ importers:
       ethers: 5.7.2
       hardhat: 2.12.4_z6wznmtyb6ovnulj6iujpct7um
       hardhat-gas-reporter: 1.0.9_hardhat@2.12.4
-      mocha: 10.1.0
+      mocha: 10.2.0
       solidity-coverage: 0.8.2_hardhat@2.12.4
       ts-node: 10.9.1_bspv7bpieoza2i5ctiw2ofswem
 
@@ -9861,7 +9861,7 @@ packages:
       keccak: 3.0.2
       lodash: 4.17.21
       mnemonist: 0.38.5
-      mocha: 10.1.0
+      mocha: 10.2.0
       p-map: 4.0.0
       qs: 6.11.0
       raw-body: 2.5.1
@@ -12531,8 +12531,8 @@ packages:
       obliterator: 2.0.4
     dev: false
 
-  /mocha/10.1.0:
-    resolution: {integrity: sha512-vUF7IYxEoN7XhQpFLxQAEMtE4W91acW4B6En9l97MwE9stL1A9gusXfoHZCLVHDUJ/7V5+lbCM6yMqzo5vNymg==}
+  /mocha/10.2.0:
+    resolution: {integrity: sha512-IDY7fl/BecMwFHzoqF2sg/SHHANeBoMMXFlS9r0OXKDssYE1M5O43wUY/9BVPeIvfH2zmEbBfseqN9gBQZzXkg==}
     engines: {node: '>= 14.0.0'}
     hasBin: true
     dependencies:
