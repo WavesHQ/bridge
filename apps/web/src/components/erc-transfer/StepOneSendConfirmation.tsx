@@ -1,4 +1,6 @@
 import clsx from "clsx";
+import { useState, useEffect } from "react";
+import { FiCopy } from "react-icons/fi";
 import QRCode from "react-qr-code";
 import useCopyToClipboard from "@hooks/useCopyToClipboard";
 import useResponsive from "@hooks/useResponsive";
@@ -14,16 +16,50 @@ function ConfirmButton({ onConfirm }: { onConfirm: () => void }) {
   );
 }
 
+function SuccessCopy({
+  containerClass,
+  show,
+}: {
+  containerClass: string;
+  show: boolean;
+}) {
+  return (
+    <div
+      className={clsx(
+        "absolute md:w-full md:text-center",
+        show ? "opacity-100" : "opacity-0",
+        containerClass
+      )}
+    >
+      <span className="rounded bg-valid px-2 py-1 text-2xs text-dark-00  transition duration-300 md:text-xs">
+        Copied to clipboard
+      </span>
+    </div>
+  );
+}
+
 export default function StepOneSendConfirmation({
   goToNextStep,
 }: {
   goToNextStep: () => void;
 }) {
+  const [showSuccessCopy, setShowSuccessCopy] = useState(false);
   const { isMobile } = useResponsive();
   const { copy } = useCopyToClipboard();
 
   const handleConfirmClick = () => {
     goToNextStep();
+  };
+
+  useEffect(() => {
+    if (showSuccessCopy) {
+      setTimeout(() => setShowSuccessCopy(false), 2000);
+    }
+  }, [showSuccessCopy]);
+
+  const handleOnCopy = (text) => {
+    copy(text);
+    setShowSuccessCopy(true);
   };
 
   return (
@@ -48,7 +84,9 @@ export default function StepOneSendConfirmation({
           </div>
           <Tooltip
             content="Click to copy address"
-            containerClass={clsx("pt-0 mt-1", { "cursor-default": isMobile })}
+            containerClass={clsx("relative pt-0 mt-1", {
+              "cursor-default": isMobile,
+            })}
             disableTooltip={isMobile}
           >
             <button
@@ -57,12 +95,28 @@ export default function StepOneSendConfirmation({
                 "text-sm text-dark-900 text-left break-all focus-visible:outline-none",
                 "md:text-xs md:text-center md:cursor-pointer md:hover:underline"
               )}
-              onClick={() => !isMobile && copy(dfcUniqueAddress)}
+              onClick={() => !isMobile && handleOnCopy(dfcUniqueAddress)}
             >
               {dfcUniqueAddress}
             </button>
+            {!isMobile && (
+              <SuccessCopy containerClass="bottom-11" show={showSuccessCopy} />
+            )}
           </Tooltip>
-          {isMobile && <TimeLimitCounter />}
+          {isMobile && (
+            <>
+              <button
+                type="button"
+                className="relative flex items-center text-dark-700 active:text-dark-900 mt-2"
+                onClick={() => handleOnCopy(dfcUniqueAddress)}
+              >
+                <FiCopy size={16} className="mr-2" />
+                <span className="text-sm font-semibold">Copy address</span>
+                <SuccessCopy containerClass="bottom-7" show={showSuccessCopy} />
+              </button>
+              <TimeLimitCounter />
+            </>
+          )}
         </div>
       </div>
       <div className="flex flex-col justify-center grow">
