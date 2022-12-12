@@ -155,9 +155,10 @@ export default function BridgeForm() {
           showAmountsBtn={selectedNetworkA.name === Network.Ethereum}
         />
         <div className="flex flex-row pl-4 lg:pl-5 mt-2">
-          {amountErr ? (
-            <span className="text-xs lg:text-sm text-error">{amountErr}</span>
-          ) : (
+          <span className="text-xs lg:text-sm text-error empty:before:content-['*'] empty:before:opacity-0">
+            {amountErr}
+          </span>
+          {selectedNetworkA.name === Network.Ethereum && !amountErr && (
             <>
               <span className="text-xs lg:text-sm text-dark-700">
                 Available:
