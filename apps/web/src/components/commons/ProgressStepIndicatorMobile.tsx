@@ -11,7 +11,7 @@ export default function ProgressStepIndicatorMobile({
   return (
     <div className="flex gap-2">
       {steps.map(({ step, label }) => (
-        <div className="w-1/3 flex flex-col gap-1">
+        <div key={step} className="w-1/3 flex flex-col gap-1">
           <div
             className={clsx(
               "h-0.5 rounded-[2px]",

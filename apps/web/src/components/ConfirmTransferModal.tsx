@@ -29,10 +29,12 @@ function RowData({
   data,
   label,
   networkLabel,
+  isSendingToDFC = true,
 }: {
   data: RowDataI;
   label: string;
   networkLabel: string;
+  isSendingToDFC?: boolean;
 }) {
   return (
     <div>
@@ -72,7 +74,7 @@ function RowData({
           <span
             className={clsx("text-xs text-dark-700 mt-1", "md:text-sm md:mt-0")}
           >
-            {networkLabel} ({data.networkName})
+            {networkLabel} {isSendingToDFC ? `(${data.networkName})` : ""}
           </span>
         </div>
         <div
@@ -154,9 +156,12 @@ export default function ConfirmTransferModal({
   const { isMobile } = useResponsive();
   useDisableEscapeKey(show);
 
+  // Direction of transfer
+  const isSendingToDFC = selectedNetworkB.name === NetworkName.DeFiChain;
+
   const data = {
     from: {
-      address: address ?? "",
+      address: isSendingToDFC ? address : "DeFiChain address",
       networkName: NetworkName[selectedNetworkA.name],
       networkIcon: selectedNetworkA.icon,
       tokenName: selectedTokensA.tokenA.name,
@@ -172,9 +177,6 @@ export default function ConfirmTransferModal({
       amount: new BigNumber(amount),
     },
   };
-
-  // Direction of transfer
-  const isSendingToDeFiChain = data.to.networkName === NetworkName.DeFiChain;
 
   return (
     <Dialog as="div" className="relative z-10" open={show} onClose={onClose}>
@@ -203,7 +205,12 @@ export default function ConfirmTransferModal({
               onClick={onClose}
             />
           </Dialog.Title>
-          <RowData data={data.from} label="FROM" networkLabel="Source" />
+          <RowData
+            data={data.from}
+            label="FROM"
+            networkLabel="Source"
+            isSendingToDFC={isSendingToDFC}
+          />
           <RowData data={data.to} label="TO" networkLabel="Destination" />
           <div className="w-full border-t border-t-dark-200 md:mt-3" />
 
@@ -253,7 +260,7 @@ export default function ConfirmTransferModal({
             </div>
           </div>
 
-          {isSendingToDeFiChain ? (
+          {isSendingToDFC ? (
             <ERC20ToDeFiChainTransfer />
           ) : (
             <DeFiChainToERC20Transfer />

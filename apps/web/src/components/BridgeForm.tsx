@@ -73,8 +73,10 @@ export default function BridgeForm() {
     const re = /^\d*\.?\d*$/;
     if (value === "" || re.test(value)) {
       setAmount(value);
+
+      const isSendingToDFC = selectedNetworkB.name === NetworkName.DeFiChain;
       let err = "";
-      if (new BigNumber(value).gt(maxAmount)) {
+      if (isSendingToDFC && new BigNumber(value).gt(maxAmount)) {
         err = "Insufficient Funds";
       }
       setAmountErr(err);
