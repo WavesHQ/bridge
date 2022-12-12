@@ -212,6 +212,18 @@ export default function BridgeForm() {
         />
       </div>
       <div className="flex flex-row justify-between items-center px-4 lg:px-5">
+        <span className="text-dark-700 text-xs lg:text-base font-semibold md:font-normal">
+          To receive
+        </span>
+        <NumericFormat
+          className="text-left text-xs text-dark-1000 lg:text-base"
+          value={amount || 0}
+          decimalScale={2}
+          thousandSeparator
+          suffix={` ${selectedTokensB.tokenA.name}`}
+        />
+      </div>
+      <div className="flex flex-row justify-between items-center px-4 lg:px-5 mt-4 lg:mt-6">
         <div className="flex flex-row items-center">
           <span className="text-dark-700 text-xs lg:text-base font-semibold md:font-normal">
             Fees
