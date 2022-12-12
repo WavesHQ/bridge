@@ -225,6 +225,7 @@ export default function ConfirmTransferModal({
                 <IconTooltip
                   title={FEES_INFO.title}
                   content={FEES_INFO.content}
+                  position="right"
                 />
               </div>
             </div>
@@ -247,6 +248,7 @@ export default function ConfirmTransferModal({
                 <IconTooltip
                   title={CONSORTIUM_INFO.title}
                   content={CONSORTIUM_INFO.content}
+                  position="right"
                 />
               </div>
             </div>
