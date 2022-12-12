@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false # https://github.com/cypress-io/github-action/issues/48
       matrix:
-        containers: [1, 2]
+        containers: [1]
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
 
@@ -35,7 +35,6 @@ jobs:
       - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3.5.1
         with:
           node-version: 16
-          cache: "pnpm"
 
       # install specific version of chrome
       - name: Install latest Google Chrome
@@ -56,7 +55,7 @@ jobs:
           install: false
           record: true
           parallel: true
-          start: npm run start
+          start: pnpm run start
           wait-on: "http://localhost:5173"
           browser: chrome
           spec: cypress/e2e/**
