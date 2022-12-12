@@ -157,22 +157,23 @@ export default function BridgeForm() {
           showAmountsBtn={selectedNetworkA.name === Network.Ethereum}
         />
         <div className="flex flex-row pl-4 lg:pl-5 mt-2">
-          <span className="text-xs lg:text-sm text-error empty:before:content-['*'] empty:before:opacity-0">
-            {amountErr}
-          </span>
-          {selectedNetworkA.name === Network.Ethereum && !amountErr && (
-            <>
-              <span className="text-xs lg:text-sm text-dark-700">
-                Available:
-              </span>
-              <NumericFormat
-                className="text-xs lg:text-sm text-dark-900 ml-1"
-                value={maxAmount}
-                decimalScale={8}
-                thousandSeparator
-                suffix={` ${selectedTokensA.tokenA.name}`}
-              />
-            </>
+          {amountErr ? (
+            <span className="text-xs lg:text-sm text-error">{amountErr}</span>
+          ) : (
+            selectedNetworkA.name === Network.Ethereum && (
+              <>
+                <span className="text-xs lg:text-sm text-dark-700">
+                  Available:
+                </span>
+                <NumericFormat
+                  className="text-xs lg:text-sm text-dark-900 ml-1"
+                  value={maxAmount}
+                  decimalScale={8}
+                  thousandSeparator
+                  suffix={` ${selectedTokensA.tokenA.name}`}
+                />
+              </>
+            )
           )}
         </div>
       </div>

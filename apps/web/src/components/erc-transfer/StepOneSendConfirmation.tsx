@@ -1,7 +1,9 @@
-import QRCode from "react-qr-code";
-import ActionButton from "@components/commons/ActionButton";
 import clsx from "clsx";
+import QRCode from "react-qr-code";
+import useCopyToClipboard from "@hooks/useCopyToClipboard";
 import useResponsive from "@hooks/useResponsive";
+import ActionButton from "@components/commons/ActionButton";
+import Tooltip from "@components/commons/Tooltip";
 import TimeLimitCounter from "./TimeLimitCounter";
 
 const dfcUniqueAddress = "df1qdnru4kgysjl088man5vfmsm6wukc2refhurctf"; // TODO: Replace with real data
@@ -18,6 +20,7 @@ export default function StepOneSendConfirmation({
   goToNextStep: () => void;
 }) {
   const { isMobile } = useResponsive();
+  const { copy } = useCopyToClipboard();
 
   const handleConfirmClick = () => {
     goToNextStep();
@@ -43,14 +46,22 @@ export default function StepOneSendConfirmation({
           >
             Unique DFC address
           </div>
-          <div
-            className={clsx(
-              "text-sm text-dark-900 text-left break-all mt-1",
-              "md:text-xs md:text-center"
-            )}
+          <Tooltip
+            content="Click to copy address"
+            containerClass={clsx("pt-0 mt-1", { "cursor-default": isMobile })}
+            disableTooltip={isMobile}
           >
-            {dfcUniqueAddress}
-          </div>
+            <button
+              type="button"
+              className={clsx(
+                "text-sm text-dark-900 text-left break-all focus-visible:outline-none",
+                "md:text-xs md:text-center md:cursor-pointer md:hover:underline"
+              )}
+              onClick={() => !isMobile && copy(dfcUniqueAddress)}
+            >
+              {dfcUniqueAddress}
+            </button>
+          </Tooltip>
           {isMobile && <TimeLimitCounter />}
         </div>
       </div>

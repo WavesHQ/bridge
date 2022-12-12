@@ -30,7 +30,10 @@ export default function Tooltip({
   return (
     <div
       role="button"
-      className={clsx("relative inline-block rounded-full p-1", containerClass)}
+      className={clsx(
+        "relative inline-block rounded-full p-1 focus-visible:outline-none",
+        containerClass
+      )}
       onMouseEnter={showTooltip}
       onMouseLeave={hideTooltip}
       onMouseDown={hideTooltip}

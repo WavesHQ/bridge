@@ -4,7 +4,7 @@ import { theme } from "../../tailwind.config";
 const useResponsive = () => {
   const { screens } = theme;
 
-  const isMobile = useMediaQuery({ maxWidth: screens.sm });
+  const isMobile = useMediaQuery({ maxWidth: `calc(${screens.md} - 1px)` });
 
   const isXs = useMediaQuery({ minWidth: screens.xs });
 
