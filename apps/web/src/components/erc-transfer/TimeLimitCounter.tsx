@@ -5,8 +5,12 @@ import getDuration from "@utils/durationHelper";
 import ProgressBar from "@components/commons/ProgressBar";
 import { DFC_TO_ERC_TIME_LIMIT } from "../../constants";
 
-export default function TimeLimitCounter() {
-  const [timeRemaining, setTimeRemaining] = useState(
+export default function TimeLimitCounter({
+  onTimeElapsed,
+}: {
+  onTimeElapsed: () => void;
+}) {
+  const [timeRemaining, setTimeRemaining] = useState<BigNumber>(
     new BigNumber(DFC_TO_ERC_TIME_LIMIT)
   );
   const intervalRef = useRef<any>(null);
@@ -21,6 +25,7 @@ export default function TimeLimitCounter() {
     if (timeRemaining.lte(0)) {
       setTimeRemaining(new BigNumber(0));
       clearInterval(intervalRef.current);
+      onTimeElapsed();
     }
   }, [timeRemaining]);
 
@@ -30,10 +35,10 @@ export default function TimeLimitCounter() {
 
   const getFillColor = () => {
     let color = "bg-dark-grdient-3";
-    if (timeRemaining.lt(5 * 60)) {
+    if (timeLimitPercentage.lt(16.67)) {
       /* less than 5mins */
       color = "bg-error";
-    } else if (timeRemaining.lt(10 * 60)) {
+    } else if (timeLimitPercentage.lt(33.33)) {
       /* less than 10mins */
       color = "bg-warning";
     }

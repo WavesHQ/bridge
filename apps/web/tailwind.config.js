@@ -46,6 +46,9 @@ module.exports = {
         1000: "#000000",
         "card-stroke": "rgba(204, 204, 204, 0.3)",
       },
+      brand: {
+        100: "#FF00AF",
+      },
       primary: {
         50: "#E8DEFF",
         100: "#D9C7FF",

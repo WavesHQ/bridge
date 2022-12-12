@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useEffect } from "react";
-import ActionButton from "@components/commons/ActionButton";
+import UtilityButton from "@components/commons/UtilityButton";
 
 export default function StepTwoVerification({
   goToNextStep,
@@ -29,7 +29,7 @@ export default function StepTwoVerification({
         </p>
       </div>
       <div className={clsx("w-full px-6", "md:w-auto md:px-0")}>
-        <ActionButton label="Verifying" variant="utility" isLoading disabled />
+        <UtilityButton label="Verifying" isLoading disabled />
       </div>
     </div>
   );

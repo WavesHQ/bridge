@@ -178,6 +178,9 @@ export default function ConfirmTransferModal({
     },
   };
 
+  // TODO: Replace with real address
+  const consortiumAddress = "df10szLaksgysjl088man5vfmsm6wsstquabds9123";
+
   return (
     <Dialog as="div" className="relative z-10" open={show} onClose={onClose}>
       <Dialog.Panel className="transform transition-all fixed inset-0 bg-dark-00 bg-opacity-70 backdrop-blur-[18px] overflow-auto">
@@ -235,7 +238,7 @@ export default function ConfirmTransferModal({
           </div>
 
           {/* Consortium */}
-          <div className="flex justify-between align-top mt-4 md:mt-2 py-2">
+          <div className="flex justify-between items-baseline mt-4 md:mt-2 py-2">
             <div className="inline-flex items-center">
               <span className="text-dark-700 text-sm md:text-base">
                 Consortium
@@ -249,7 +252,7 @@ export default function ConfirmTransferModal({
             </div>
             <div>
               <span className="text-right text-dark-900 tracking-[0.01em] md:tracking-normal">
-                {truncateTextFromMiddle(data.to.address, 8)}
+                {truncateTextFromMiddle(consortiumAddress, 8)}
               </span>
               <div className="flex items-center mt-2 md:mt-1">
                 <BrLogoIcon />

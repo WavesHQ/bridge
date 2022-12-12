@@ -47,8 +47,5 @@ export default function getDuration(seconds: number): string {
     min > 0 ? ` ${h > 0 ? min.toString().padStart(2, "0") : min}min` : "";
   const sDisplay = s > 0 ? ` ${s.toString().padStart(2, "0")}s` : "";
 
-  return (
-    `${yDisplay}${mDisplay}${dDisplay}${hDisplay}${minDisplay}${sDisplay}` ||
-    "0s"
-  );
+  return `${yDisplay}${mDisplay}${dDisplay}${hDisplay}${minDisplay}${sDisplay}`;
 }
