@@ -161,7 +161,7 @@ export default function ConfirmTransferModal({
 
   const data = {
     from: {
-      address: isSendingToDFC ? address : "DeFiChain address",
+      address: (isSendingToDFC ? address : "DeFiChain address") as string,
       networkName: NetworkName[selectedNetworkA.name],
       networkIcon: selectedNetworkA.icon,
       tokenName: selectedTokensA.tokenA.name,
