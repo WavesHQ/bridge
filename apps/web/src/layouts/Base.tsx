@@ -82,8 +82,8 @@ function Base({ children }: PropsWithChildren<any>): JSX.Element | null {
       <WagmiConfig client={client}>
         <ConnectKitProvider mode="dark">
           {mounted && (
-            <NetworkProvider>
-              <NetworkEnvironmentProvider>
+            <NetworkEnvironmentProvider>
+              <NetworkProvider>
                 <ThemeProvider theme={initialTheme}>
                   <div className="relative">
                     <Header />
@@ -92,8 +92,8 @@ function Base({ children }: PropsWithChildren<any>): JSX.Element | null {
                     <Footer />
                   </div>
                 </ThemeProvider>
-              </NetworkEnvironmentProvider>
-            </NetworkProvider>
+              </NetworkProvider>
+            </NetworkEnvironmentProvider>
           )}
         </ConnectKitProvider>
       </WagmiConfig>

@@ -1,28 +1,19 @@
 import clsx from "clsx";
 import BigNumber from "bignumber.js";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { NetworkName } from "types";
 import { FiXCircle, FiAlertTriangle } from "react-icons/fi";
 import { Dialog } from "@headlessui/react";
-import { useAccount } from "wagmi";
 import { useNetworkContext } from "@contexts/NetworkContext";
 import useResponsive from "@hooks/useResponsive";
 import useDisableEscapeKey from "@hooks/useDisableEscapeKey";
 import truncateTextFromMiddle from "@utils/textHelper";
-import { getLocalStorage, setLocalStorage } from "@utils/localStorage";
 import IconTooltip from "@components/commons/IconTooltip";
 import ActionButton from "@components/commons/ActionButton";
 import NumericFormat from "@components/commons/NumericFormat";
 import BrLogoIcon from "@components/icons/BrLogoIcon";
 import DeFiChainToERC20Transfer from "@components/erc-transfer/DeFiChainToERC20Transfer";
 import { CONSORTIUM_INFO, FEES_INFO } from "../constants";
-
-interface TransferData {
-  from: RowDataI;
-  to: RowDataI;
-  isSendingToDFC: boolean;
-}
 
 interface RowDataI {
   address: string;
@@ -31,6 +22,11 @@ interface RowDataI {
   tokenName: string;
   tokenIcon: string;
   amount: BigNumber;
+}
+
+interface TransferData {
+  from: RowDataI;
+  to: RowDataI;
 }
 
 function RowData({
@@ -144,12 +140,16 @@ function ERC20ToDeFiChainTransfer() {
 }
 
 export default function ConfirmTransferModal({
+  show,
   onClose,
   amount,
+  fromAddress,
   toAddress,
 }: {
+  show: boolean;
   onClose: () => void;
   amount: string;
+  fromAddress: string;
   toAddress: string;
 }) {
   const {
@@ -158,15 +158,15 @@ export default function ConfirmTransferModal({
     selectedNetworkB,
     selectedTokensB,
   } = useNetworkContext();
-  const { address } = useAccount();
   const { isMobile } = useResponsive();
-  useDisableEscapeKey(true);
+  useDisableEscapeKey(show);
 
-  const defaultData: TransferData = {
+  // Direction of transfer
+  const isSendingToDFC = selectedNetworkB.name === NetworkName.DeFiChain;
+
+  const data: TransferData = {
     from: {
-      address: (selectedNetworkB.name === NetworkName.DeFiChain
-        ? address
-        : "DeFiChain address") as string,
+      address: (isSendingToDFC ? fromAddress : "DeFiChain address") as string,
       networkName: NetworkName[selectedNetworkA.name],
       networkIcon: selectedNetworkA.icon,
       tokenName: selectedTokensA.tokenA.name,
@@ -181,33 +181,13 @@ export default function ConfirmTransferModal({
       tokenIcon: selectedTokensB.tokenA.icon,
       amount: new BigNumber(amount),
     },
-    // Direction of transfer
-    isSendingToDFC: selectedNetworkB.name === NetworkName.DeFiChain,
   };
-  const [data, setData] = useState<TransferData>(defaultData);
-
-  useEffect(() => {
-    const dataKey = "incomplete-transfer";
-    const lastSavedTransaction = getLocalStorage<TransferData>(dataKey);
-    if (lastSavedTransaction) {
-      // Get data from local storage
-      const { from, to, isSendingToDFC } = lastSavedTransaction;
-      const format = {
-        isSendingToDFC,
-        from: { ...from, amount: new BigNumber(from.amount) },
-        to: { ...to, amount: new BigNumber(to.amount) },
-      };
-      setData(format);
-    } else {
-      setLocalStorage<TransferData>(dataKey, data);
-    }
-  }, []);
 
   // TODO: Replace with real address
   const consortiumAddress = "df10szLaksgysjl088man5vfmsm6wsstquabds9123";
 
   return (
-    <Dialog as="div" className="relative z-10" open onClose={onClose}>
+    <Dialog as="div" className="relative z-10" open={show} onClose={onClose}>
       <Dialog.Panel className="transform transition-all fixed inset-0 bg-dark-00 bg-opacity-70 backdrop-blur-[18px] overflow-auto">
         <div
           className={clsx(
@@ -237,7 +217,7 @@ export default function ConfirmTransferModal({
             data={data.from}
             label="FROM"
             networkLabel="Source"
-            isSendingToDFC={data.isSendingToDFC}
+            isSendingToDFC={isSendingToDFC}
           />
           <RowData data={data.to} label="TO" networkLabel="Destination" />
           <div className="w-full border-t border-t-dark-200 md:mt-3" />
@@ -290,7 +270,7 @@ export default function ConfirmTransferModal({
             </div>
           </div>
 
-          {data.isSendingToDFC ? (
+          {isSendingToDFC ? (
             <ERC20ToDeFiChainTransfer />
           ) : (
             <DeFiChainToERC20Transfer />

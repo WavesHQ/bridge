@@ -114,7 +114,6 @@ export default function WalletAddressInput({
     } else {
       setPlaceholder(`Enter ${displayedName} address`);
     }
-    onAddressInputChange(""); // Reset input on network change
   }, [blockchain, networkEnv, isConnected]);
 
   useEffect(() => {
@@ -161,7 +160,9 @@ export default function WalletAddressInput({
         <span className="pl-5 text-xs font-semibold xl:tracking-wider lg:text-base text-dark-900">
           {label}
         </span>
-        {blockchain === Network.DeFiChain && <EnvironmentNetworkSwitch />}
+        {blockchain === Network.DeFiChain && (
+          <EnvironmentNetworkSwitch onChange={() => onAddressInputChange("")} />
+        )}
         <div
           className={clsx(
             "absolute right-0 rounded bg-valid px-2 py-1 text-2xs text-dark-00  transition duration-300 lg:text-xs",

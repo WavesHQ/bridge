@@ -29,3 +29,5 @@ export const DAILY_LIMIT_INFO: TooltipInfoI = {
 
 // export const DFC_TO_ERC_TIME_LIMIT = 1800; // 30 mins
 export const DFC_TO_ERC_TIME_LIMIT = 10; // TODO: Remove this 10 sec, for testing purposes only
+
+export const LOCAL_STORAGE_TXN_KEY = "unconfirmed-txn";

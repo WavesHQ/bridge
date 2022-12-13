@@ -6,7 +6,10 @@ import React, {
   PropsWithChildren,
   useEffect,
 } from "react";
-import { Network, NetworkOptionsI, TokensI } from "types";
+import { Network, NetworkOptionsI, TokensI, UnconfirmedTxnI } from "types";
+import { getLocalStorage } from "@utils/localStorage";
+import { useNetworkEnvironmentContext } from "./NetworkEnvironmentContext";
+import { LOCAL_STORAGE_TXN_KEY } from "../../constants";
 
 interface NetworkContextI {
   selectedNetworkA: NetworkOptionsI;
@@ -164,6 +167,7 @@ export function NetworkProvider({
   const [selectedTokensB, setSelectedTokensB] = useState<TokensI>(
     defaultNetworkB.tokens[0]
   );
+  const { updateNetworkEnv } = useNetworkEnvironmentContext();
 
   useEffect(() => {
     const networkB = networks.find(
@@ -188,6 +192,17 @@ export function NetworkProvider({
       setSelectedTokensB(tokens);
     }
   }, [selectedTokensA]);
+
+  useEffect(() => {
+    const localData = getLocalStorage<UnconfirmedTxnI>(LOCAL_STORAGE_TXN_KEY);
+    if (localData) {
+      setSelectedNetworkA(localData.selectedNetworkA);
+      setSelectedTokensA(localData.selectedTokensA);
+      setSelectedNetworkB(localData.selectedNetworkB);
+      setSelectedTokensB(localData.selectedTokensB);
+      updateNetworkEnv(localData.networkEnv);
+    }
+  }, []);
 
   const context: NetworkContextI = useMemo(
     () => ({

@@ -1,16 +1,20 @@
-import { useState } from "react";
+import clsx from "clsx";
+import { useEffect, useState } from "react";
 import { useAccount, useBalance } from "wagmi";
 import { shift, autoUpdate, size, useFloating } from "@floating-ui/react-dom";
+import { FiAlertTriangle } from "react-icons/fi";
 import { ConnectKitButton } from "connectkit";
 import BigNumber from "bignumber.js";
 import { networks, useNetworkContext } from "@contexts/NetworkContext";
-import { getLocalStorage } from "@utils/localStorage";
+import { useNetworkEnvironmentContext } from "@contexts/NetworkEnvironmentContext";
+import { getLocalStorage, setLocalStorage } from "@utils/localStorage";
 import {
   Network,
   SelectionType,
   TokensI,
   NetworkOptionsI,
   NetworkName,
+  UnconfirmedTxnI,
 } from "types";
 import { QuickInputCard } from "./commons/QuickInputCard";
 import InputSelector from "./InputSelector";
@@ -22,7 +26,7 @@ import DailyLimit from "./DailyLimit";
 import IconTooltip from "./commons/IconTooltip";
 import ActionButton from "./commons/ActionButton";
 import ConfirmTransferModal from "./ConfirmTransferModal";
-import { FEES_INFO } from "../constants";
+import { FEES_INFO, LOCAL_STORAGE_TXN_KEY } from "../constants";
 
 function SwitchButton({ onClick }: { onClick: () => void }) {
   return (
@@ -45,6 +49,23 @@ function SwitchButton({ onClick }: { onClick: () => void }) {
   );
 }
 
+function UnconfirmedTxnWarning() {
+  return (
+    <div
+      className={clsx(
+        "flex items-center border border-warning rounded-lg px-4 py-3 mb-8",
+        "md:px-6 md:py-4 md:mb-12"
+      )}
+    >
+      <FiAlertTriangle size={24} className="shrink-0 text-warning" />
+      <span className="ml-3 text-warning">
+        An unconfirmed transaction is found in your device and has been
+        pre-loaded for your confirmation
+      </span>
+    </div>
+  );
+}
+
 export default function BridgeForm() {
   const {
     selectedNetworkA,
@@ -54,6 +75,7 @@ export default function BridgeForm() {
     setSelectedNetworkA,
     setSelectedTokensA,
   } = useNetworkContext();
+  const { networkEnv } = useNetworkEnvironmentContext();
 
   const [amount, setAmount] = useState<string>("");
   const [amountErr, setAmountErr] = useState<string>("");
@@ -64,6 +86,8 @@ export default function BridgeForm() {
   const { address, isConnected } = useAccount();
   const { data } = useBalance({ address });
   const maxAmount = new BigNumber(data?.formatted ?? 100); // TODO: Replace default 100 with 0 before release
+  const [fromAddress, setFromAddress] = useState<string>(address || "");
+  const [hasUnconfirmedTxn, setHasUnconfirmedTxn] = useState(false);
 
   const switchNetwork = () => {
     setSelectedNetworkA(selectedNetworkB);
@@ -85,6 +109,20 @@ export default function BridgeForm() {
   };
 
   const onTransferTokens = (): void => {
+    if (!hasUnconfirmedTxn) {
+      const localData = {
+        selectedNetworkA,
+        selectedTokensA,
+        selectedNetworkB,
+        selectedTokensB,
+        networkEnv,
+        amount,
+        fromAddress,
+        toAddress: addressInput,
+      };
+      setLocalStorage<UnconfirmedTxnI>(LOCAL_STORAGE_TXN_KEY, localData);
+    }
+
     /* TODO: Handle token transfer here */
     setShowConfirmModal(true);
   };
@@ -117,13 +155,24 @@ export default function BridgeForm() {
     floating,
   };
 
-  const lastSavedTransaction = getLocalStorage("incomplete-transfer");
-  console.log({ lastSavedTransaction });
+  useEffect(() => {
+    const localDetails = getLocalStorage<UnconfirmedTxnI>(
+      LOCAL_STORAGE_TXN_KEY
+    );
+    if (localDetails) {
+      setHasUnconfirmedTxn(true);
+      setAmount(localDetails.amount);
+      setAddressInput(localDetails.toAddress);
+      setFromAddress(localDetails.fromAddress); // TODO: Handle fromAddress when account is disconnected
+    }
+  }, []);
+
   const isFormValid =
     amount && new BigNumber(amount).gt(0) && !amountErr && !hasAddressInputErr;
 
   return (
     <div className="w-full md:w-[calc(100%+2px)] lg:w-full dark-card-bg-image p-6 md:pt-8 pb-16 lg:p-12 rounded-lg lg:rounded-xl border border-dark-200 backdrop-blur-[18px]">
+      {hasUnconfirmedTxn && <UnconfirmedTxnWarning />}
       <div className="flex flex-row items-center" ref={reference}>
         <div className="w-1/2">
           <InputSelector
@@ -261,13 +310,13 @@ export default function BridgeForm() {
           )}
         </ConnectKitButton.Custom>
       </div>
-      {showConfirmModal && (
-        <ConfirmTransferModal
-          onClose={() => setShowConfirmModal(false)}
-          amount={amount}
-          toAddress={addressInput}
-        />
-      )}
+      <ConfirmTransferModal
+        show={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        amount={amount}
+        fromAddress={fromAddress}
+        toAddress={addressInput}
+      />
     </div>
   );
 }

@@ -2,7 +2,11 @@ import clsx from "clsx";
 import { useNetworkEnvironmentContext } from "@contexts/NetworkEnvironmentContext";
 import { NetworkEnvironment } from "types";
 
-export default function EnvironmentNetworkSwitch(): JSX.Element {
+export default function EnvironmentNetworkSwitch({
+  onChange,
+}: {
+  onChange: () => void;
+}): JSX.Element {
   const {
     networkEnv: currentNetworkEnv,
     networkEnvDisplayName,
@@ -27,6 +31,7 @@ export default function EnvironmentNetworkSwitch(): JSX.Element {
         break;
     }
     updateNetworkEnv(nextNetworkEnv);
+    onChange();
   };
 
   return (
