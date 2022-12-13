@@ -5,11 +5,11 @@ importers:
   .:
     specifiers:
       '@birthdayresearch/sticky-turbo': ^0.3.2
-      '@waveshq/standard-defichain-jellyfishsdk': ^0.14.0
+      '@waveshq/standard-defichain-jellyfishsdk': ^0.15.1
       husky: ^8.0.2
       lint-staged: ^13.1.0
     dependencies:
-      '@waveshq/standard-defichain-jellyfishsdk': 0.14.0
+      '@waveshq/standard-defichain-jellyfishsdk': 0.15.1
     devDependencies:
       '@birthdayresearch/sticky-turbo': 0.3.2
       husky: 8.0.2
@@ -90,8 +90,8 @@ importers:
       '@tailwindcss/typography': ^0.5.8
       '@testing-library/cypress': ^8.0.7
       '@types/node': 18.11.11
-      '@waveshq/standard-web': ^0.14.0
-      '@waveshq/standard-web-linter': ^0.14.0
+      '@waveshq/standard-web': ^0.15.1
+      '@waveshq/standard-web-linter': ^0.15.1
       autoprefixer: ^10.4.13
       axios: ^1.2.1
       babel-plugin-istanbul: ^6.1.1
@@ -112,7 +112,7 @@ importers:
       '@floating-ui/react-dom': 1.0.1_biqbaboplfbrettd7655fr4n2y
       '@headlessui/react': 1.7.5_biqbaboplfbrettd7655fr4n2y
       '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.4
-      '@waveshq/standard-web': 0.14.0_2vqh5fjduf4ic2y7ty6fxcrg4q
+      '@waveshq/standard-web': 0.15.1_2vqh5fjduf4ic2y7ty6fxcrg4q
       axios: 1.2.1
       bignumber.js: 9.1.1
       clsx: 1.2.1
@@ -129,7 +129,7 @@ importers:
       '@tailwindcss/typography': 0.5.8_tailwindcss@3.2.4
       '@testing-library/cypress': 8.0.7_cypress@12.1.0
       '@types/node': 18.11.11
-      '@waveshq/standard-web-linter': 0.14.0_n2faeg6sxq2z5fwtgiimvh2qia
+      '@waveshq/standard-web-linter': 0.15.1_n2faeg6sxq2z5fwtgiimvh2qia
       autoprefixer: 10.4.13_postcss@8.4.20
       babel-plugin-istanbul: 6.1.1
       babel-plugin-jsx-remove-data-test-id: 3.0.0_@babel+core@7.20.5
@@ -5046,8 +5046,8 @@ packages:
       '@walletconnect/window-getters': 1.0.0
     dev: false
 
-  /@waveshq/standard-defichain-jellyfishsdk/0.14.0:
-    resolution: {integrity: sha512-/VfFW25MyDJRReTCTi67F6e5Q2VzB3FEWg+/2B5Bbali7VD9o/PotYpXKsEBC3PHcwjjb4hT0GzLyshbyP1qkA==}
+  /@waveshq/standard-defichain-jellyfishsdk/0.15.1:
+    resolution: {integrity: sha512-L38sUw7r/b26w78hr2dGUrV+f/8/X/mt1LyYr8nx5Yx5Ws+K4LQYw3WIIOMfeYd2cvh2ZIGeNB1GPQnLxuiLYg==}
     dependencies:
       '@defichain/jellyfish-address': 3.9.0_defichain@3.9.0
       '@defichain/jellyfish-api-core': 3.9.0_defichain@3.9.0
@@ -5065,8 +5065,8 @@ packages:
       - encoding
     dev: false
 
-  /@waveshq/standard-web-linter/0.14.0_n2faeg6sxq2z5fwtgiimvh2qia:
-    resolution: {integrity: sha512-Iwbn9qUBweSCFATmpRWz4jEKRzeRDD0YJ8WKuHFmU9hyOk+Zt8aLwWcxbk6arllpctjD5xPgPjfYuvxcPtWlLw==}
+  /@waveshq/standard-web-linter/0.15.1_n2faeg6sxq2z5fwtgiimvh2qia:
+    resolution: {integrity: sha512-zm/BhqtT+onzVtJp5eAj5xeam3g95Mi7gvPRgVA7AZaLfdRbFJMIqJ1KeelXYp8MRiZZbDdfZ8Hb1PvNzsNr+Q==}
     dependencies:
       eslint: 8.29.0
       eslint-config-airbnb: 19.0.4_u6r7wmyqgznou2plc6ye67x2ku
@@ -5080,6 +5080,7 @@ packages:
       eslint-plugin-prettier: 4.2.1_5dgjrgoi64tgrv3zzn3walur3u
       eslint-plugin-react: 7.31.11_eslint@8.29.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.29.0
+      eslint-plugin-simple-import-sort: 8.0.0_eslint@8.29.0
       husky: 8.0.2
       lint-staged: 13.1.0
       next: 13.0.6_mz53pcrhrtbilczuivypd336dm
@@ -5101,8 +5102,8 @@ packages:
       - supports-color
     dev: true
 
-  /@waveshq/standard-web/0.14.0_2vqh5fjduf4ic2y7ty6fxcrg4q:
-    resolution: {integrity: sha512-eGp3YfyxuX3CYmoWE7ngRULtLgm63SqDNdypbWxpR2qRPeqAPpCCJQICIc+6iC3Hl9H7mqIugAxOapopcjn4MQ==}
+  /@waveshq/standard-web/0.15.1_2vqh5fjduf4ic2y7ty6fxcrg4q:
+    resolution: {integrity: sha512-VNInz7irHdwEluOPMhig3opLNeOwIaxSlB3RMWoJATpxflkI/NDg9bA6pPwvkXIDCkLHhh3PszCYsIMenvAbPQ==}
     dependencies:
       '@netlify/ipx': 1.3.2
       '@types/react': 18.0.26
