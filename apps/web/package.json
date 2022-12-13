@@ -27,7 +27,7 @@
     "connectkit": "^1.1.0",
     "dayjs": "^1.11.7",
     "ethers": "^5.7.2",
-    "react-qr-code": "^2.0.8",
+    "react-qr-code": "^2.0.10",
     "sass": "^1.56.2",
     "wagmi": "^0.8.10"
   },
