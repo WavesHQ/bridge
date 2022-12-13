@@ -74,8 +74,12 @@ export default function BridgeForm() {
     selectedTokensB,
     setSelectedNetworkA,
     setSelectedTokensA,
+    setSelectedNetworkB,
+    setSelectedTokensB,
+    resetNetworkSelection,
   } = useNetworkContext();
-  const { networkEnv } = useNetworkEnvironmentContext();
+  const { networkEnv, updateNetworkEnv, resetNetworkEnv } =
+    useNetworkEnvironmentContext();
 
   const [amount, setAmount] = useState<string>("");
   const [amountErr, setAmountErr] = useState<string>("");
@@ -122,10 +126,45 @@ export default function BridgeForm() {
       };
       setLocalStorage<UnconfirmedTxnI>(LOCAL_STORAGE_TXN_KEY, localData);
     }
-
     /* TODO: Handle token transfer here */
     setShowConfirmModal(true);
   };
+
+  const onResetTransferForm = () => {
+    setLocalStorage(LOCAL_STORAGE_TXN_KEY, null);
+    setHasUnconfirmedTxn(false);
+    setAmount("");
+    setAddressInput("");
+    setFromAddress(address || "");
+    resetNetworkSelection();
+    resetNetworkEnv();
+  };
+
+  const getActionBtnLabel = () => {
+    switch (true) {
+      case hasUnconfirmedTxn:
+        return "Retry transfer";
+      case isConnected:
+        return `Transfer to ${NetworkName[selectedNetworkB.name]}`;
+      default:
+        return "Connect wallet";
+    }
+  };
+
+  useEffect(() => {
+    const localData = getLocalStorage<UnconfirmedTxnI>(LOCAL_STORAGE_TXN_KEY);
+    if (localData) {
+      setHasUnconfirmedTxn(true);
+      setAmount(localData.amount);
+      setAddressInput(localData.toAddress);
+      setFromAddress(localData.fromAddress);
+      setSelectedNetworkA(localData.selectedNetworkA);
+      setSelectedTokensA(localData.selectedTokensA);
+      setSelectedNetworkB(localData.selectedNetworkB);
+      setSelectedTokensB(localData.selectedTokensB);
+      updateNetworkEnv(localData.networkEnv);
+    }
+  }, []);
 
   const { y, reference, floating, strategy, refs } = useFloating({
     placement: "bottom-end",
@@ -154,18 +193,6 @@ export default function BridgeForm() {
     y,
     floating,
   };
-
-  useEffect(() => {
-    const localDetails = getLocalStorage<UnconfirmedTxnI>(
-      LOCAL_STORAGE_TXN_KEY
-    );
-    if (localDetails) {
-      setHasUnconfirmedTxn(true);
-      setAmount(localDetails.amount);
-      setAddressInput(localDetails.toAddress);
-      setFromAddress(localDetails.fromAddress); // TODO: Handle fromAddress when account is disconnected
-    }
-  }, []);
 
   const isFormValid =
     amount && new BigNumber(amount).gt(0) && !amountErr && !hasAddressInputErr;
@@ -299,16 +326,21 @@ export default function BridgeForm() {
         <ConnectKitButton.Custom>
           {({ show }) => (
             <ActionButton
-              label={
-                isConnected
-                  ? `Transfer to ${NetworkName[selectedNetworkB.name]}`
-                  : "Connect wallet"
-              }
+              label={getActionBtnLabel()}
               disabled={isConnected && !isFormValid}
               onClick={!isConnected ? show : () => onTransferTokens()}
             />
           )}
         </ConnectKitButton.Custom>
+        {hasUnconfirmedTxn && (
+          <div className="mt-3">
+            <ActionButton
+              label="Reset form"
+              onClick={() => onResetTransferForm()}
+              variant="secondary"
+            />
+          </div>
+        )}
       </div>
       <ConfirmTransferModal
         show={showConfirmModal}

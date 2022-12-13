@@ -6,10 +6,7 @@ import React, {
   PropsWithChildren,
   useEffect,
 } from "react";
-import { Network, NetworkOptionsI, TokensI, UnconfirmedTxnI } from "types";
-import { getLocalStorage } from "@utils/localStorage";
-import { useNetworkEnvironmentContext } from "./NetworkEnvironmentContext";
-import { LOCAL_STORAGE_TXN_KEY } from "../../constants";
+import { Network, NetworkOptionsI, TokensI } from "types";
 
 interface NetworkContextI {
   selectedNetworkA: NetworkOptionsI;
@@ -18,6 +15,9 @@ interface NetworkContextI {
   selectedTokensB: TokensI;
   setSelectedNetworkA: (networkA: NetworkOptionsI) => void;
   setSelectedTokensA: (tokenA: TokensI) => void;
+  setSelectedNetworkB: (networkB: NetworkOptionsI) => void;
+  setSelectedTokensB: (tokenB: TokensI) => void;
+  resetNetworkSelection: () => void;
 }
 
 export const networks = [
@@ -167,7 +167,6 @@ export function NetworkProvider({
   const [selectedTokensB, setSelectedTokensB] = useState<TokensI>(
     defaultNetworkB.tokens[0]
   );
-  const { updateNetworkEnv } = useNetworkEnvironmentContext();
 
   useEffect(() => {
     const networkB = networks.find(
@@ -193,16 +192,12 @@ export function NetworkProvider({
     }
   }, [selectedTokensA]);
 
-  useEffect(() => {
-    const localData = getLocalStorage<UnconfirmedTxnI>(LOCAL_STORAGE_TXN_KEY);
-    if (localData) {
-      setSelectedNetworkA(localData.selectedNetworkA);
-      setSelectedTokensA(localData.selectedTokensA);
-      setSelectedNetworkB(localData.selectedNetworkB);
-      setSelectedTokensB(localData.selectedTokensB);
-      updateNetworkEnv(localData.networkEnv);
-    }
-  }, []);
+  const resetNetworkSelection = () => {
+    setSelectedNetworkA(defaultNetworkA);
+    setSelectedTokensA(defaultNetworkA.tokens[0]);
+    setSelectedNetworkB(defaultNetworkB);
+    setSelectedTokensB(defaultNetworkB.tokens[0]);
+  };
 
   const context: NetworkContextI = useMemo(
     () => ({
@@ -212,6 +207,9 @@ export function NetworkProvider({
       selectedTokensB,
       setSelectedNetworkA,
       setSelectedTokensA,
+      setSelectedNetworkB,
+      setSelectedTokensB,
+      resetNetworkSelection,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [selectedTokensA, selectedTokensB]
