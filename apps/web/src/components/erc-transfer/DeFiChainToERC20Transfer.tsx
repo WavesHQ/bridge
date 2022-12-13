@@ -9,7 +9,7 @@ import StepOneSendConfirmation from "./StepOneSendConfirmation";
 import StepTwoVerification from "./StepTwoVerification";
 import StepThreeClaim from "./StepThreeClaim";
 
-export const DfcToErcTransferSteps: ProgressStepI[] = [
+const DfcToErcTransferSteps: ProgressStepI[] = [
   { step: 1, label: "Transfer" },
   { step: 2, label: "Verification" },
   { step: 3, label: "Claim" },

@@ -4,6 +4,7 @@ import { shift, autoUpdate, size, useFloating } from "@floating-ui/react-dom";
 import { ConnectKitButton } from "connectkit";
 import BigNumber from "bignumber.js";
 import { networks, useNetworkContext } from "@contexts/NetworkContext";
+import { getLocalStorage } from "@utils/localStorage";
 import {
   Network,
   SelectionType,
@@ -116,6 +117,8 @@ export default function BridgeForm() {
     floating,
   };
 
+  const lastSavedTransaction = getLocalStorage("incomplete-transfer");
+  console.log({ lastSavedTransaction });
   const isFormValid =
     amount && new BigNumber(amount).gt(0) && !amountErr && !hasAddressInputErr;
 
@@ -258,12 +261,13 @@ export default function BridgeForm() {
           )}
         </ConnectKitButton.Custom>
       </div>
-      <ConfirmTransferModal
-        show={showConfirmModal}
-        onClose={() => setShowConfirmModal(false)}
-        amount={amount}
-        toAddress={addressInput}
-      />
+      {showConfirmModal && (
+        <ConfirmTransferModal
+          onClose={() => setShowConfirmModal(false)}
+          amount={amount}
+          toAddress={addressInput}
+        />
+      )}
     </div>
   );
 }
