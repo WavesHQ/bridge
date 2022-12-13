@@ -259,7 +259,7 @@ export default function ConfirmTransferModal({
               <div className="flex items-center mt-2 md:mt-1">
                 <BrLogoIcon />
                 <span className="text-xs md:text-sm text-dark-700 ml-2">
-                  Birthday research
+                  Birthday Research
                 </span>
               </div>
             </div>
