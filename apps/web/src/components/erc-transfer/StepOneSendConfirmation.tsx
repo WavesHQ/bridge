@@ -4,14 +4,14 @@ import { FiAlertCircle, FiCopy } from "react-icons/fi";
 import QRCode from "react-qr-code";
 import useCopyToClipboard from "@hooks/useCopyToClipboard";
 import useResponsive from "@hooks/useResponsive";
-import { getLocalStorage, setLocalStorage } from "@utils/localStorage";
+import { getStorageItem, setStorageItem } from "@utils/localStorage";
 import Tooltip from "@components/commons/Tooltip";
 import UtilityButton from "@components/commons/UtilityButton";
 import TimeLimitCounter from "./TimeLimitCounter";
-import { LOCAL_STORAGE_DFC_ADDR_KEY } from "../../constants";
+import { STORAGE_DFC_ADDR_KEY } from "../../constants";
 
 const generateDfcUniqueAddress = () => {
-  const localDfcAddress = getLocalStorage<string>(LOCAL_STORAGE_DFC_ADDR_KEY);
+  const localDfcAddress = getStorageItem<string>(STORAGE_DFC_ADDR_KEY);
   if (localDfcAddress) {
     return localDfcAddress;
   }
@@ -20,7 +20,7 @@ const generateDfcUniqueAddress = () => {
   const address: string = Array.from(Array(42), () =>
     Math.floor(Math.random() * 36).toString(36)
   ).join("");
-  setLocalStorage<string>(LOCAL_STORAGE_DFC_ADDR_KEY, address);
+  setStorageItem<string>(STORAGE_DFC_ADDR_KEY, address);
   return address;
 };
 

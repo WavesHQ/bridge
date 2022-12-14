@@ -6,7 +6,7 @@ import { ConnectKitButton } from "connectkit";
 import BigNumber from "bignumber.js";
 import { networks, useNetworkContext } from "@contexts/NetworkContext";
 import { useNetworkEnvironmentContext } from "@contexts/NetworkEnvironmentContext";
-import { getLocalStorage, setLocalStorage } from "@utils/localStorage";
+import { getStorageItem, setStorageItem } from "@utils/localStorage";
 import {
   Network,
   SelectionType,
@@ -26,11 +26,7 @@ import InputSelector from "./InputSelector";
 import WalletAddressInput from "./WalletAddressInput";
 import DailyLimit from "./DailyLimit";
 import ConfirmTransferModal from "./ConfirmTransferModal";
-import {
-  FEES_INFO,
-  LOCAL_STORAGE_DFC_ADDR_KEY,
-  LOCAL_STORAGE_TXN_KEY,
-} from "../constants";
+import { FEES_INFO, STORAGE_DFC_ADDR_KEY, STORAGE_TXN_KEY } from "../constants";
 
 function SwitchButton({ onClick }: { onClick: () => void }) {
   return (
@@ -101,7 +97,7 @@ export default function BridgeForm() {
 
   const onTransferTokens = (): void => {
     if (!hasUnconfirmedTxn) {
-      const localData = {
+      const newTxn = {
         selectedNetworkA,
         selectedTokensA,
         selectedNetworkB,
@@ -111,15 +107,15 @@ export default function BridgeForm() {
         fromAddress,
         toAddress: addressInput,
       };
-      setLocalStorage<UnconfirmedTxnI>(LOCAL_STORAGE_TXN_KEY, localData);
+      setStorageItem<UnconfirmedTxnI>(STORAGE_TXN_KEY, newTxn);
     }
     /* TODO: Handle token transfer here */
     setShowConfirmModal(true);
   };
 
   const onResetTransferForm = () => {
-    setLocalStorage(LOCAL_STORAGE_TXN_KEY, null);
-    setLocalStorage(LOCAL_STORAGE_DFC_ADDR_KEY, null);
+    setStorageItem(STORAGE_TXN_KEY, null);
+    setStorageItem(STORAGE_DFC_ADDR_KEY, null);
     setHasUnconfirmedTxn(false);
     setAmount("");
     setAddressInput("");
@@ -140,8 +136,9 @@ export default function BridgeForm() {
   };
 
   useEffect(() => {
-    const localData = getLocalStorage<UnconfirmedTxnI>(LOCAL_STORAGE_TXN_KEY);
+    const localData = getStorageItem<UnconfirmedTxnI>(STORAGE_TXN_KEY);
     if (localData) {
+      // Load data from storage
       setHasUnconfirmedTxn(true);
       setAmount(localData.amount);
       setAddressInput(localData.toAddress);

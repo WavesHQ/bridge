@@ -1,6 +1,6 @@
 const STORAGE_PREFIX_KEY = "bridge.";
 
-export function getLocalStorage<T>(key: string): T | null {
+export function getStorageItem<T>(key: string): T | null {
   if (typeof window === "undefined") {
     return null;
   }
@@ -11,7 +11,7 @@ export function getLocalStorage<T>(key: string): T | null {
   return currentValue;
 }
 
-export function setLocalStorage<T>(key: string, value: T) {
+export function setStorageItem<T>(key: string, value: T) {
   if (typeof window === "undefined") {
     return;
   }
