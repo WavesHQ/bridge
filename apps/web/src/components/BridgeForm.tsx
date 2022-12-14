@@ -26,7 +26,11 @@ import DailyLimit from "./DailyLimit";
 import IconTooltip from "./commons/IconTooltip";
 import ActionButton from "./commons/ActionButton";
 import ConfirmTransferModal from "./ConfirmTransferModal";
-import { FEES_INFO, LOCAL_STORAGE_TXN_KEY } from "../constants";
+import {
+  FEES_INFO,
+  LOCAL_STORAGE_DFC_ADDR_KEY,
+  LOCAL_STORAGE_TXN_KEY,
+} from "../constants";
 
 function SwitchButton({ onClick }: { onClick: () => void }) {
   return (
@@ -132,6 +136,7 @@ export default function BridgeForm() {
 
   const onResetTransferForm = () => {
     setLocalStorage(LOCAL_STORAGE_TXN_KEY, null);
+    setLocalStorage(LOCAL_STORAGE_DFC_ADDR_KEY, null);
     setHasUnconfirmedTxn(false);
     setAmount("");
     setAddressInput("");

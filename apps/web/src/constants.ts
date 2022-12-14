@@ -31,3 +31,4 @@ export const DAILY_LIMIT_INFO: TooltipInfoI = {
 export const DFC_TO_ERC_TIME_LIMIT = 10; // TODO: Remove this 10 sec, for testing purposes only
 
 export const LOCAL_STORAGE_TXN_KEY = "unconfirmed-txn";
+export const LOCAL_STORAGE_DFC_ADDR_KEY = "unconfirmed-txn-dfc-address";

@@ -54,4 +54,5 @@ export interface UnconfirmedTxnI {
   amount: string;
   toAddress: string;
   fromAddress: string;
+  dfcUniqueAddress?: string;
 }
