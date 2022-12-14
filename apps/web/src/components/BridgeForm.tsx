@@ -2,7 +2,6 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { useAccount, useBalance } from "wagmi";
 import { shift, autoUpdate, size, useFloating } from "@floating-ui/react-dom";
-import { FiAlertTriangle } from "react-icons/fi";
 import { ConnectKitButton } from "connectkit";
 import BigNumber from "bignumber.js";
 import { networks, useNetworkContext } from "@contexts/NetworkContext";
@@ -16,15 +15,16 @@ import {
   NetworkName,
   UnconfirmedTxnI,
 } from "types";
-import { QuickInputCard } from "./commons/QuickInputCard";
+import SwitchIcon from "@components/icons/SwitchIcon";
+import ArrowDownIcon from "@components/icons/ArrowDownIcon";
+import ActionButton from "@components/commons/ActionButton";
+import AlertInfoMessage from "@components/commons/AlertInfoMessage";
+import IconTooltip from "@components/commons/IconTooltip";
+import NumericFormat from "@components/commons/NumericFormat";
+import { QuickInputCard } from "@components/commons/QuickInputCard";
 import InputSelector from "./InputSelector";
-import SwitchIcon from "./icons/SwitchIcon";
-import ArrowDownIcon from "./icons/ArrowDownIcon";
-import NumericFormat from "./commons/NumericFormat";
 import WalletAddressInput from "./WalletAddressInput";
 import DailyLimit from "./DailyLimit";
-import IconTooltip from "./commons/IconTooltip";
-import ActionButton from "./commons/ActionButton";
 import ConfirmTransferModal from "./ConfirmTransferModal";
 import {
   FEES_INFO,
@@ -49,23 +49,6 @@ function SwitchButton({ onClick }: { onClick: () => void }) {
         </div>
       </button>
       <div className="mt-6 flex w-full flex-1 justify-between border-t border-dark-300 border-opacity-50" />
-    </div>
-  );
-}
-
-function UnconfirmedTxnWarning() {
-  return (
-    <div
-      className={clsx(
-        "flex items-center border border-warning rounded-lg px-4 py-3 mb-8",
-        "md:px-6 md:py-4 md:mb-12"
-      )}
-    >
-      <FiAlertTriangle size={24} className="shrink-0 text-warning" />
-      <span className="ml-3 text-warning">
-        An unconfirmed transaction is found in your device and has been
-        pre-loaded for your confirmation
-      </span>
     </div>
   );
 }
@@ -204,7 +187,9 @@ export default function BridgeForm() {
 
   return (
     <div className="w-full md:w-[calc(100%+2px)] lg:w-full dark-card-bg-image p-6 md:pt-8 pb-16 lg:p-12 rounded-lg lg:rounded-xl border border-dark-200 backdrop-blur-[18px]">
-      {hasUnconfirmedTxn && <UnconfirmedTxnWarning />}
+      {hasUnconfirmedTxn && (
+        <AlertInfoMessage message="An unconfirmed transaction is found in your device and has been pre-loaded for your confirmation" />
+      )}
       <div className="flex flex-row items-center" ref={reference}>
         <div className="w-1/2">
           <InputSelector
