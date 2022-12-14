@@ -108,7 +108,7 @@ export function QuickInputCard({
           disabled={disabled}
           spellCheck={false}
         />
-        {value !== "" && (
+        {value !== "" && !disabled && (
           <IoCloseCircleSharp
             size={20}
             onClick={() => onChange("")}

@@ -16,6 +16,7 @@ interface Props {
   blockchain: Network;
   label: string;
   disabled?: boolean;
+  readOnly?: boolean;
   addressInput: string;
   onAddressInputChange: (address: string) => void;
   onAddressInputError: (hasError: boolean) => void;
@@ -56,6 +57,7 @@ export default function WalletAddressInput({
   blockchain,
   label,
   disabled = false,
+  readOnly = false,
   addressInput,
   onAddressInputChange,
   onAddressInputError,
@@ -161,7 +163,10 @@ export default function WalletAddressInput({
           {label}
         </span>
         {blockchain === Network.DeFiChain && (
-          <EnvironmentNetworkSwitch onChange={() => onAddressInputChange("")} />
+          <EnvironmentNetworkSwitch
+            onChange={() => onAddressInputChange("")}
+            disabled={readOnly}
+          />
         )}
         <div
           className={clsx(
@@ -187,6 +192,7 @@ export default function WalletAddressInput({
               showErrorBorder ||
               isFocused
             ),
+            "pointer-events-none": readOnly,
           }
         )}
       >

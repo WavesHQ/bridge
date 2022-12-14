@@ -1,9 +1,9 @@
 import clsx from "clsx";
+import BigNumber from "bignumber.js";
 import { useEffect, useState } from "react";
 import { useAccount, useBalance } from "wagmi";
-import { shift, autoUpdate, size, useFloating } from "@floating-ui/react-dom";
 import { ConnectKitButton } from "connectkit";
-import BigNumber from "bignumber.js";
+import { shift, autoUpdate, size, useFloating } from "@floating-ui/react-dom";
 import { networks, useNetworkContext } from "@contexts/NetworkContext";
 import { useNetworkEnvironmentContext } from "@contexts/NetworkEnvironmentContext";
 import { getStorageItem, setStorageItem } from "@utils/localStorage";
@@ -28,14 +28,24 @@ import DailyLimit from "./DailyLimit";
 import ConfirmTransferModal from "./ConfirmTransferModal";
 import { FEES_INFO, STORAGE_DFC_ADDR_KEY, STORAGE_TXN_KEY } from "../constants";
 
-function SwitchButton({ onClick }: { onClick: () => void }) {
+function SwitchButton({
+  onClick,
+  disabled = false,
+}: {
+  onClick: () => void;
+  disabled?: boolean;
+}) {
   return (
     <div className="my-8 flex flex-row">
       <div className="mt-6 flex w-full flex-1 justify-between border-t border-dark-300 border-opacity-50" />
       <button
         type="button"
         onClick={onClick}
-        className="dark-card-bg dark-bg-card-section group flex h-12 w-12 items-center justify-center rounded-full"
+        disabled={disabled}
+        className={clsx(
+          "dark-card-bg dark-bg-card-section group flex h-12 w-12 items-center justify-center rounded-full",
+          { "pointer-events-none": disabled }
+        )}
       >
         <div className="hidden group-hover:hidden lg:block">
           <ArrowDownIcon size={24} className="fill-dark-700" />
@@ -197,6 +207,7 @@ export default function BridgeForm() {
             type={SelectionType.Network}
             onSelect={(value: NetworkOptionsI) => setSelectedNetworkA(value)}
             value={selectedNetworkA}
+            disabled={hasUnconfirmedTxn}
           />
         </div>
         <div className="w-1/2">
@@ -208,6 +219,7 @@ export default function BridgeForm() {
             type={SelectionType.Token}
             onSelect={(value: TokensI) => setSelectedTokensA(value)}
             value={selectedTokensA}
+            disabled={hasUnconfirmedTxn}
           />
         </div>
       </div>
@@ -221,6 +233,7 @@ export default function BridgeForm() {
           value={amount}
           error={amountErr}
           showAmountsBtn={selectedNetworkA.name === Network.Ethereum}
+          disabled={hasUnconfirmedTxn}
         />
         <div className="flex flex-row pl-4 lg:pl-5 mt-2">
           {amountErr ? (
@@ -243,7 +256,7 @@ export default function BridgeForm() {
           )}
         </div>
       </div>
-      <SwitchButton onClick={switchNetwork} />
+      <SwitchButton onClick={switchNetwork} disabled={hasUnconfirmedTxn} />
 
       <div className="flex flex-row items-end mb-4 lg:mb-5">
         <div className="w-1/2">
@@ -275,6 +288,7 @@ export default function BridgeForm() {
           onAddressInputChange={(addrInput) => setAddressInput(addrInput)}
           onAddressInputError={(hasError) => setHasAddressInputErr(hasError)}
           disabled={!isConnected}
+          readOnly={hasUnconfirmedTxn}
         />
       </div>
       <div className="flex flex-row justify-between items-center px-4 lg:px-5">
