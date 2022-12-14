@@ -195,7 +195,10 @@ export default function BridgeForm() {
   return (
     <div className="w-full md:w-[calc(100%+2px)] lg:w-full dark-card-bg-image p-6 md:pt-8 pb-16 lg:p-12 rounded-lg lg:rounded-xl border border-dark-200 backdrop-blur-[18px]">
       {hasUnconfirmedTxn && (
-        <AlertInfoMessage message="An unconfirmed transaction is found in your device and has been pre-loaded for your confirmation" />
+        <AlertInfoMessage
+          message="An unconfirmed transaction is found in your device and has been pre-loaded for your confirmation"
+          containerStyle="px-4 py-3 mb-8 md:px-6 md:py-4 md:mb-12"
+        />
       )}
       <div className="flex flex-row items-center" ref={reference}>
         <div className="w-1/2">

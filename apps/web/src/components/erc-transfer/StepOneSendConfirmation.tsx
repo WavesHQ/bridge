@@ -5,10 +5,11 @@ import QRCode from "react-qr-code";
 import useCopyToClipboard from "@hooks/useCopyToClipboard";
 import useResponsive from "@hooks/useResponsive";
 import { getStorageItem, setStorageItem } from "@utils/localStorage";
+import AlertInfoMessage from "@components/commons/AlertInfoMessage";
 import Tooltip from "@components/commons/Tooltip";
 import UtilityButton from "@components/commons/UtilityButton";
 import TimeLimitCounter from "./TimeLimitCounter";
-import { STORAGE_DFC_ADDR_KEY } from "../../constants";
+import { DISCLAIMER_MESSAGE, STORAGE_DFC_ADDR_KEY } from "../../constants";
 
 const generateDfcUniqueAddress = () => {
   const localDfcAddress = getStorageItem<string>(STORAGE_DFC_ADDR_KEY);
@@ -102,11 +103,11 @@ export default function StepOneSendConfirmation({
   }, [showSuccessCopy]);
 
   return (
-    <div className={clsx("flex flex-col gap-7 mt-6", "md:flex-row md:mt-4")}>
+    <div className={clsx("flex flex-col mt-6", "md:flex-row md:gap-7 md:mt-4")}>
       <div
         className={clsx(
-          "w-full flex flex-row gap-4 order-1",
-          "md:w-2/5 md:flex-col md:shrink-0 md:gap-3 md:order-none md:border-[0.5px] border-dark-200 rounded md:px-5 md:pt-4 md:pb-3",
+          "w-full flex flex-row gap-4 order-1 mt-8",
+          "md:w-2/5 md:flex-col md:shrink-0 md:gap-3 md:order-none md:border-[0.5px] border-dark-200 rounded md:px-5 md:pt-4 md:pb-3 md:mt-0",
           { "justify-center": hasTimeElapsed }
         )}
       >
@@ -208,12 +209,19 @@ export default function StepOneSendConfirmation({
         </div>
       </div>
 
-      <div className={clsx("order-last px-6 pt-5", "md:hidden md:px-0")}>
-        {/* Mobile confirm button */}
-        <ConfirmButton
-          onConfirm={handleConfirmClick}
-          disabled={hasTimeElapsed}
+      <div className={clsx("order-last pt-6", "md:hidden")}>
+        <AlertInfoMessage
+          message={DISCLAIMER_MESSAGE}
+          containerStyle="px-5 py-4"
+          textStyle="text-xs"
         />
+        <div className={clsx("px-6 pt-12", "md:px-0")}>
+          {/* Mobile confirm button */}
+          <ConfirmButton
+            onConfirm={handleConfirmClick}
+            disabled={hasTimeElapsed}
+          />
+        </div>
       </div>
     </div>
   );
