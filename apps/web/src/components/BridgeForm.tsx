@@ -198,6 +198,7 @@ export default function BridgeForm() {
         <AlertInfoMessage
           message="An unconfirmed transaction is found in your device and has been pre-loaded for your confirmation"
           containerStyle="px-4 py-3 mb-8 md:px-6 md:py-4 md:mb-12"
+          textStyle="text-xs md:text-base"
         />
       )}
       <div className="flex flex-row items-center" ref={reference}>

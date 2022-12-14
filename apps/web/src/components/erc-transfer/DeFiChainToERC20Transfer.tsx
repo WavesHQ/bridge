@@ -56,7 +56,7 @@ export default function DeFiChainToERC20Transfer() {
       {[1, 2].includes(activeStep) && (
         <AlertInfoMessage
           message={DISCLAIMER_MESSAGE}
-          containerStyle="px-5 py-4 mt-4 hidden md:block"
+          containerStyle="px-5 py-4 mt-4 hidden md:flex"
           textStyle="text-xs"
         />
       )}
