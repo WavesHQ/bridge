@@ -3,7 +3,7 @@ import * as Joi from 'joi';
 export function appConfig() {
   return {
     blockchain: {
-      ethereumRpcUrl: process.env.ETHEREUM_RPC_URL,
+      ethereumRpcUrl: process.env.ETHEREUM_RPC_URL || 'localhost:8545',
     },
   };
 }
