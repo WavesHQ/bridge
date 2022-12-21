@@ -86,6 +86,9 @@ export default function BridgeForm() {
   const [fromAddress, setFromAddress] = useState<string>(address || "");
   const [hasUnconfirmedTxn, setHasUnconfirmedTxn] = useState(false);
 
+  // Local storage txn key grouped by network
+  const TXN_KEY = `${networkEnv}.${STORAGE_TXN_KEY}`;
+
   const switchNetwork = () => {
     setSelectedNetworkA(selectedNetworkB);
   };
@@ -117,14 +120,14 @@ export default function BridgeForm() {
         fromAddress,
         toAddress: addressInput,
       };
-      setStorageItem<UnconfirmedTxnI>(STORAGE_TXN_KEY, newTxn);
+      setStorageItem<UnconfirmedTxnI>(TXN_KEY, newTxn);
     }
     /* TODO: Handle token transfer here */
     setShowConfirmModal(true);
   };
 
   const onResetTransferForm = () => {
-    setStorageItem(STORAGE_TXN_KEY, null);
+    setStorageItem(TXN_KEY, null);
     setStorageItem(STORAGE_DFC_ADDR_KEY, null);
     setHasUnconfirmedTxn(false);
     setAmount("");
@@ -146,8 +149,8 @@ export default function BridgeForm() {
   };
 
   useEffect(() => {
-    const localData = getStorageItem<UnconfirmedTxnI>(STORAGE_TXN_KEY);
-    if (localData) {
+    const localData = getStorageItem<UnconfirmedTxnI>(TXN_KEY);
+    if (localData && networkEnv === localData.networkEnv) {
       // Load data from storage
       setHasUnconfirmedTxn(true);
       setAmount(localData.amount);
@@ -158,8 +161,10 @@ export default function BridgeForm() {
       setSelectedNetworkB(localData.selectedNetworkB);
       setSelectedTokensB(localData.selectedTokensB);
       updateNetworkEnv(localData.networkEnv);
+    } else {
+      setHasUnconfirmedTxn(false);
     }
-  }, []);
+  }, [networkEnv]);
 
   const { y, reference, floating, strategy, refs } = useFloating({
     placement: "bottom-end",

@@ -163,10 +163,7 @@ export default function WalletAddressInput({
           {label}
         </span>
         {blockchain === Network.DeFiChain && (
-          <EnvironmentNetworkSwitch
-            onChange={() => onAddressInputChange("")}
-            disabled={readOnly}
-          />
+          <EnvironmentNetworkSwitch onChange={() => onAddressInputChange("")} />
         )}
         <div
           className={clsx(
