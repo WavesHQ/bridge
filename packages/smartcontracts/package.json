@@ -74,6 +74,7 @@
     "solidity-coverage": "0.8.2",
     "ts-node": "10.9.1"
   },
+  "prettier": "@birthdayresearch/sticky-prettier",
   "lint-staged": {
     "*": [
       "prettier --write --ignore-unknown"

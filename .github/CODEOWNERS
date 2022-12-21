@@ -6,7 +6,8 @@
 
 public                                          @thedoublejay
 apps/web                                        @thedoublejay @kyleleow @fullstackninja864 @lykalabrada
-apps/server                                     @thedoublejay @weiyuan95
+apps/server                                     @thedoublejay @weiyuan95 @lykalabrada @pierregee
+packages                                        @thedoublejay @weiyuan95 @lykalabrada @pierregee @Abhishekkochar
 
 .codeclimate.yml                                @thedoublejay
 .editorconfig                                   @thedoublejay

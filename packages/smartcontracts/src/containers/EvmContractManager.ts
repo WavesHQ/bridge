@@ -1,6 +1,6 @@
-import { ethers, Signer } from "ethers";
+import { ethers, Signer } from 'ethers';
 
-import type { StartedHardhatNetworkContainer } from "./HardhatNetworkContainer";
+import type { StartedHardhatNetworkContainer } from './HardhatNetworkContainer';
 
 /**
  * Class which encapsulates EVM contract logic. Tightly coupled to a HardhatNetworkContainer.
@@ -15,7 +15,7 @@ export class EvmContractManager {
   constructor(
     private readonly startedHardhatContainer: StartedHardhatNetworkContainer,
     private readonly signer: ethers.Signer,
-    private readonly provider: ethers.providers.Provider
+    private readonly provider: ethers.providers.Provider,
   ) {}
 
   /**
@@ -39,32 +39,28 @@ export class EvmContractManager {
     if (this.isContractNameInUse(deploymentName)) {
       const existingContract = this.getDeployedContract<Abi>(deploymentName);
       throw Error(
-        `Contract '${deploymentName}' has already been deployed at ${existingContract.address}. Please use another name for the contract.`
+        `Contract '${deploymentName}' has already been deployed at ${existingContract.address}. Please use another name for the contract.`,
       );
     }
 
     // Comma-separate any contract deployment arguments which were passed in
     // If there were no deployment arguments, do not pass in the deployargs flag
-    const deployArgsFlags =
-      deployArgs.length > 0 ? ["--deployargs", deployArgs.join(",")] : [];
+    const deployArgsFlags = deployArgs.length > 0 ? ['--deployargs', deployArgs.join(',')] : [];
 
-    const linkedLibrariesFlags =
-      linkedLibraries !== undefined
-        ? ["--libraries", JSON.stringify(linkedLibraries)]
-        : [];
+    const linkedLibrariesFlags = linkedLibraries !== undefined ? ['--libraries', JSON.stringify(linkedLibraries)] : [];
     // The output of the deployContract task is the deployed contract's address
     const { output, exitCode } = await this.startedHardhatContainer.exec([
-      "npx",
-      "hardhat",
+      'npx',
+      'hardhat',
       // specify path to config file
-      "--config",
-      "./src/hardhat.config.ts",
+      '--config',
+      './src/hardhat.config.ts',
       // specify localhost network so that the contract is deployed to the already
       // running hardhat network instance
-      "--network",
-      "localhost",
-      "deployContract",
-      "--name",
+      '--network',
+      'localhost',
+      'deployContract',
+      '--name',
       contractName,
       // Pass in any contract deployment arguments if any
       ...deployArgsFlags,
@@ -74,9 +70,7 @@ export class EvmContractManager {
 
     const isBadExitCode = exitCode !== 0;
     if (isBadExitCode) {
-      throw Error(
-        `Hardhat contract deployment task exited with code ${exitCode}`
-      );
+      throw Error(`Hardhat contract deployment task exited with code ${exitCode}`);
     }
 
     // Outputs should only be valid EVM addresses. Anything else is considered an error, and
@@ -99,10 +93,7 @@ export class EvmContractManager {
     return this.#deployedContracts;
   }
 
-  getDeployedContract<Abi extends ethers.BaseContract>(
-    deployedName: string,
-    userSigner?: Signer
-  ): Abi {
+  getDeployedContract<Abi extends ethers.BaseContract>(deployedName: string, userSigner?: Signer): Abi {
     const contract = this.#deployedContracts.get(deployedName);
     if (contract === undefined) {
       throw new Error(`Contract '${deployedName}' has not been deployed yet`);
@@ -110,7 +101,7 @@ export class EvmContractManager {
     // Check if the signer instance is provided by the caller
     if (userSigner !== undefined) {
       if (!Signer.isSigner(userSigner)) {
-        throw new Error("Signer provided is not valid");
+        throw new Error('Signer provided is not valid');
       }
       return contract.ref.connect(userSigner);
     }
@@ -119,16 +110,14 @@ export class EvmContractManager {
 
   async isContractDeployedOnChain(deployedName: string): Promise<boolean> {
     const contract = this.getDeployedContract(deployedName);
-    return (await this.provider.getCode(contract.address)) !== "0x";
+    return (await this.provider.getCode(contract.address)) !== '0x';
   }
 
   isContractNameInUse(contractName: string): boolean {
     return this.#deployedContracts.has(contractName);
   }
 
-  private registerDeployedContract(
-    deployedContract: DeployedContract<any>
-  ): void {
+  private registerDeployedContract(deployedContract: DeployedContract<any>): void {
     this.#deployedContracts.set(deployedContract.name, deployedContract);
   }
 }
@@ -143,6 +132,6 @@ export interface DeployContractParams {
 }
 
 export interface DeployedContract<Abi extends ethers.BaseContract> {
-  name: DeployContractParams["deploymentName"];
+  name: DeployContractParams['deploymentName'];
   ref: Abi;
 }
