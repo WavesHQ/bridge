@@ -72,7 +72,7 @@ describe('Bridge Service Integration Tests', () => {
       url: '/defichain/stats?network=devtest',
     });
 
-    await expect(initialResponse.statusCode).toStrictEqual(400);
+    await expect(initialResponse.statusCode).toStrictEqual(500);
     await expect(initialResponse.statusMessage).toStrictEqual(
       'network must be one of the following values: mainnet, testnet, regtest, local',
     );
