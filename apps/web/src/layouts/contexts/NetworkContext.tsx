@@ -15,6 +15,9 @@ interface NetworkContextI {
   selectedTokensB: TokensI;
   setSelectedNetworkA: (networkA: NetworkOptionsI) => void;
   setSelectedTokensA: (tokenA: TokensI) => void;
+  setSelectedNetworkB: (networkB: NetworkOptionsI) => void;
+  setSelectedTokensB: (tokenB: TokensI) => void;
+  resetNetworkSelection: () => void;
 }
 
 export const networks = [
@@ -189,6 +192,13 @@ export function NetworkProvider({
     }
   }, [selectedTokensA]);
 
+  const resetNetworkSelection = () => {
+    setSelectedNetworkA(defaultNetworkA);
+    setSelectedTokensA(defaultNetworkA.tokens[0]);
+    setSelectedNetworkB(defaultNetworkB);
+    setSelectedTokensB(defaultNetworkB.tokens[0]);
+  };
+
   const context: NetworkContextI = useMemo(
     () => ({
       selectedNetworkA,
@@ -197,6 +207,9 @@ export function NetworkProvider({
       selectedTokensB,
       setSelectedNetworkA,
       setSelectedTokensA,
+      setSelectedNetworkB,
+      setSelectedTokensB,
+      resetNetworkSelection,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [selectedTokensA, selectedTokensB]

@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import { useEffect } from "react";
+import AlertInfoMessage from "@components/commons/AlertInfoMessage";
 import UtilityButton from "@components/commons/UtilityButton";
+import { DISCLAIMER_MESSAGE } from "../../constants";
 
 export default function StepTwoVerification({
   goToNextStep,
@@ -15,8 +17,8 @@ export default function StepTwoVerification({
   return (
     <div
       className={clsx(
-        "flex flex-col items-center gap-6 text-center mt-6 pb-2",
-        "md:flex-row md:text-left"
+        "flex flex-col items-center text-center mt-12 pb-2",
+        "md:flex-row md:gap-6 md:text-left md:mt-6"
       )}
     >
       <div>
@@ -28,7 +30,12 @@ export default function StepTwoVerification({
           on the network.
         </p>
       </div>
-      <div className={clsx("w-full px-6", "md:w-auto md:px-0")}>
+      <AlertInfoMessage
+        message={DISCLAIMER_MESSAGE}
+        containerStyle="px-5 py-4 mt-6 md:hidden"
+        textStyle="text-xs"
+      />
+      <div className={clsx("w-full px-6 pt-12", "md:w-auto md:px-0 md:pt-0")}>
         <UtilityButton label="Verifying" isLoading disabled />
       </div>
     </div>

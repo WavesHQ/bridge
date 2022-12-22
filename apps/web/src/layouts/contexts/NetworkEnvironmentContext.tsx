@@ -18,6 +18,7 @@ interface NetworkContextI {
   networkEnv: NetworkEnvironment;
   networkEnvDisplayName: string;
   updateNetworkEnv: (networkEnv: NetworkEnvironment) => void;
+  resetNetworkEnv: () => void;
 }
 
 const NetworkEnvironmentContext = createContext<NetworkContextI>(
@@ -42,11 +43,16 @@ export function NetworkEnvironmentProvider({
     setNetworkEnvDisplayName(NETWORK_ENV_DISPLAY_NAME[value]);
   };
 
+  const resetNetworkEnv = () => {
+    handleNetworkEnvChange(DEFAULT_ENV_NETWORK);
+  };
+
   const context: NetworkContextI = useMemo(
     () => ({
       networkEnv,
       networkEnvDisplayName,
       updateNetworkEnv: handleNetworkEnvChange,
+      resetNetworkEnv,
     }),
     [networkEnv]
   );

@@ -2,19 +2,19 @@ import clsx from "clsx";
 import BigNumber from "bignumber.js";
 import Image from "next/image";
 import { NetworkName } from "types";
-import { FiXCircle, FiAlertTriangle } from "react-icons/fi";
+import { FiXCircle } from "react-icons/fi";
 import { Dialog } from "@headlessui/react";
-import { useAccount } from "wagmi";
 import { useNetworkContext } from "@contexts/NetworkContext";
 import useResponsive from "@hooks/useResponsive";
 import useDisableEscapeKey from "@hooks/useDisableEscapeKey";
 import truncateTextFromMiddle from "@utils/textHelper";
+import AlertInfoMessage from "@components/commons/AlertInfoMessage";
 import IconTooltip from "@components/commons/IconTooltip";
 import ActionButton from "@components/commons/ActionButton";
 import NumericFormat from "@components/commons/NumericFormat";
 import BrLogoIcon from "@components/icons/BrLogoIcon";
 import DeFiChainToERC20Transfer from "@components/erc-transfer/DeFiChainToERC20Transfer";
-import { CONSORTIUM_INFO, FEES_INFO } from "../constants";
+import { CONSORTIUM_INFO, DISCLAIMER_MESSAGE, FEES_INFO } from "../constants";
 
 interface RowDataI {
   address: string;
@@ -23,6 +23,11 @@ interface RowDataI {
   tokenName: string;
   tokenIcon: string;
   amount: BigNumber;
+}
+
+interface TransferData {
+  from: RowDataI;
+  to: RowDataI;
 }
 
 function RowData({
@@ -117,13 +122,11 @@ function ERC20ToDeFiChainTransfer() {
   const { isMobile } = useResponsive();
   return (
     <>
-      <div className="flex items-center dark-bg-card-section rounded-md mt-20 md:mt-4 px-4 py-3">
-        <FiAlertTriangle size={20} className="shrink-0 text-dark-500" />
-        <span className="text-xs text-dark-700 ml-3">
-          Make sure that your Destination address and details are correct.
-          Transactions are irreversible.
-        </span>
-      </div>
+      <AlertInfoMessage
+        message={DISCLAIMER_MESSAGE}
+        containerStyle="px-5 py-4 mt-8"
+        textStyle="text-xs"
+      />
       <div className={clsx("px-6 py-8", "md:px-[72px] md:pt-16")}>
         {/* TODO: Add onClick function */}
         <ActionButton
@@ -139,11 +142,13 @@ export default function ConfirmTransferModal({
   show,
   onClose,
   amount,
+  fromAddress,
   toAddress,
 }: {
   show: boolean;
   onClose: () => void;
   amount: string;
+  fromAddress: string;
   toAddress: string;
 }) {
   const {
@@ -152,16 +157,15 @@ export default function ConfirmTransferModal({
     selectedNetworkB,
     selectedTokensB,
   } = useNetworkContext();
-  const { address } = useAccount();
   const { isMobile } = useResponsive();
   useDisableEscapeKey(show);
 
   // Direction of transfer
   const isSendingToDFC = selectedNetworkB.name === NetworkName.DeFiChain;
 
-  const data = {
+  const data: TransferData = {
     from: {
-      address: (isSendingToDFC ? address : "DeFiChain address") as string,
+      address: (isSendingToDFC ? fromAddress : "DeFiChain address") as string,
       networkName: NetworkName[selectedNetworkA.name],
       networkIcon: selectedNetworkA.icon,
       tokenName: selectedTokensA.tokenA.name,

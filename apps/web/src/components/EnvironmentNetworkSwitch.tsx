@@ -2,7 +2,13 @@ import clsx from "clsx";
 import { useNetworkEnvironmentContext } from "@contexts/NetworkEnvironmentContext";
 import { NetworkEnvironment } from "types";
 
-export default function EnvironmentNetworkSwitch(): JSX.Element {
+export default function EnvironmentNetworkSwitch({
+  onChange,
+  disabled = false,
+}: {
+  onChange: () => void;
+  disabled?: boolean;
+}): JSX.Element {
   const {
     networkEnv: currentNetworkEnv,
     networkEnvDisplayName,
@@ -27,13 +33,21 @@ export default function EnvironmentNetworkSwitch(): JSX.Element {
         break;
     }
     updateNetworkEnv(nextNetworkEnv);
+    onChange();
   };
 
   return (
     <button
       type="button"
-      className="flex items-center rounded-[37px] dark-section-bg border border-dark-card-stroke px-2 py-1 lg:px-3 lg:py-2 ml-2 hover:dark-btn-hover hover:border-dark-500"
+      className={clsx(
+        "flex items-center rounded-[37px] dark-section-bg border border-dark-card-stroke px-2 py-1 ml-2 hover:dark-btn-hover hover:border-dark-500",
+        "lg:px-3 lg:py-2",
+        {
+          "pointer-events-none": disabled,
+        }
+      )}
       onClick={handleOnClick}
+      disabled={disabled}
     >
       <div
         className={clsx(

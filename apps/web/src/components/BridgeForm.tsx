@@ -1,36 +1,51 @@
-import { useState } from "react";
-import { useAccount, useBalance } from "wagmi";
-import { shift, autoUpdate, size, useFloating } from "@floating-ui/react-dom";
-import { ConnectKitButton } from "connectkit";
+import clsx from "clsx";
 import BigNumber from "bignumber.js";
+import { useEffect, useState } from "react";
+import { useAccount, useBalance } from "wagmi";
+import { ConnectKitButton } from "connectkit";
+import { shift, autoUpdate, size, useFloating } from "@floating-ui/react-dom";
 import { networks, useNetworkContext } from "@contexts/NetworkContext";
+import { useNetworkEnvironmentContext } from "@contexts/NetworkEnvironmentContext";
+import { getStorageItem, setStorageItem } from "@utils/localStorage";
 import {
   Network,
   SelectionType,
   TokensI,
   NetworkOptionsI,
   NetworkName,
+  UnconfirmedTxnI,
 } from "types";
-import { QuickInputCard } from "./commons/QuickInputCard";
+import SwitchIcon from "@components/icons/SwitchIcon";
+import ArrowDownIcon from "@components/icons/ArrowDownIcon";
+import ActionButton from "@components/commons/ActionButton";
+import AlertInfoMessage from "@components/commons/AlertInfoMessage";
+import IconTooltip from "@components/commons/IconTooltip";
+import NumericFormat from "@components/commons/NumericFormat";
+import { QuickInputCard } from "@components/commons/QuickInputCard";
 import InputSelector from "./InputSelector";
-import SwitchIcon from "./icons/SwitchIcon";
-import ArrowDownIcon from "./icons/ArrowDownIcon";
-import NumericFormat from "./commons/NumericFormat";
 import WalletAddressInput from "./WalletAddressInput";
 import DailyLimit from "./DailyLimit";
-import IconTooltip from "./commons/IconTooltip";
-import ActionButton from "./commons/ActionButton";
 import ConfirmTransferModal from "./ConfirmTransferModal";
-import { FEES_INFO } from "../constants";
+import { FEES_INFO, STORAGE_DFC_ADDR_KEY, STORAGE_TXN_KEY } from "../constants";
 
-function SwitchButton({ onClick }: { onClick: () => void }) {
+function SwitchButton({
+  onClick,
+  disabled = false,
+}: {
+  onClick: () => void;
+  disabled?: boolean;
+}) {
   return (
     <div className="my-8 flex flex-row">
       <div className="mt-6 flex w-full flex-1 justify-between border-t border-dark-300 border-opacity-50" />
       <button
         type="button"
         onClick={onClick}
-        className="dark-card-bg dark-bg-card-section group flex h-12 w-12 items-center justify-center rounded-full"
+        disabled={disabled}
+        className={clsx(
+          "dark-card-bg dark-bg-card-section group flex h-12 w-12 items-center justify-center rounded-full",
+          { "pointer-events-none": disabled }
+        )}
       >
         <div className="hidden group-hover:hidden lg:block">
           <ArrowDownIcon size={24} className="fill-dark-700" />
@@ -52,7 +67,12 @@ export default function BridgeForm() {
     selectedTokensB,
     setSelectedNetworkA,
     setSelectedTokensA,
+    setSelectedNetworkB,
+    setSelectedTokensB,
+    resetNetworkSelection,
   } = useNetworkContext();
+  const { networkEnv, updateNetworkEnv, resetNetworkEnv } =
+    useNetworkEnvironmentContext();
 
   const [amount, setAmount] = useState<string>("");
   const [amountErr, setAmountErr] = useState<string>("");
@@ -63,6 +83,11 @@ export default function BridgeForm() {
   const { address, isConnected } = useAccount();
   const { data } = useBalance({ address });
   const maxAmount = new BigNumber(data?.formatted ?? 100); // TODO: Replace default 100 with 0 before release
+  const [fromAddress, setFromAddress] = useState<string>(address || "");
+  const [hasUnconfirmedTxn, setHasUnconfirmedTxn] = useState(false);
+
+  // Local storage txn key grouped by network
+  const TXN_KEY = `${networkEnv}.${STORAGE_TXN_KEY}`;
 
   const switchNetwork = () => {
     setSelectedNetworkA(selectedNetworkB);
@@ -84,9 +109,62 @@ export default function BridgeForm() {
   };
 
   const onTransferTokens = (): void => {
+    if (!hasUnconfirmedTxn) {
+      const newTxn = {
+        selectedNetworkA,
+        selectedTokensA,
+        selectedNetworkB,
+        selectedTokensB,
+        networkEnv,
+        amount,
+        fromAddress,
+        toAddress: addressInput,
+      };
+      setStorageItem<UnconfirmedTxnI>(TXN_KEY, newTxn);
+    }
     /* TODO: Handle token transfer here */
     setShowConfirmModal(true);
   };
+
+  const onResetTransferForm = () => {
+    setStorageItem(TXN_KEY, null);
+    setStorageItem(STORAGE_DFC_ADDR_KEY, null);
+    setHasUnconfirmedTxn(false);
+    setAmount("");
+    setAddressInput("");
+    setFromAddress(address || "");
+    resetNetworkSelection();
+    resetNetworkEnv();
+  };
+
+  const getActionBtnLabel = () => {
+    switch (true) {
+      case hasUnconfirmedTxn:
+        return "Retry transfer";
+      case isConnected:
+        return `Transfer to ${NetworkName[selectedNetworkB.name]}`;
+      default:
+        return "Connect wallet";
+    }
+  };
+
+  useEffect(() => {
+    const localData = getStorageItem<UnconfirmedTxnI>(TXN_KEY);
+    if (localData && networkEnv === localData.networkEnv) {
+      // Load data from storage
+      setHasUnconfirmedTxn(true);
+      setAmount(localData.amount);
+      setAddressInput(localData.toAddress);
+      setFromAddress(localData.fromAddress);
+      setSelectedNetworkA(localData.selectedNetworkA);
+      setSelectedTokensA(localData.selectedTokensA);
+      setSelectedNetworkB(localData.selectedNetworkB);
+      setSelectedTokensB(localData.selectedTokensB);
+      updateNetworkEnv(localData.networkEnv);
+    } else {
+      setHasUnconfirmedTxn(false);
+    }
+  }, [networkEnv]);
 
   const { y, reference, floating, strategy, refs } = useFloating({
     placement: "bottom-end",
@@ -121,6 +199,13 @@ export default function BridgeForm() {
 
   return (
     <div className="w-full md:w-[calc(100%+2px)] lg:w-full dark-card-bg-image p-6 md:pt-8 pb-16 lg:p-12 rounded-lg lg:rounded-xl border border-dark-200 backdrop-blur-[18px]">
+      {hasUnconfirmedTxn && (
+        <AlertInfoMessage
+          message="An unconfirmed transaction is found in your device and has been pre-loaded for your confirmation"
+          containerStyle="px-4 py-3 mb-8 md:px-6 md:py-4 md:mb-12"
+          textStyle="text-xs md:text-base"
+        />
+      )}
       <div className="flex flex-row items-center" ref={reference}>
         <div className="w-1/2">
           <InputSelector
@@ -131,6 +216,7 @@ export default function BridgeForm() {
             type={SelectionType.Network}
             onSelect={(value: NetworkOptionsI) => setSelectedNetworkA(value)}
             value={selectedNetworkA}
+            disabled={hasUnconfirmedTxn}
           />
         </div>
         <div className="w-1/2">
@@ -142,6 +228,7 @@ export default function BridgeForm() {
             type={SelectionType.Token}
             onSelect={(value: TokensI) => setSelectedTokensA(value)}
             value={selectedTokensA}
+            disabled={hasUnconfirmedTxn}
           />
         </div>
       </div>
@@ -155,6 +242,7 @@ export default function BridgeForm() {
           value={amount}
           error={amountErr}
           showAmountsBtn={selectedNetworkA.name === Network.Ethereum}
+          disabled={hasUnconfirmedTxn}
         />
         <div className="flex flex-row pl-4 lg:pl-5 mt-2">
           {amountErr ? (
@@ -177,7 +265,7 @@ export default function BridgeForm() {
           )}
         </div>
       </div>
-      <SwitchButton onClick={switchNetwork} />
+      <SwitchButton onClick={switchNetwork} disabled={hasUnconfirmedTxn} />
 
       <div className="flex flex-row items-end mb-4 lg:mb-5">
         <div className="w-1/2">
@@ -209,6 +297,7 @@ export default function BridgeForm() {
           onAddressInputChange={(addrInput) => setAddressInput(addrInput)}
           onAddressInputError={(hasError) => setHasAddressInputErr(hasError)}
           disabled={!isConnected}
+          readOnly={hasUnconfirmedTxn}
         />
       </div>
       <div className="flex flex-row justify-between items-center px-4 lg:px-5">
@@ -247,21 +336,27 @@ export default function BridgeForm() {
         <ConnectKitButton.Custom>
           {({ show }) => (
             <ActionButton
-              label={
-                isConnected
-                  ? `Transfer to ${NetworkName[selectedNetworkB.name]}`
-                  : "Connect wallet"
-              }
+              label={getActionBtnLabel()}
               disabled={isConnected && !isFormValid}
               onClick={!isConnected ? show : () => onTransferTokens()}
             />
           )}
         </ConnectKitButton.Custom>
+        {hasUnconfirmedTxn && (
+          <div className="mt-3">
+            <ActionButton
+              label="Reset form"
+              onClick={() => onResetTransferForm()}
+              variant="secondary"
+            />
+          </div>
+        )}
       </div>
       <ConfirmTransferModal
         show={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
         amount={amount}
+        fromAddress={fromAddress}
         toAddress={addressInput}
       />
     </div>

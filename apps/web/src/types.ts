@@ -44,3 +44,15 @@ export interface ProgressStepI {
   step: number;
   label: string;
 }
+
+export interface UnconfirmedTxnI {
+  selectedNetworkA: NetworkOptionsI;
+  selectedTokensA: TokensI;
+  selectedNetworkB: NetworkOptionsI;
+  selectedTokensB: TokensI;
+  networkEnv: NetworkEnvironment;
+  amount: string;
+  toAddress: string;
+  fromAddress: string;
+  dfcUniqueAddress?: string;
+}
