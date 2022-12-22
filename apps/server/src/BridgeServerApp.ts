@@ -1,6 +1,6 @@
 import { JellyfishJSON } from '@defichain/jellyfish-json';
 import helmet from '@fastify/helmet';
-import { NestApplicationOptions } from '@nestjs/common';
+import { NestApplicationOptions, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
@@ -40,6 +40,7 @@ export class BridgeServerApp<App extends NestFastifyApplication = NestFastifyApp
   }
 
   async configureApp(app: NestFastifyApplication): Promise<void> {
+    app.useGlobalPipes(new ValidationPipe());
     app.useLogger(app.get(Logger));
     app.enableCors({
       origin: '*',

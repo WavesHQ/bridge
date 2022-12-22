@@ -36,6 +36,7 @@ importers:
       '@types/node': ^18.11.9
       '@types/supertest': ^2.0.12
       '@waveshq/walletkit-core': ^0.20.0
+      class-transformer: ^0.5.1
       class-validator: ^0.14.0
       defichain: ^3.11.0
       ethers: ^5.7.2
@@ -55,11 +56,12 @@ importers:
       '@defichain/jellyfish-json': 3.11.0_defichain@3.11.0
       '@defichain/testcontainers': 3.11.0_wjrsda7qebawa6h5bksgb4kcse
       '@fastify/helmet': 10.1.0
-      '@nestjs/common': 9.2.1_5knxrzisoz4evhqekkuheamxoa
+      '@nestjs/common': 9.2.1_537f4dyna5eqdupcxnvaoq3vwa
       '@nestjs/config': 2.2.0_wqmgrsh4vfci5e6jx45m6crmsi
       '@nestjs/core': 9.2.1_wqmgrsh4vfci5e6jx45m6crmsi
       '@nestjs/platform-fastify': 9.2.1_hjcqpoaebdr7gdo5hgc22hthbe
       '@waveshq/walletkit-core': 0.20.0
+      class-transformer: 0.5.1
       class-validator: 0.14.0
       defichain: 3.11.0
       ethers: 5.7.2
@@ -2895,7 +2897,7 @@ packages:
       - webpack-cli
     dev: true
 
-  /@nestjs/common/9.2.1_5knxrzisoz4evhqekkuheamxoa:
+  /@nestjs/common/9.2.1_537f4dyna5eqdupcxnvaoq3vwa:
     resolution: {integrity: sha512-nZuo3oDsSSlC5mti/M2aCWTEIfHPGDXmBwWgPeCpRbrNz3IWd109rkajll+yxgidVjznAdBS9y00JkAVJblNYw==}
     peerDependencies:
       cache-manager: <=5
@@ -2911,6 +2913,7 @@ packages:
       class-validator:
         optional: true
     dependencies:
+      class-transformer: 0.5.1
       class-validator: 0.14.0
       iterare: 1.2.1
       reflect-metadata: 0.1.13
@@ -2925,7 +2928,7 @@ packages:
       reflect-metadata: ^0.1.13
       rxjs: ^6.0.0 || ^7.2.0
     dependencies:
-      '@nestjs/common': 9.2.1_5knxrzisoz4evhqekkuheamxoa
+      '@nestjs/common': 9.2.1_537f4dyna5eqdupcxnvaoq3vwa
       dotenv: 16.0.1
       dotenv-expand: 8.0.3
       lodash: 4.17.21
@@ -2952,7 +2955,7 @@ packages:
       '@nestjs/websockets':
         optional: true
     dependencies:
-      '@nestjs/common': 9.2.1_5knxrzisoz4evhqekkuheamxoa
+      '@nestjs/common': 9.2.1_537f4dyna5eqdupcxnvaoq3vwa
       '@nuxtjs/opencollective': 0.3.2
       fast-safe-stringify: 2.1.1
       iterare: 1.2.1
@@ -2981,7 +2984,7 @@ packages:
       '@fastify/cors': 8.2.0
       '@fastify/formbody': 7.3.0
       '@fastify/middie': 8.0.0
-      '@nestjs/common': 9.2.1_5knxrzisoz4evhqekkuheamxoa
+      '@nestjs/common': 9.2.1_537f4dyna5eqdupcxnvaoq3vwa
       '@nestjs/core': 9.2.1_wqmgrsh4vfci5e6jx45m6crmsi
       fastify: 4.10.2
       light-my-request: 5.6.1
@@ -3034,7 +3037,7 @@ packages:
       '@nestjs/platform-express':
         optional: true
     dependencies:
-      '@nestjs/common': 9.2.1_5knxrzisoz4evhqekkuheamxoa
+      '@nestjs/common': 9.2.1_537f4dyna5eqdupcxnvaoq3vwa
       '@nestjs/core': 9.2.1_wqmgrsh4vfci5e6jx45m6crmsi
       tslib: 2.4.1
     dev: true
@@ -6805,6 +6808,9 @@ packages:
   /cjs-module-lexer/1.2.2:
     resolution: {integrity: sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==}
     dev: true
+
+  /class-transformer/0.5.1:
+    resolution: {integrity: sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw==}
 
   /class-utils/0.3.6:
     resolution: {integrity: sha512-qOhPa/Fj7s6TY8H8esGu5QNpMMQxz79h+urzrNYN6mn+9BnxlDGf5QZ+XeCDsxSjPqsSR56XOZOJmpeurnLMeg==}
@@ -13019,7 +13025,7 @@ packages:
       '@nestjs/common': ^8.0.0 || ^9.0.0
       pino-http: ^6.4.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      '@nestjs/common': 9.2.1_5knxrzisoz4evhqekkuheamxoa
+      '@nestjs/common': 9.2.1_537f4dyna5eqdupcxnvaoq3vwa
       pino-http: 8.2.1
     dev: false
 

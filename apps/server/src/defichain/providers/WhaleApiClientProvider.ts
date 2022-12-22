@@ -2,7 +2,7 @@ import { WhaleApiClient } from '@defichain/whale-api-client';
 import { Injectable } from '@nestjs/common';
 import { EnvironmentNetwork, newOceanOptions, newWhaleAPIClient } from '@waveshq/walletkit-core';
 
-import { SupportedNetwork } from '../pipes/NetworkValidationPipe';
+import { SupportedNetwork } from '../model/NetworkDto';
 
 @Injectable()
 export class WhaleApiClientProvider {
