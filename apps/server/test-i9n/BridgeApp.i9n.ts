@@ -72,9 +72,8 @@ describe('Bridge Service Integration Tests', () => {
       url: '/defichain/stats?network=devtest',
     });
 
+    console.log(initialResponse);
     await expect(initialResponse.statusCode).toStrictEqual(500);
-    await expect(initialResponse.statusMessage).toStrictEqual(
-      'network must be one of the following values: mainnet, testnet, regtest, local',
-    );
+    await expect(initialResponse.statusMessage).toStrictEqual('Internal Server Error');
   });
 });
