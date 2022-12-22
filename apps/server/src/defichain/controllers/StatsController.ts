@@ -1,4 +1,4 @@
-import { StatsData } from '@defichain/whale-api-client/dist/api/stats';
+import { stats } from '@defichain/whale-api-client';
 import { Controller, Get, Query } from '@nestjs/common';
 
 import { NetworkValidationPipe, SupportedNetwork } from '../pipes/NetworkValidationPipe';
@@ -9,7 +9,7 @@ export class StatsController {
   constructor(private readonly whaleClient: WhaleApiService) {}
 
   @Get()
-  async get(@Query('network', NetworkValidationPipe) network: SupportedNetwork = 'mainnet'): Promise<StatsData> {
+  async get(@Query('network', NetworkValidationPipe) network: SupportedNetwork = 'mainnet'): Promise<stats.StatsData> {
     return this.whaleClient.getClient(network).stats.get();
   }
 }
