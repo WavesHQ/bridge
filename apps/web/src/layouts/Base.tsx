@@ -8,7 +8,7 @@ import {
   website,
 } from "@components/siteInfo";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
-import { WagmiConfig, createClient } from "wagmi";
+import { WagmiConfig, createClient, chain, defaultChains } from "wagmi";
 import { ConnectKitProvider, getDefaultClient } from "connectkit";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
@@ -16,7 +16,9 @@ import { getInitialTheme, ThemeProvider } from "@contexts/ThemeProvider";
 import { NetworkEnvironmentProvider } from "@contexts/NetworkEnvironmentContext";
 import { NetworkProvider } from "@contexts/NetworkContext";
 
-const metamask = new MetaMaskConnector();
+const metamask = new MetaMaskConnector({
+  chains: [...defaultChains, chain.localhost, chain.hardhat],
+});
 
 const client = createClient(
   getDefaultClient({
