@@ -68,12 +68,18 @@ error TRANSCATION_FAILED();
 */
 error DO_NOT_SEND_ETHER_WITH_ERC20();
 
+/** @notice @dev 
+/* This error occurs when token's `dailyAllowanceStartTimeFrom` not met.
+*/
+error TOKEN_STILL_IN_ACCEPTANCE_PEROID();
+
 contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeable {
     struct TokenAllowance {
         uint256 prevEpoch;
         uint256 dailyAllowance;
         uint256 currentDailyUsage;
         bool inChangeAllowancePeriod;
+        uint256 dailyAllowanceStartTimeFrom;
     }
     address constant ETHER = address(0);
 
@@ -84,6 +90,8 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
     mapping(address => bool) public supportedTokens;
 
     address public relayerAddress;
+
+    uint256 public resetAllowanceTime;
 
     bytes32 constant DATA_TYPE_HASH =
         keccak256('CLAIM(address to,uint256 amount,uint256 nonce,uint256 deadline,address tokenAddress)');
@@ -270,6 +278,8 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
         if (_tokenAddress != address(0) && msg.value > 0) {
             revert DO_NOT_SEND_ETHER_WITH_ERC20();
         }
+        if (tokenAllowances[_tokenAddress].dailyAllowanceStartTimeFrom > block.timestamp)
+            revert TOKEN_STILL_IN_ACCEPTANCE_PEROID();
         uint256 amount = checkValue(_tokenAddress, _amount, msg.value);
         if (tokenAllowances[_tokenAddress].prevEpoch + (1 days) > block.timestamp) {
             tokenAllowances[_tokenAddress].currentDailyUsage += amount;
@@ -297,7 +307,11 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
      * @param _tokenAddress The token address to be added to supported list
      * @param _dailyAllowance Daily allowance set for the token
      */
-    function addSupportedTokens(address _tokenAddress, uint256 _dailyAllowance) external {
+    function addSupportedTokens(
+        address _tokenAddress,
+        uint256 _dailyAllowance,
+        uint256 _startAllowanceTimeFrom
+    ) external {
         if (!checkRoles()) revert NON_AUTHORIZED_ADDRESS();
         if (supportedTokens[_tokenAddress]) revert TOKEN_ALREADY_SUPPORTED();
         supportedTokens[_tokenAddress] = true;
@@ -305,6 +319,7 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
         tokenAllowances[_tokenAddress].dailyAllowance = _dailyAllowance;
         tokenAllowances[_tokenAddress].currentDailyUsage = 0;
         tokenAllowances[_tokenAddress].inChangeAllowancePeriod = false;
+        tokenAllowances[_tokenAddress].dailyAllowanceStartTimeFrom = _startAllowanceTimeFrom;
         emit ADD_SUPPORTED_TOKEN(_tokenAddress, _dailyAllowance);
     }
 
@@ -414,5 +429,10 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
      */
     function amountAfterFees(uint256 _amount) private view returns (uint256 netAmountInWei) {
         netAmountInWei = _amount - (_amount * transactionFee) / 10000;
+    }
+
+    function resetDailyAllowanceTime(uint256 stamp) public {
+        if (!checkRoles()) revert NON_AUTHORIZED_ADDRESS();
+        resetAllowanceTime = stamp;
     }
 }

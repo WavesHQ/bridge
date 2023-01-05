@@ -135,9 +135,7 @@ describe('Add and Removed Supported ETH and ERC20 tokens', () => {
         // User will not be able to withdraw more than '_dailyAllowance' set.
         // Set Allowance to 10 ether by admin address
         await proxyBridge.connect(defaultAdminSigner).addSupportedTokens(ethers.constants.AddressZero, toWei('10'));
-        expect(await (await proxyBridge.tokenAllowances(ethers.constants.AddressZero)).dailyAllowance).to.equal(
-          toWei('10'),
-        );
+        expect((await proxyBridge.tokenAllowances(ethers.constants.AddressZero)).dailyAllowance).to.equal(toWei('10'));
       });
 
       it('Admin removes Ether as a supported token', async () => {
@@ -157,9 +155,7 @@ describe('Add and Removed Supported ETH and ERC20 tokens', () => {
         const { proxyBridge, operationalAdminSigner } = await loadFixture(deployContracts);
         // Set Allowance to 10 ether by operational address
         await proxyBridge.connect(operationalAdminSigner).addSupportedTokens(ethers.constants.AddressZero, toWei('10'));
-        expect(await (await proxyBridge.tokenAllowances(ethers.constants.AddressZero)).dailyAllowance).to.equal(
-          toWei('10'),
-        );
+        expect((await proxyBridge.tokenAllowances(ethers.constants.AddressZero)).dailyAllowance).to.equal(toWei('10'));
       });
 
       it('Operational removes Ether as a supported token', async () => {
