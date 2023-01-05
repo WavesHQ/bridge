@@ -4,6 +4,13 @@ import { ethers } from 'hardhat';
 import { BridgeV1, BridgeV1__factory, TestToken } from '../../generated';
 
 export async function deployContracts(): Promise<BridgeDeploymentResult> {
+  // Jan 05 2023 8am GMT+0800
+  // const unixGmtTime = 1672876800 + (60*60*24);
+  const currentUnixTime = Math.floor(Date.now() / 1000) + 86400;
+  // const netGmtTime = currentUnixTime - unixGmtTime;
+  // if(netGmtTime>(60*60*24)){
+  //   console.log(netGmtTime+)
+  // }
   const accounts = await ethers.provider.listAccounts();
   const defaultAdminSigner = await ethers.getSigner(accounts[0]);
   const operationalAdminSigner = await ethers.getSigner(accounts[1]);
@@ -20,6 +27,7 @@ export async function deployContracts(): Promise<BridgeDeploymentResult> {
     accounts[1],
     accounts[0],
     30,
+    currentUnixTime,
   ]);
   const bridgeProxy = await BridgeProxy.deploy(bridgeUpgradeable.address, encodedData);
   await bridgeProxy.deployed();
