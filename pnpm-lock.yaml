@@ -162,7 +162,7 @@ importers:
       '@nomicfoundation/hardhat-toolbox': ^2.0.0
       '@openzeppelin/contracts': ^4.8.0
       '@openzeppelin/contracts-upgradeable': ^4.8.0
-      '@typechain/ethers-v5': 10.1.1
+      '@typechain/ethers-v5': 10.2.0
       '@types/chai': 4.3.4
       '@types/mocha': 10.0.1
       base64-sol: 1.1.0
@@ -181,10 +181,10 @@ importers:
       '@ethersproject/providers': 5.7.2
       '@nomicfoundation/hardhat-chai-matchers': 1.0.5_ja2q5v4zhslcm3ppoak5cbvw2i
       '@nomicfoundation/hardhat-network-helpers': 1.0.7_hardhat@2.12.4
-      '@nomicfoundation/hardhat-toolbox': 2.0.0_b5g6eeyserlyzled3edpziy2fa
+      '@nomicfoundation/hardhat-toolbox': 2.0.0_w6ns32oeohpmzc4aanevc2wv2a
       '@openzeppelin/contracts': 4.8.0
       '@openzeppelin/contracts-upgradeable': 4.8.0
-      '@typechain/ethers-v5': 10.1.1_uvzrz6if4akbrktgtw2vfdalai
+      '@typechain/ethers-v5': 10.2.0_uvzrz6if4akbrktgtw2vfdalai
       '@types/chai': 4.3.4
       '@types/mocha': 10.0.1
       base64-sol: 1.1.0
@@ -3635,7 +3635,7 @@ packages:
       hardhat: 2.12.4_z6wznmtyb6ovnulj6iujpct7um
     dev: true
 
-  /@nomicfoundation/hardhat-toolbox/2.0.0_b5g6eeyserlyzled3edpziy2fa:
+  /@nomicfoundation/hardhat-toolbox/2.0.0_w6ns32oeohpmzc4aanevc2wv2a:
     resolution: {integrity: sha512-BoOPbzLQ1GArnBZd4Jz4IU8FY3RY4nUwpXlfymXwxlXNimngkPRJj7ivVNurD7igohEjf90v/Axn2M5WwAdCJQ==}
     peerDependencies:
       '@ethersproject/abi': ^5.4.7
@@ -3664,8 +3664,8 @@ packages:
       '@nomicfoundation/hardhat-network-helpers': 1.0.7_hardhat@2.12.4
       '@nomiclabs/hardhat-ethers': 2.2.1_yab2ug5tvye2kp6e24l5x3z7uy
       '@nomiclabs/hardhat-etherscan': 3.1.3_hardhat@2.12.4
-      '@typechain/ethers-v5': 10.1.1_uvzrz6if4akbrktgtw2vfdalai
-      '@typechain/hardhat': 6.1.5_x6zcho6lo2lfcmjlgmaahzgooe
+      '@typechain/ethers-v5': 10.2.0_uvzrz6if4akbrktgtw2vfdalai
+      '@typechain/hardhat': 6.1.5_w5qvcidahwqdkdc2rzrbmling4
       '@types/chai': 4.3.4
       '@types/mocha': 10.0.1
       '@types/node': 18.11.11
@@ -4403,8 +4403,8 @@ packages:
   /@tsconfig/node16/1.0.3:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
 
-  /@typechain/ethers-v5/10.1.1_uvzrz6if4akbrktgtw2vfdalai:
-    resolution: {integrity: sha512-o6nffJBxwmeX1ZiZpdnP/tqGd/7M7iYvQC88ZXaFFoyAGh7eYncynzVjOJV0XmaKzAc6puqyqZrnva+gJbk4sw==}
+  /@typechain/ethers-v5/10.2.0_uvzrz6if4akbrktgtw2vfdalai:
+    resolution: {integrity: sha512-ikaq0N/w9fABM+G01OFmU3U3dNnyRwEahkdvi9mqy1a3XwKiPZaF/lu54OcNaEWnpvEYyhhS0N7buCtLQqC92w==}
     peerDependencies:
       '@ethersproject/abi': ^5.0.0
       '@ethersproject/bytes': ^5.0.0
@@ -4423,7 +4423,7 @@ packages:
       typescript: 4.9.4
     dev: true
 
-  /@typechain/hardhat/6.1.5_x6zcho6lo2lfcmjlgmaahzgooe:
+  /@typechain/hardhat/6.1.5_w5qvcidahwqdkdc2rzrbmling4:
     resolution: {integrity: sha512-lg7LW4qDZpxFMknp3Xool61Fg6Lays8F8TXdFGBG+MxyYcYU5795P1U2XdStuzGq9S2Dzdgh+1jGww9wvZ6r4Q==}
     peerDependencies:
       '@ethersproject/abi': ^5.4.7
@@ -4435,7 +4435,7 @@ packages:
     dependencies:
       '@ethersproject/abi': 5.7.0
       '@ethersproject/providers': 5.7.2
-      '@typechain/ethers-v5': 10.1.1_uvzrz6if4akbrktgtw2vfdalai
+      '@typechain/ethers-v5': 10.2.0_uvzrz6if4akbrktgtw2vfdalai
       ethers: 5.7.2
       fs-extra: 9.1.0
       hardhat: 2.12.4_z6wznmtyb6ovnulj6iujpct7um
