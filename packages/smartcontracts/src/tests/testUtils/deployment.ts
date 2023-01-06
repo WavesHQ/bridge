@@ -4,13 +4,7 @@ import { ethers } from 'hardhat';
 import { BridgeV1, BridgeV1__factory, TestToken } from '../../generated';
 
 export async function deployContracts(): Promise<BridgeDeploymentResult> {
-  // Jan 05 2023 8am GMT+0800
-  // const unixGmtTime = 1672876800 + (60*60*24);
-  const currentUnixTime = Math.floor(Date.now() / 1000) + 86400;
-  // const netGmtTime = currentUnixTime - unixGmtTime;
-  // if(netGmtTime>(60*60*24)){
-  //   console.log(netGmtTime+)
-  // }
+  const currentUnixTime = getGmtTime();
   const accounts = await ethers.provider.listAccounts();
   const defaultAdminSigner = await ethers.getSigner(accounts[0]);
   const operationalAdminSigner = await ethers.getSigner(accounts[1]);
@@ -45,6 +39,19 @@ export async function deployContracts(): Promise<BridgeDeploymentResult> {
     operationalAdminSigner,
     arbitrarySigner,
   };
+}
+
+// getGmtTime is based current time zone running this.
+// If in GMT+8, this returns the 8am for the current day.
+function getGmtTime(): number {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const day = today.getDate();
+  // 8am time stamp on current day.
+  const timestampFor8am = new Date(year, month, day, 8, 0, 0, 0);
+  const uni = Math.floor(timestampFor8am.getTime() / 1000);
+  return uni;
 }
 
 interface BridgeDeploymentResult {

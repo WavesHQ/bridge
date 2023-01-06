@@ -31,8 +31,7 @@ error FAKE_SIGNATURE();
 /** @notice @dev  
 /* This error occurs when bridging amount exceeds dailyAllowance limit
 */
-error EXCEEDS_DAILY_ALLOWANCE_1();
-error EXCEEDS_DAILY_ALLOWANCE_2();
+error EXCEEDS_DAILY_ALLOWANCE();
 
 /** @notice @dev  
 /* This error occurs when token is already in supported list
@@ -250,13 +249,14 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
         if (ECDSAUpgradeable.recover(msg_hash, signature) != relayerAddress) revert FAKE_SIGNATURE();
         if (_tokenAddress == address(0)) {
             if (_amount > address(this).balance) revert NOT_ENOUGH_ETHEREUM();
+            eoaAddressToNonce[_to]++;
             (bool sent, ) = msg.sender.call{value: _amount}('');
             if (!sent) revert TRANSCATION_FAILED();
         } else {
+            eoaAddressToNonce[_to]++;
             IERC20(_tokenAddress).transfer(_to, _amount);
         }
         emit CLAIM_FUND(_tokenAddress, _to, _amount);
-        eoaAddressToNonce[_to]++;
     }
 
     /**
@@ -276,19 +276,17 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
             revert DO_NOT_SEND_ETHER_WITH_ERC20();
         }
         uint256 amount = checkValue(_tokenAddress, _amount, msg.value);
-        //if (tokenAllowances[_tokenAddress].prevEpoch + (1 days) > block.timestamp) {
         if (resetAllowanceTime > block.timestamp) {
             tokenAllowances[_tokenAddress].currentDailyUsage += amount;
+            console.log('test1');
             if (tokenAllowances[_tokenAddress].currentDailyUsage > tokenAllowances[_tokenAddress].dailyAllowance)
-                revert EXCEEDS_DAILY_ALLOWANCE_1();
+                revert EXCEEDS_DAILY_ALLOWANCE();
         } else {
-            // tokenAllowances[_tokenAddress].prevEpoch +=
-            //     ((block.timestamp - tokenAllowances[_tokenAddress].prevEpoch) / (1 days)) *
-            //     (1 days);
-            resetAllowanceTime += 1 days;
             tokenAllowances[_tokenAddress].currentDailyUsage = amount;
+            console.log('test2');
             if (tokenAllowances[_tokenAddress].currentDailyUsage > tokenAllowances[_tokenAddress].dailyAllowance)
-                revert EXCEEDS_DAILY_ALLOWANCE_2();
+                revert EXCEEDS_DAILY_ALLOWANCE();
+            resetAllowanceTime += 1 days;
         }
         uint256 netAmountInWei = amountAfterFees(amount);
         if (_tokenAddress == address(0)) {
