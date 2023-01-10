@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { ethers } from 'hardhat';
 
 import { deployContracts } from './testUtils/deployment';
-import { toWei } from './testUtils/mathUtils';
+import { currentTimeStamp, toWei } from './testUtils/mathUtils';
 
 describe('Withdrawal tests', () => {
   describe('Withdraw ERC20 token', () => {
@@ -66,7 +66,9 @@ describe('Withdrawal tests', () => {
     async function bridge() {
       const { proxyBridge, defaultAdminSigner } = await loadFixture(deployContracts);
       // Adding init allowance for 10 ETHER
-      await proxyBridge.connect(defaultAdminSigner).addSupportedTokens(ethers.constants.AddressZero, toWei('10'));
+      await proxyBridge
+        .connect(defaultAdminSigner)
+        .addSupportedTokens(ethers.constants.AddressZero, toWei('10'), currentTimeStamp());
       // Bridging 10 ETHER
       await proxyBridge.bridgeToDeFiChain(ethers.constants.AddressZero, ethers.constants.AddressZero, 0, {
         value: toWei('10'),

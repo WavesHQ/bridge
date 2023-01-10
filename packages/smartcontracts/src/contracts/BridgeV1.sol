@@ -22,7 +22,7 @@ error INCORRECT_NONCE();
 /* This error occurs when token is not in supported list
 */
 error TOKEN_NOT_SUPPORTED();
-error TOKEN_NOT_SUPPORTED_YET();
+error TOKEN_NOT_SUPPORTED_YET(uint256 timeleft);
 
 /** @notice @dev  
 /* This error occurs when fake signatures being used to claim fund
@@ -75,7 +75,7 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
         uint256 dailyAllowance;
         uint256 currentDailyUsage;
         bool inChangeAllowancePeriod;
-        uint256 startingAllowanceTime;
+        //uint256 startingAllowanceTime;
     }
     address constant ETHER = address(0);
 
@@ -273,7 +273,9 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
         if (_tokenAddress != address(0) && msg.value > 0) {
             revert DO_NOT_SEND_ETHER_WITH_ERC20();
         }
-        if (tokenAllowances[_tokenAddress].startingAllowanceTime > block.timestamp) revert TOKEN_NOT_SUPPORTED_YET();
+        uint256 tokenAllowancesStartTime = tokenAllowances[_tokenAddress].prevEpoch;
+        if (tokenAllowancesStartTime > block.timestamp)
+            revert TOKEN_NOT_SUPPORTED_YET(tokenAllowancesStartTime - block.timestamp);
         uint256 amount = checkValue(_tokenAddress, _amount, msg.value);
         if (tokenAllowances[_tokenAddress].prevEpoch + (1 days) > block.timestamp) {
             tokenAllowances[_tokenAddress].currentDailyUsage += amount;
@@ -282,7 +284,7 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
         } else {
             tokenAllowances[_tokenAddress].prevEpoch +=
                 ((block.timestamp - tokenAllowances[_tokenAddress].prevEpoch) / (1 days)) *
-                (1 days);
+                1 days;
             tokenAllowances[_tokenAddress].currentDailyUsage = amount;
             if (tokenAllowances[_tokenAddress].currentDailyUsage > tokenAllowances[_tokenAddress].dailyAllowance)
                 revert EXCEEDS_DAILY_ALLOWANCE();
@@ -309,12 +311,13 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
     ) external {
         if (!checkRoles()) revert NON_AUTHORIZED_ADDRESS();
         if (supportedTokens[_tokenAddress]) revert TOKEN_ALREADY_SUPPORTED();
+        // Token will be added on the supported list regardless of `_startAllowanceTimeFrom`
         supportedTokens[_tokenAddress] = true;
-        tokenAllowances[_tokenAddress].prevEpoch = block.timestamp;
+        tokenAllowances[_tokenAddress].prevEpoch = _startAllowanceTimeFrom; //block.timestamp;
         tokenAllowances[_tokenAddress].dailyAllowance = _dailyAllowance;
         tokenAllowances[_tokenAddress].currentDailyUsage = 0;
         tokenAllowances[_tokenAddress].inChangeAllowancePeriod = false;
-        tokenAllowances[_tokenAddress].startingAllowanceTime = _startAllowanceTimeFrom;
+        //tokenAllowances[_tokenAddress].startingAllowanceTime = _startAllowanceTimeFrom;
         emit ADD_SUPPORTED_TOKEN(_tokenAddress, _dailyAllowance);
     }
 
@@ -352,12 +355,12 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
 
     /**
      * @notice Used by Admin only. When called, the specified amount will be withdrawn
-     * @param token The token that will be withdraw
+     * @param _tokenAddress The token that will be withdraw
      * @param amount Requested amount to be withdraw. Amount would be in the denomination of ETH
      */
-    function withdraw(address token, uint256 amount) external onlyRole(DEFAULT_ADMIN_ROLE) {
-        IERC20(token).transfer(msg.sender, amount);
-        emit WITHDRAWAL_BY_OWNER(msg.sender, token, amount);
+    function withdraw(address _tokenAddress, uint256 amount) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        IERC20(_tokenAddress).transfer(msg.sender, amount);
+        emit WITHDRAWAL_BY_OWNER(msg.sender, _tokenAddress, amount);
     }
 
     /**
@@ -384,13 +387,24 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
     }
 
     /**
-     * @notice Used by addresses with Admin and Operational roles to set the new txn fee
+     * @notice Use by addresses with Admin and Operational roles to set the new txn fee
      * @param fee The new fee
      */
     function changeTxFee(uint256 fee) external onlyRole(DEFAULT_ADMIN_ROLE) {
         uint256 oldTxFee = transactionFee;
         transactionFee = fee;
         emit TRANSACTION_FEE_CHANGED(oldTxFee, transactionFee);
+    }
+
+    /**
+     * @notice Use by addresses with Admin and Operational roles to set the new reset allowance for the token
+     * @param _tokenAddress The token supporting new time stamp
+     * @param _startAllowanceTimeFrom new time stamp in seconds
+     */
+    function changeResetAllowanceTime(address _tokenAddress, uint256 _startAllowanceTimeFrom) external {
+        if (!checkRoles()) revert NON_AUTHORIZED_ADDRESS();
+        if (!supportedTokens[_tokenAddress]) revert TOKEN_NOT_SUPPORTED();
+        tokenAllowances[_tokenAddress].prevEpoch = _startAllowanceTimeFrom;
     }
 
     /**
