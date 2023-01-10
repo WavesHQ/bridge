@@ -12,7 +12,10 @@ export function amountAfterFee(amount: BigNumber, transactionFee: BigNumber): Bi
 }
 
 // Current time stamp
-export function currentTimeStamp(): number {
+export function currentTimeStamp(addTime?: number): number {
   // Current timestamp in seconds
+  if (addTime !== undefined) {
+    return Math.floor(Date.now() / 1000) + addTime;
+  }
   return Math.floor(Date.now() / 1000);
 }
