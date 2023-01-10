@@ -1,8 +1,4 @@
-import '@nomiclabs/hardhat-ethers';
 import '@nomicfoundation/hardhat-chai-matchers';
-import '@typechain/hardhat';
-import 'hardhat-gas-reporter';
-import 'solidity-coverage';
 import '@nomicfoundation/hardhat-toolbox';
 
 import { HardhatUserConfig, task, types } from 'hardhat/config';

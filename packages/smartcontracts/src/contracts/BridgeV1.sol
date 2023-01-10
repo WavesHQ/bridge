@@ -1,24 +1,47 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
-import "@openzeppelin/contracts-upgradeable/utils/cryptography/EIP712Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/utils/cryptography/ECDSAUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
-import "hardhat/console.sol";
+import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
+import '@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol';
+import '@openzeppelin/contracts-upgradeable/utils/cryptography/EIP712Upgradeable.sol';
+import '@openzeppelin/contracts-upgradeable/utils/cryptography/ECDSAUpgradeable.sol';
+import '@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol';
+import '@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol';
+import 'hardhat/console.sol';
 
-/**
-/* Errors code. Might switch to custom errors.
-/* BC000: STILL IN CHANGE ALOWANCE PERIOD
-/* BC001: INCORRECT NONCE
-/* BC002: This token is not supported
-/* BC003: Fake Signature
-/* BC004: exceed daily allowance
-/* BC005: Token is already supported
-/* BC006: No Zero Address
-/* BC007: NON AUTHORIZED ADDRESS
-**/
+/** @notice @dev  
+/* This error occurs when token is in change allowance period.
+*/
+error STILL_IN_CHANGE_ALLOWANCE_PERIOD();
+
+/** @notice @dev  
+/* This error occurs when incoorect nonce provided
+*/
+error INCORRECT_NONCE();
+
+/** @notice @dev  
+/* This error occurs when token is not in supported list
+*/
+error TOKEN_NOT_SUPPORTED();
+
+/** @notice @dev  
+/* This error occurs when fake signatures being used to claim fund
+*/
+error FAKE_SIGNATURE();
+
+/** @notice @dev  
+/* This error occurs when bridging amount exceeds dailyAllowance limit
+*/
+error EXCEEDS_DAILY_ALLOWANCE();
+
+/** @notice @dev  
+/* This error occurs when token is already in supported list
+*/
+error TOKEN_ALREADY_SUPPORTED();
+
+/** @notice @dev  
+/* This error occurs when using Zero address
+*/
+error NON_ZERO_ADDRESS();
 
 /** @notice @dev  
 /* This error occurs when the msg.sender doesn't have neither DEFAULT_ADMIN_ROLE or OPERATIONAL_ROLE assigned
@@ -31,15 +54,21 @@ error NON_AUTHORIZED_ADDRESS();
 error ONLY_SUPPORTED_TOKENS();
 
 /** @notice @dev 
-/* This error occurs when the initail daily allowance for ETHER hasn't been set.
+/* This error occurs when this contract doesn't have enough ETH.
 */
 error NOT_ENOUGH_ETHEREUM();
 
-contract BridgeV1 is
-    UUPSUpgradeable,
-    EIP712Upgradeable,
-    AccessControlUpgradeable
-{
+/** @notice @dev 
+/* This error occurs when the txn to withdraw ether by admin doesn't succeed.
+*/
+error TRANSCATION_FAILED();
+
+/** @notice @dev 
+/* This error occurs when users sends ETHER wlong with other erc20 token.
+*/
+error DO_NOT_SEND_ETHER_WITH_ERC20();
+
+contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeable {
     struct TokenAllowance {
         uint256 prevEpoch;
         uint256 dailyAllowance;
@@ -57,14 +86,12 @@ contract BridgeV1 is
     address public relayerAddress;
 
     bytes32 constant DATA_TYPE_HASH =
-        keccak256(
-            "CLAIM(address to,uint256 amount,uint256 nonce,uint256 deadline,address tokenAddress)"
-        );
+        keccak256('CLAIM(address to,uint256 amount,uint256 nonce,uint256 deadline,address tokenAddress)');
 
     // Mapping to track token address to TokenAllowance
     mapping(address => TokenAllowance) public tokenAllowances;
 
-    bytes32 public constant OPERATIONAL_ROLE = keccak256("OPERATIONAL_ROLE");
+    bytes32 public constant OPERATIONAL_ROLE = keccak256('OPERATIONAL_ROLE');
 
     // Initial Tx fee 0.3%. Based on dps (e.g 1% == 100dps)
     uint256 public transactionFee;
@@ -75,11 +102,8 @@ contract BridgeV1 is
      */
     modifier notInChangeAllowancePeriod(address _tokenAddress) {
         if (tokenAllowances[_tokenAddress].inChangeAllowancePeriod) {
-            require(
-                block.timestamp - tokenAllowances[_tokenAddress].prevEpoch >=
-                    1 days,
-                "BC000"
-            );
+            if (block.timestamp - tokenAllowances[_tokenAddress].prevEpoch < 1 days)
+                revert STILL_IN_CHANGE_ALLOWANCE_PERIOD();
             tokenAllowances[_tokenAddress].inChangeAllowancePeriod = false;
             _;
         } else {
@@ -93,11 +117,7 @@ contract BridgeV1 is
      * @param to Address that funds  will be transferred to
      * @param amount Amount of the token being claimed
      */
-    event CLAIM_FUND(
-        address indexed tokenAddress,
-        address indexed to,
-        uint256 indexed amount
-    );
+    event CLAIM_FUND(address indexed tokenAddress, address indexed to, uint256 indexed amount);
 
     /**
      * @notice Emitted when the user bridges token to DefiChain
@@ -118,10 +138,7 @@ contract BridgeV1 is
      * @param supportedToken Address of the token being added to the supported list
      * @param dailyAllowance Daily allowance of the token
      */
-    event ADD_SUPPORTED_TOKEN(
-        address indexed supportedToken,
-        uint256 indexed dailyAllowance
-    );
+    event ADD_SUPPORTED_TOKEN(address indexed supportedToken, uint256 indexed dailyAllowance);
 
     /**
      * @notice Emitted when the existing supported token is removed from the supported list by only Admin accounts
@@ -134,10 +151,7 @@ contract BridgeV1 is
      * @param supportedToken Address of the token being added to supported token
      * @param changeDailyAllowance The new daily allowance of the supported token
      */
-    event CHANGE_DAILY_ALLOWANCE(
-        address indexed supportedToken,
-        uint256 indexed changeDailyAllowance
-    );
+    event CHANGE_DAILY_ALLOWANCE(address indexed supportedToken, uint256 indexed changeDailyAllowance);
 
     /**
      * @notice Emitted when withdrawal of supportedToken only by the Admin account
@@ -145,21 +159,14 @@ contract BridgeV1 is
      * @param withdrawalTokenAddress Address of the token that being withdrawed
      * @param withdrawalAmount Withdrawal amount of token
      */
-    event WITHDRAWAL_BY_OWNER(
-        address ownerAddress,
-        address withdrawalTokenAddress,
-        uint256 withdrawalAmount
-    );
+    event WITHDRAWAL_BY_OWNER(address ownerAddress, address withdrawalTokenAddress, uint256 withdrawalAmount);
 
     /**
      * @notice Emitted when relayer address changes by only Admin accounts
      * @param oldAddress Old relayer's address
      * @param newAddress New relayer's address
      */
-    event RELAYER_ADDRESS_CHANGED(
-        address indexed oldAddress,
-        address indexed newAddress
-    );
+    event RELAYER_ADDRESS_CHANGED(address indexed oldAddress, address indexed newAddress);
 
     /**
      * @notice Emitted when transcation fee is changed by only Admin accounts
@@ -173,16 +180,9 @@ contract BridgeV1 is
      * @param ownerAddress Owner's address requesting withdraw
      * @param withdrawalAmount amount of respected token being withdrawn
      */
-    event ETH_WITHDRAWAL_BY_OWNER(
-        address ownerAddress,
-        uint256 withdrawalAmount
-    );
+    event ETH_WITHDRAWAL_BY_OWNER(address ownerAddress, uint256 withdrawalAmount);
 
-    function _authorizeUpgrade(address newImplementation)
-        internal
-        override
-        onlyRole(DEFAULT_ADMIN_ROLE)
-    {}
+    function _authorizeUpgrade(address newImplementation) internal override onlyRole(DEFAULT_ADMIN_ROLE) {}
 
     /**
      * @notice To initialize this contract (No constructor as part of the proxy pattery )
@@ -210,6 +210,16 @@ contract BridgeV1 is
     }
 
     /**
+     * @dev Testing need for this fn. Using to test claim ether.
+     */
+    fallback() external payable {}
+
+    /**
+     * @dev Testing need for this fn. Using to test claim ether.
+     */
+    receive() external payable {}
+
+    /**
      * @notice Used to claim the tokens that have been approved by the relayer (for bridging from DeFiChain to Ethereum mainnet)
      * @param _to Address to send the claimed fund
      * @param _amount Amount to be claimed
@@ -226,27 +236,23 @@ contract BridgeV1 is
         address _tokenAddress,
         bytes memory signature
     ) external {
-        require(eoaAddressToNonce[_to] == _nonce, "BC001");
-        require(supportedTokens[_tokenAddress], "BC002");
+        if (eoaAddressToNonce[_to] != _nonce) revert INCORRECT_NONCE();
+        if (!supportedTokens[_tokenAddress]) revert TOKEN_NOT_SUPPORTED();
         require(block.timestamp <= _deadline);
-        bytes32 struct_hash = keccak256(
-            abi.encode(
-                DATA_TYPE_HASH,
-                _to,
-                _amount,
-                _nonce,
-                _deadline,
-                _tokenAddress
-            )
-        );
+        bytes32 struct_hash = keccak256(abi.encode(DATA_TYPE_HASH, _to, _amount, _nonce, _deadline, _tokenAddress));
         bytes32 msg_hash = _hashTypedDataV4(struct_hash);
-        require(
-            ECDSAUpgradeable.recover(msg_hash, signature) == relayerAddress,
-            "BC003"
-        );
-        IERC20(_tokenAddress).transfer(_to, _amount);
+        if (ECDSAUpgradeable.recover(msg_hash, signature) != relayerAddress) revert FAKE_SIGNATURE();
+        if (_tokenAddress == address(0)) {
+            if (_amount > address(this).balance) revert NOT_ENOUGH_ETHEREUM();
+            eoaAddressToNonce[_to]++;
+            (bool sent, ) = msg.sender.call{value: _amount}('');
+            if (!sent) revert TRANSCATION_FAILED();
+        } else {
+            eoaAddressToNonce[_to]++;
+            IERC20(_tokenAddress).transfer(_to, _amount);
+        }
+
         emit CLAIM_FUND(_tokenAddress, _to, _amount);
-        eoaAddressToNonce[_to]++;
     }
 
     /**
@@ -261,84 +267,61 @@ contract BridgeV1 is
         address _tokenAddress,
         uint256 _amount
     ) public payable notInChangeAllowancePeriod(_tokenAddress) {
-        require(supportedTokens[_tokenAddress], "BC002");
+        if (!supportedTokens[_tokenAddress]) revert TOKEN_NOT_SUPPORTED();
+        if (_tokenAddress != address(0) && msg.value > 0) {
+            revert DO_NOT_SEND_ETHER_WITH_ERC20();
+        }
         uint256 amount = checkValue(_tokenAddress, _amount, msg.value);
-        if (
-            tokenAllowances[_tokenAddress].prevEpoch + (1 days) >
-            block.timestamp
-        ) {
+        if (tokenAllowances[_tokenAddress].prevEpoch + (1 days) > block.timestamp) {
             tokenAllowances[_tokenAddress].currentDailyUsage += amount;
-            require(
-                tokenAllowances[_tokenAddress].currentDailyUsage <=
-                    tokenAllowances[_tokenAddress].dailyAllowance,
-                "BC004"
-            );
+            if (tokenAllowances[_tokenAddress].currentDailyUsage > tokenAllowances[_tokenAddress].dailyAllowance)
+                revert EXCEEDS_DAILY_ALLOWANCE();
         } else {
             tokenAllowances[_tokenAddress].prevEpoch +=
-                ((block.timestamp - tokenAllowances[_tokenAddress].prevEpoch) /
-                    (1 days)) *
+                ((block.timestamp - tokenAllowances[_tokenAddress].prevEpoch) / (1 days)) *
                 (1 days);
             tokenAllowances[_tokenAddress].currentDailyUsage = amount;
-            require(
-                tokenAllowances[_tokenAddress].currentDailyUsage <=
-                    tokenAllowances[_tokenAddress].dailyAllowance,
-                "BC004"
-            );
+            if (tokenAllowances[_tokenAddress].currentDailyUsage > tokenAllowances[_tokenAddress].dailyAllowance)
+                revert EXCEEDS_DAILY_ALLOWANCE();
         }
         uint256 netAmountInWei = amountAfterFees(amount);
         if (_tokenAddress == address(0)) {
-            emit BRIDGE_TO_DEFI_CHAIN(
-                _defiAddress,
-                address(0),
-                netAmountInWei,
-                block.timestamp
-            );
+            emit BRIDGE_TO_DEFI_CHAIN(_defiAddress, address(0), netAmountInWei, block.timestamp);
         } else {
-            IERC20(_tokenAddress).transferFrom(
-                msg.sender,
-                address(this),
-                amount
-            );
-            emit BRIDGE_TO_DEFI_CHAIN(
-                _defiAddress,
-                _tokenAddress,
-                netAmountInWei,
-                block.timestamp
-            );
+            IERC20(_tokenAddress).transferFrom(msg.sender, address(this), amount);
+            emit BRIDGE_TO_DEFI_CHAIN(_defiAddress, _tokenAddress, netAmountInWei, block.timestamp);
         }
     }
 
     /**
      * @notice Used by addresses with Admin and Operational roles to add a new supported token and daily allowance
-     * @param _token The token address to be added to supported list
+     * @param _tokenAddress The token address to be added to supported list
      * @param _dailyAllowance Daily allowance set for the token
      */
-    function addSupportedTokens(address _token, uint256 _dailyAllowance)
-        external
-    {
+    function addSupportedTokens(address _tokenAddress, uint256 _dailyAllowance) external {
         if (!checkRoles()) revert NON_AUTHORIZED_ADDRESS();
-        require(!supportedTokens[_token], "BC005");
-        supportedTokens[_token] = true;
-        tokenAllowances[_token].prevEpoch = block.timestamp;
-        tokenAllowances[_token].dailyAllowance = _dailyAllowance;
-        tokenAllowances[_token].currentDailyUsage = 0;
-        tokenAllowances[_token].inChangeAllowancePeriod = false;
-        emit ADD_SUPPORTED_TOKEN(_token, _dailyAllowance);
+        if (supportedTokens[_tokenAddress]) revert TOKEN_ALREADY_SUPPORTED();
+        supportedTokens[_tokenAddress] = true;
+        tokenAllowances[_tokenAddress].prevEpoch = block.timestamp;
+        tokenAllowances[_tokenAddress].dailyAllowance = _dailyAllowance;
+        tokenAllowances[_tokenAddress].currentDailyUsage = 0;
+        tokenAllowances[_tokenAddress].inChangeAllowancePeriod = false;
+        emit ADD_SUPPORTED_TOKEN(_tokenAddress, _dailyAllowance);
     }
 
     /**
      * @notice Used by addresses with Admin and Operational roles to remove an exisiting supported token
-     * @param _token The token address to be removed from supported list
+     * @param _tokenAddress The token address to be removed from supported list
      */
-    function removeSupportedTokens(address _token) external {
+    function removeSupportedTokens(address _tokenAddress) external {
         if (!checkRoles()) revert NON_AUTHORIZED_ADDRESS();
-        require(supportedTokens[_token], "BC002");
-        supportedTokens[_token] = false;
-        tokenAllowances[_token].prevEpoch = 0;
-        tokenAllowances[_token].dailyAllowance = 0;
-        tokenAllowances[_token].currentDailyUsage = 0;
-        tokenAllowances[_token].inChangeAllowancePeriod = false;
-        emit REMOVE_SUPPORTED_TOKEN(_token);
+        if (!supportedTokens[_tokenAddress]) revert TOKEN_NOT_SUPPORTED();
+        supportedTokens[_tokenAddress] = false;
+        tokenAllowances[_tokenAddress].prevEpoch = 0;
+        tokenAllowances[_tokenAddress].dailyAllowance = 0;
+        tokenAllowances[_tokenAddress].currentDailyUsage = 0;
+        tokenAllowances[_tokenAddress].inChangeAllowancePeriod = false;
+        emit REMOVE_SUPPORTED_TOKEN(_tokenAddress);
     }
 
     /**
@@ -347,10 +330,10 @@ contract BridgeV1 is
      * @param _tokenAddress The token address to set the allowance
      * @param _dailyAllowance Daily allowance set for the token
      */
-    function changeDailyAllowance(
-        address _tokenAddress,
-        uint256 _dailyAllowance
-    ) external notInChangeAllowancePeriod(_tokenAddress) {
+    function changeDailyAllowance(address _tokenAddress, uint256 _dailyAllowance)
+        external
+        notInChangeAllowancePeriod(_tokenAddress)
+    {
         if (!checkRoles()) revert NON_AUTHORIZED_ADDRESS();
         if (!supportedTokens[_tokenAddress]) revert ONLY_SUPPORTED_TOKENS();
         tokenAllowances[_tokenAddress].inChangeAllowancePeriod = true;
@@ -363,10 +346,7 @@ contract BridgeV1 is
      * @param token The token that will be withdraw
      * @param amount Requested amount to be withdraw. Amount would be in the denomination of ETH
      */
-    function withdraw(address token, uint256 amount)
-        external
-        onlyRole(DEFAULT_ADMIN_ROLE)
-    {
+    function withdraw(address token, uint256 amount) external onlyRole(DEFAULT_ADMIN_ROLE) {
         IERC20(token).transfer(msg.sender, amount);
         emit WITHDRAWAL_BY_OWNER(msg.sender, token, amount);
     }
@@ -377,8 +357,8 @@ contract BridgeV1 is
      */
     function withdrawEth(uint256 amount) external onlyRole(DEFAULT_ADMIN_ROLE) {
         if (amount > address(this).balance) revert NOT_ENOUGH_ETHEREUM();
-        (bool sent, bytes memory data) = msg.sender.call{value: amount}("");
-        require(sent, "Failed to send Ether");
+        (bool sent, ) = msg.sender.call{value: amount}('');
+        if (!sent) revert TRANSCATION_FAILED();
         emit ETH_WITHDRAWAL_BY_OWNER(msg.sender, amount);
     }
 
@@ -388,7 +368,7 @@ contract BridgeV1 is
      */
     function changeRelayerAddress(address _relayerAddress) external {
         if (!checkRoles()) revert NON_AUTHORIZED_ADDRESS();
-        require(_relayerAddress != address(0), "BC006");
+        if (_relayerAddress == address(0)) revert NON_ZERO_ADDRESS();
         address oldRelayerAddress = relayerAddress;
         relayerAddress = _relayerAddress;
         emit RELAYER_ADDRESS_CHANGED(oldRelayerAddress, _relayerAddress);
@@ -409,10 +389,7 @@ contract BridgeV1 is
      * @return check true if msg.sender id one of admins, false otherwise.
      */
     function checkRoles() internal view returns (bool check) {
-        return
-            check =
-                hasRole(DEFAULT_ADMIN_ROLE, msg.sender) ||
-                hasRole(OPERATIONAL_ROLE, msg.sender);
+        return check = hasRole(DEFAULT_ADMIN_ROLE, msg.sender) || hasRole(OPERATIONAL_ROLE, msg.sender);
     }
 
     /**
@@ -426,7 +403,7 @@ contract BridgeV1 is
         uint256 _amount,
         uint256 _value
     ) internal pure returns (uint256) {
-        if (_token == ETHER) {
+        if (_token == address(0)) {
             return _value;
         } else return _amount;
     }
@@ -436,11 +413,7 @@ contract BridgeV1 is
      * @param _amount Ideally will be the value of erc20 token
      * @return netAmountInWei net balance after the fee amount taken
      */
-    function amountAfterFees(uint256 _amount)
-        private
-        view
-        returns (uint256 netAmountInWei)
-    {
+    function amountAfterFees(uint256 _amount) private view returns (uint256 netAmountInWei) {
         netAmountInWei = _amount - (_amount * transactionFee) / 10000;
     }
 }

@@ -125,7 +125,7 @@ export class EvmContractManager {
 export interface DeployContractParams {
   deploymentName: string; // The name used to deploy the contract. Eg, `FooAvalancheStableCoin`
   contractName: string; // The actual name of the contract. Eg, `AvalancheStableCoin`
-  abi: Object[];
+  abi: readonly Object[];
   deployArgs?: any[];
   // Deployed addresses of any necessary linked libraries for the contract. Eg, { ExampleLibrary: "0x...." }
   linkedLibraries?: Record<string, string>;
