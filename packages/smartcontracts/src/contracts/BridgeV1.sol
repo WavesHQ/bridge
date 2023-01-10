@@ -22,6 +22,7 @@ error INCORRECT_NONCE();
 /* This error occurs when token is not in supported list
 */
 error TOKEN_NOT_SUPPORTED();
+error TOKEN_NOT_SUPPORTED_YET();
 
 /** @notice @dev  
 /* This error occurs when fake signatures being used to claim fund
@@ -74,6 +75,7 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
         uint256 dailyAllowance;
         uint256 currentDailyUsage;
         bool inChangeAllowancePeriod;
+        uint256 startingAllowanceTime;
     }
     address constant ETHER = address(0);
 
@@ -271,6 +273,7 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
         if (_tokenAddress != address(0) && msg.value > 0) {
             revert DO_NOT_SEND_ETHER_WITH_ERC20();
         }
+        if (tokenAllowances[_tokenAddress].startingAllowanceTime > block.timestamp) revert TOKEN_NOT_SUPPORTED_YET();
         uint256 amount = checkValue(_tokenAddress, _amount, msg.value);
         if (tokenAllowances[_tokenAddress].prevEpoch + (1 days) > block.timestamp) {
             tokenAllowances[_tokenAddress].currentDailyUsage += amount;
@@ -297,8 +300,13 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
      * @notice Used by addresses with Admin and Operational roles to add a new supported token and daily allowance
      * @param _tokenAddress The token address to be added to supported list
      * @param _dailyAllowance Daily allowance set for the token
+     * @param _startAllowanceTimeFrom TimeStamp of when token will be supported.
      */
-    function addSupportedTokens(address _tokenAddress, uint256 _dailyAllowance) external {
+    function addSupportedTokens(
+        address _tokenAddress,
+        uint256 _dailyAllowance,
+        uint256 _startAllowanceTimeFrom
+    ) external {
         if (!checkRoles()) revert NON_AUTHORIZED_ADDRESS();
         if (supportedTokens[_tokenAddress]) revert TOKEN_ALREADY_SUPPORTED();
         supportedTokens[_tokenAddress] = true;
@@ -306,6 +314,7 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
         tokenAllowances[_tokenAddress].dailyAllowance = _dailyAllowance;
         tokenAllowances[_tokenAddress].currentDailyUsage = 0;
         tokenAllowances[_tokenAddress].inChangeAllowancePeriod = false;
+        tokenAllowances[_tokenAddress].startingAllowanceTime = _startAllowanceTimeFrom;
         emit ADD_SUPPORTED_TOKEN(_tokenAddress, _dailyAllowance);
     }
 
