@@ -8,22 +8,46 @@ import {
   website,
 } from "@components/siteInfo";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
-import { WagmiConfig, createClient, chain, defaultChains } from "wagmi";
+import {
+  WagmiConfig,
+  createClient,
+  chain,
+  defaultChains,
+  configureChains,
+} from "wagmi";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { ConnectKitProvider, getDefaultClient } from "connectkit";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
 import { getInitialTheme, ThemeProvider } from "@contexts/ThemeProvider";
 import { NetworkEnvironmentProvider } from "@contexts/NetworkEnvironmentContext";
 import { NetworkProvider } from "@contexts/NetworkContext";
+import { InjectedConnector } from "wagmi/connectors/injected";
 
 const metamask = new MetaMaskConnector({
   chains: [...defaultChains, chain.localhost, chain.hardhat],
 });
 
+const { chains, provider } = configureChains(
+  [chain.localhost, chain.hardhat],
+  [
+    jsonRpcProvider({
+      rpc: (chain) => {
+        console.log("CHAIIN:: ", chain);
+        return {
+          http: chain.rpcUrls.default, // http://localhost:8545
+        };
+      },
+    }),
+  ]
+);
+
 const client = createClient(
   getDefaultClient({
+    autoConnect: true,
     appName,
-    connectors: [metamask],
+    connectors: [metamask, new InjectedConnector({ chains })],
+    provider,
   })
 );
 
