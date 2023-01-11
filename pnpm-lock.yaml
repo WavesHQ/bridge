@@ -6,13 +6,13 @@ importers:
     specifiers:
       '@birthdayresearch/sticky-turbo': ^0.3.2
       '@waveshq/standard-defichain-jellyfishsdk': ^0.23.0
-      husky: ^8.0.2
+      husky: ^8.0.3
       lint-staged: ^13.1.0
     dependencies:
       '@waveshq/standard-defichain-jellyfishsdk': 0.23.0
     devDependencies:
       '@birthdayresearch/sticky-turbo': 0.3.2
-      husky: 8.0.2
+      husky: 8.0.3
       lint-staged: 13.1.0
 
   apps/server:
@@ -1620,7 +1620,7 @@ packages:
   /@birthdayresearch/sticky-prettier/0.3.2:
     resolution: {integrity: sha512-xvAHpeVoA3VE+OcCeBzEyXslSvelIU31wYrT3Xp2kzySUK0LHcd07VfyZqcykK0kyAr/8jX9retjYbthSNqXUA==}
     dependencies:
-      husky: 8.0.2
+      husky: 8.0.3
       lint-staged: 13.1.0
       prettier: 2.8.1
       prettier-plugin-tailwindcss: 0.2.0_prettier@2.8.1
@@ -5322,7 +5322,7 @@ packages:
       eslint-plugin-react: 7.31.11_eslint@8.30.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.30.0
       eslint-plugin-simple-import-sort: 8.0.0_eslint@8.30.0
-      husky: 8.0.2
+      husky: 8.0.3
       lint-staged: 13.1.0
       next: 13.1.0_zfxcdih27xecqpvxqrdjl5dz5e
       prettier: 2.8.1
@@ -10544,8 +10544,8 @@ packages:
     engines: {node: '>=12.20.0'}
     dev: true
 
-  /husky/8.0.2:
-    resolution: {integrity: sha512-Tkv80jtvbnkK3mYWxPZePGFpQ/tT3HNSs/sasF9P2YfkMezDl3ON37YN6jUUI4eTg5LcyVynlb6r4eyvOmspvg==}
+  /husky/8.0.3:
+    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
