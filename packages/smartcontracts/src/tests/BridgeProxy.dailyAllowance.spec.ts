@@ -4,7 +4,7 @@ import { ethers } from 'hardhat';
 
 import { BridgeV1, TestToken } from '../generated';
 import { deployContracts } from './testUtils/deployment';
-import { toWei } from './testUtils/mathUtils';
+import { currentTimeStamp, toWei } from './testUtils/mathUtils';
 
 // initMintAndSupport will mint to the EOA address and approve contractAddress.
 // This is primarily to help avoid the repetition.
@@ -17,7 +17,7 @@ async function initMintAndSupport(
   await testToken.mint(eoaAddress, toWei('100'));
   await testToken.approve(contractAddress, ethers.constants.MaxInt256);
   // Daily allowance amount set to 15 testToken
-  await proxyBridge.addSupportedTokens(testToken.address, ethers.utils.parseEther('15'));
+  await proxyBridge.addSupportedTokens(testToken.address, ethers.utils.parseEther('15'), currentTimeStamp());
 }
 
 describe('Daily allowance tests', () => {
@@ -31,6 +31,8 @@ describe('Daily allowance tests', () => {
       expect((await proxyBridge.tokenAllowances(testToken.address)).currentDailyUsage).to.equal(0);
       // Bridging 15 token to defiChain. After this txn only able to bridge dailyAllowance(15) - 15 = 0 tokens
       await proxyBridge.bridgeToDeFiChain(ethers.constants.AddressZero, testToken.address, toWei('15'));
+      // Contract balance should be 15
+      expect(await testToken.balanceOf(proxyBridge.address)).to.equal(toWei('15'));
       // Initial balance is 100, should be 85.
       expect(await testToken.balanceOf(defaultAdminSigner.address)).to.equal(toWei('85'));
       // Current daily usage should be 15
@@ -147,7 +149,7 @@ describe('Daily allowance tests', () => {
       await testToken2.mint(defaultAdminSigner.address, toWei('100'));
       await testToken2.approve(proxyBridge.address, ethers.constants.MaxInt256);
       // Adding testToken2 in supported token with the daily allowance of 20 tokens
-      await proxyBridge.addSupportedTokens(testToken2.address, toWei('20'));
+      await proxyBridge.addSupportedTokens(testToken2.address, toWei('20'), currentTimeStamp());
       // Check on dailyAllowance of testToken and testToken2
       expect((await proxyBridge.tokenAllowances(testToken.address))[1]).to.equal(toWei('15'));
       expect((await proxyBridge.tokenAllowances(testToken2.address))[1]).to.equal(toWei('20'));
@@ -206,16 +208,18 @@ describe('Daily allowance tests', () => {
       it('DEFAULT_ADMIN_ROLE', async () => {
         const { proxyBridge, defaultAdminSigner } = await loadFixture(deployContracts);
         // Set Allowance to 10 ether by admin address
-        await proxyBridge.connect(defaultAdminSigner).addSupportedTokens(ethers.constants.AddressZero, toWei('10'));
-        expect(await (await proxyBridge.tokenAllowances(ethers.constants.AddressZero)).dailyAllowance).to.equal(
-          toWei('10'),
-        );
+        await proxyBridge
+          .connect(defaultAdminSigner)
+          .addSupportedTokens(ethers.constants.AddressZero, toWei('10'), currentTimeStamp());
+        expect((await proxyBridge.tokenAllowances(ethers.constants.AddressZero)).dailyAllowance).to.equal(toWei('10'));
       });
 
       it('OPERATIONAL_ROLE', async () => {
         const { proxyBridge, operationalAdminSigner } = await loadFixture(deployContracts);
         // Set Allowance to 10 ether by operational address
-        await proxyBridge.connect(operationalAdminSigner).addSupportedTokens(ethers.constants.AddressZero, toWei('10'));
+        await proxyBridge
+          .connect(operationalAdminSigner)
+          .addSupportedTokens(ethers.constants.AddressZero, toWei('10'), currentTimeStamp());
         expect(await (await proxyBridge.tokenAllowances(ethers.constants.AddressZero)).dailyAllowance).to.equal(
           toWei('10'),
         );
@@ -225,7 +229,9 @@ describe('Daily allowance tests', () => {
         const { proxyBridge, arbitrarySigner } = await loadFixture(deployContracts);
         // Set Allowance to 10 ether by EOA address
         await expect(
-          proxyBridge.connect(arbitrarySigner).addSupportedTokens(ethers.constants.AddressZero, toWei('10')),
+          proxyBridge
+            .connect(arbitrarySigner)
+            .addSupportedTokens(ethers.constants.AddressZero, toWei('10'), currentTimeStamp()),
         ).to.be.revertedWithCustomError(proxyBridge, 'NON_AUTHORIZED_ADDRESS');
       });
     });
