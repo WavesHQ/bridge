@@ -77,6 +77,11 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
     }
     address constant ETHER = address(0);
 
+    bytes32 constant DATA_TYPE_HASH =
+        keccak256('CLAIM(address to,uint256 amount,uint256 nonce,uint256 deadline,address tokenAddress)');
+
+    bytes32 public constant OPERATIONAL_ROLE = keccak256('OPERATIONAL_ROLE');
+
     // Mapping to track the address's nonce
     mapping(address => uint256) public eoaAddressToNonce;
 
@@ -85,13 +90,8 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
 
     address public relayerAddress;
 
-    bytes32 constant DATA_TYPE_HASH =
-        keccak256('CLAIM(address to,uint256 amount,uint256 nonce,uint256 deadline,address tokenAddress)');
-
     // Mapping to track token address to TokenAllowance
     mapping(address => TokenAllowance) public tokenAllowances;
-
-    bytes32 public constant OPERATIONAL_ROLE = keccak256('OPERATIONAL_ROLE');
 
     // Initial Tx fee 0.3%. Based on dps (e.g 1% == 100dps)
     uint256 public transactionFee;
@@ -182,6 +182,13 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
      */
     event ETH_WITHDRAWAL_BY_OWNER(address ownerAddress, uint256 withdrawalAmount);
 
+    /**
+     * @notice Emitted when there is ETHER sent to the smart contract via receive() function
+     * @param sender The sender of ETH
+     * @param amount The amount of ETHER sent
+     */
+    event ETH_RECEIVED(address indexed sender, uint256 indexed amount);
+
     function _authorizeUpgrade(address newImplementation) internal override onlyRole(DEFAULT_ADMIN_ROLE) {}
 
     /**
@@ -210,14 +217,11 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
     }
 
     /**
-     * @dev Testing need for this fn. Using to test claim ether.
+     * @dev Function to receive Ether
      */
-    fallback() external payable {}
-
-    /**
-     * @dev Testing need for this fn. Using to test claim ether.
-     */
-    receive() external payable {}
+    receive() external payable {
+        emit ETH_RECEIVED(msg.sender, msg.value);
+    }
 
     /**
      * @notice Used to claim the tokens that have been approved by the relayer (for bridging from DeFiChain to Ethereum mainnet)

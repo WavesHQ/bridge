@@ -42,7 +42,7 @@ export async function deployContracts(): Promise<BridgeDeploymentResult> {
   };
 }
 
-interface BridgeDeploymentResult {
+export interface BridgeDeploymentResult {
   proxyBridge: BridgeV1;
   testToken: TestToken;
   testToken2: TestToken;
