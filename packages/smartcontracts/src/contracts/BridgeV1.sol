@@ -69,6 +69,11 @@ error TRANSCATION_FAILED();
 */
 error DO_NOT_SEND_ETHER_WITH_ERC20();
 
+/** @notice @dev 
+/* This error occurs when `_newResetEpoch` is passed block.timestamp
+*/
+error INVALID_RESET_EPOCH_TIME();
+
 contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeable {
     struct TokenAllowance {
         uint256 resetEpoch;
@@ -410,6 +415,7 @@ contract BridgeV1 is UUPSUpgradeable, EIP712Upgradeable, AccessControlUpgradeabl
      */
     function changeResetAllowanceTime(address _tokenAddress, uint256 _newResetEpoch) external {
         if (!checkRoles()) revert NON_AUTHORIZED_ADDRESS();
+        if (_newResetEpoch < block.timestamp) revert INVALID_RESET_EPOCH_TIME();
         if (!supportedTokens[_tokenAddress]) revert TOKEN_NOT_SUPPORTED();
         uint256 prevEpoch = tokenAllowances[_tokenAddress].resetEpoch;
         tokenAllowances[_tokenAddress].resetEpoch = _newResetEpoch;

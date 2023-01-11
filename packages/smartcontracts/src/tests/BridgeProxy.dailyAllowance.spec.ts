@@ -31,6 +31,8 @@ describe('Daily allowance tests', () => {
       expect((await proxyBridge.tokenAllowances(testToken.address)).currentDailyUsage).to.equal(0);
       // Bridging 15 token to defiChain. After this txn only able to bridge dailyAllowance(15) - 15 = 0 tokens
       await proxyBridge.bridgeToDeFiChain(ethers.constants.AddressZero, testToken.address, toWei('15'));
+      // Contract balance should be 15
+      expect(await testToken.balanceOf(proxyBridge.address)).to.equal(toWei('15'));
       // Initial balance is 100, should be 85.
       expect(await testToken.balanceOf(defaultAdminSigner.address)).to.equal(toWei('85'));
       // Current daily usage should be 15
@@ -209,9 +211,7 @@ describe('Daily allowance tests', () => {
         await proxyBridge
           .connect(defaultAdminSigner)
           .addSupportedTokens(ethers.constants.AddressZero, toWei('10'), currentTimeStamp());
-        expect(await (await proxyBridge.tokenAllowances(ethers.constants.AddressZero)).dailyAllowance).to.equal(
-          toWei('10'),
-        );
+        expect((await proxyBridge.tokenAllowances(ethers.constants.AddressZero)).dailyAllowance).to.equal(toWei('10'));
       });
 
       it('OPERATIONAL_ROLE', async () => {
